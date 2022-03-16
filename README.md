@@ -1,4 +1,4 @@
-# GetFit!
+# StressFree
 
 A Flutter project.
 
