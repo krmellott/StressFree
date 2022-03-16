@@ -1,50 +1,43 @@
 {
   "project_info": {
-    "project_number": "278552578451",
-    "firebase_url": "https://start-up-names-eb03e-default-rtdb.firebaseio.com",
-    "project_id": "start-up-names-eb03e",
-    "storage_bucket": "start-up-names-eb03e.appspot.com"
+    "project_number": "602282549603",
+    "firebase_url": "https://stressfree-bcf15-default-rtdb.firebaseio.com",
+    "project_id": "stressfree-bcf15",
+    "storage_bucket": "stressfree-bcf15.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:278552578451:android:aef0d830132eb535744066",
+        "mobilesdk_app_id": "1:602282549603:android:484d4954e1d19369db3356",
         "android_client_info": {
-          "package_name": "com.example.firstapp"
+          "package_name": "com.example.StressFree"
         }
       },
       "oauth_client": [
         {
-          "client_id": "278552578451-0qafpesrkckm2lbaetvpb7n0kp1utk59.apps.googleusercontent.com",
+          "client_id": "602282549603-vjkl3fb8n1leg72kg5rtalbri10jf4gd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.firstapp",
-            "certificate_hash": "4c1469f353a6c83c07d5c3a4bf5ae129f465b622"
+            "package_name": "com.example.StressFree",
+            "certificate_hash": "ae7a7f31c6f0ae602c8ea8b804f9be08d7132bfe"
           }
         },
         {
-          "client_id": "278552578451-u8q5jngjfh3d6cl1ds4s35jp7t3222sq.apps.googleusercontent.com",
+          "client_id": "602282549603-8dkpd2d0m4g04rlel5dnf613s03p2n0p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC31rEKb-Jx7hg1seHbDxuKLY-KFOzEQ5M"
+          "current_key": "AIzaSyDHXL1j2Dh9YnsO2HNLfmkYMuIodcdadE4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "278552578451-u8q5jngjfh3d6cl1ds4s35jp7t3222sq.apps.googleusercontent.com",
+              "client_id": "602282549603-8dkpd2d0m4g04rlel5dnf613s03p2n0p.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "278552578451-l05jl1196kr84cno3ot92fkbfnhec3jv.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.firstapp"
-              }
             }
           ]
         }
