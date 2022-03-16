@@ -50,6 +50,24 @@ class Home extends StatelessWidget {
   }
 }
 
+class MoodPage extends StatefulWidget {
+  @override
+  _MoodPage createState() => _MoodPage();
+}
+class _MoodPage extends State<MoodPage> {
+  @override
+  Widget build (BuildContext context){
+    return MaterialApp(
+        title: 'Mood!',
+        theme: ThemeData(
+        primaryColor: Colors.blue,
+    ),
+    );
+  }
+}
+
+
+
 class MyApp extends StatefulWidget {
   @override
   _MyApp createState() => _MyApp();
