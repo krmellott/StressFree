@@ -1,8 +1,7 @@
-enum Moods{
+enum Moods {
   Elated,
   Happy,
   Neutral,
   Sad,
   Angry,
 }
-

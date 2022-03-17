@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:ffi';
 
 import 'package:firstapp/pages/activities_page.dart';
+import 'package:firstapp/pages/home_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
