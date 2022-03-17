@@ -23,23 +23,24 @@ class Home extends StatelessWidget {
         ),
         home: Builder(
             builder: (context) => Scaffold(
-              appBar: AppBar(
-                title: Text("StressFree!"),
-              ),
-              body: Center(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                      child: Text("StressFree!",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green), textScaleFactor: 4,)
-                      ,),
-
-                  ],
-                )
-              ),
-            )
-        )
-    );
+                  appBar: AppBar(
+                    title: Text("StressFree!"),
+                  ),
+                  body: Center(
+                      child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        child: Text(
+                          "StressFree!",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
+                          textScaleFactor: 4,
+                        ),
+                      ),
+                    ],
+                  )),
+                )));
   }
 }
 
@@ -284,4 +285,3 @@ class _RandomWordsState extends State<RandomWords> {
     );
   }
 }
-
