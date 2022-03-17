@@ -51,7 +51,6 @@ class Home extends StatelessWidget {
   }
 }
 
-
 class MyApp extends StatefulWidget {
   @override
   _MyApp createState() => _MyApp();
