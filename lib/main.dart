@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
@@ -34,12 +35,42 @@ class Home extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           primary: Colors.green
                       ),
-                      child: Text('Begin'),
-                      onPressed: () {
+                      child: Text('Enter Activity'),
+                      onPressed: null
+                          /*() {
                         Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                          return MyApp();
+                          return MoodPage();
+                        }));
+                      },*/
+                    ),
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.green
+                      ),
+                      child: Text('Enter Mood'),
+                      onPressed: null
+                      /*
+                          () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                          return MoodPage();
                         }));
                       },
+  */
+                    ),
+
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.green
+                      ),
+                      child: Text('History'),
+                      onPressed: null
+                          /*() {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                          return MoodPage();
+                        }));
+                      },*/
                     )
                   ],
                 )
@@ -49,6 +80,7 @@ class Home extends StatelessWidget {
     );
   }
 }
+
 
 class MyApp extends StatefulWidget {
   @override
@@ -289,3 +321,4 @@ String generateDate(){
     );
   }
 }
+
