@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firstapp/pages/mood_page.dart';
 import 'package:flutter/material.dart';
 
 import 'activities_page.dart';
@@ -26,17 +27,38 @@ class Home extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             primary: Colors.green
                         ),
-                        child: Text('Begin'),
+                        child: Text('Enter Activity'),
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(
-                                  builder: (context) => ActivitiesPage()
-                              ));
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                          //   return MyApp();
-                          // }
-                          // ));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                            return ActivitiesPage();
+                          }));
                         },
+                      ),
+
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.green
+                        ),
+                        child: Text('Enter Mood'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                            return MoodPage();
+                          }));
+                        },
+                      ),
+
+
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.green
+                          ),
+                          child: Text('History'),
+                          onPressed: null
+                        /*() {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                          return MoodPage();
+                        }));
+                      },*/
                       )
                     ],
                   )

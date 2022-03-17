@@ -1,6 +1,8 @@
 import 'dart:core';
 import 'dart:ffi';
 
+import 'package:firstapp/pages/activities_page.dart';
+import 'package:firstapp/pages/mood_page.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,47 +33,7 @@ class Home extends StatelessWidget {
                       padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                       child: Text("StressFree!",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green), textScaleFactor: 4,)
                       ,),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.green
-                      ),
-                      child: Text('Enter Activity'),
-                      onPressed: null
-                          /*() {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                          return MoodPage();
-                        }));
-                      },*/
-                    ),
 
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.green
-                      ),
-                      child: Text('Enter Mood'),
-                      onPressed: null
-                      /*
-                          () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                          return MoodPage();
-                        }));
-                      },
-  */
-                    ),
-
-
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.green
-                      ),
-                      child: Text('History'),
-                      onPressed: null
-                          /*() {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                          return MoodPage();
-                        }));
-                      },*/
-                    )
                   ],
                 )
               ),
