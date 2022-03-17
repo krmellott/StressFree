@@ -174,8 +174,7 @@ class _LikedHistoryState extends State<LikedHistory> {
                             trailing: Icon(Icons.delete),
                             title: Text(dataList[index]['name'],
                                 style: _biggerFont),
-                            onTap: () =>
-                                dbRef
+                            onTap: () => dbRef
                                     .orderByChild('name')
                                     .equalTo(dataList[index]['name'])
                                     .once()
@@ -214,7 +213,6 @@ class _RandomWordsState extends State<RandomWords> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text('StressFree!'),
@@ -236,19 +234,23 @@ class _RandomWordsState extends State<RandomWords> {
     );
   }
 
-String generateDate(){
-
+  String generateDate() {
     var rng = new Random();
     //  nextInt(100) means the range 0 - 99
-    var month = (rng.nextInt(12) + 1).toString();  // Minimum is 1, Maximum is 12
-    var day = (rng.nextInt(31) + 1).toString();  // Minimum is 1, Maximum is 31
-    var yearList = [2021, 2022, 2023, 2024];  // This is why we are going to be paid the big bucks folks.
+    var month = (rng.nextInt(12) + 1).toString(); // Minimum is 1, Maximum is 12
+    var day = (rng.nextInt(31) + 1).toString(); // Minimum is 1, Maximum is 31
+    var yearList = [
+      2021,
+      2022,
+      2023,
+      2024
+    ]; // This is why we are going to be paid the big bucks folks.
     var yearSelector = rng.nextInt(4);
     var year = yearList[yearSelector].toString();
 
     var hour = (rng.nextInt(12) + 1).toString();
     var timeList = ["AM", "PM"];
-    var timeTypeSelector =  rng.nextInt(2);
+    var timeTypeSelector = rng.nextInt(2);
     var time = timeList[timeTypeSelector].toString();
 
     var dateTime = "$month/$day/$year $hour:00 $time";
@@ -265,7 +267,7 @@ String generateDate(){
           final index = i ~/ 2;
           if (index >= _suggestions.length) {
             _suggestions.addAll(generateWordPairs().take(10));
-            for(var i = 0; i < 10; ++i){
+            for (var i = 0; i < 10; ++i) {
               _timeSuggestions.add(generateDate());
             }
           }
