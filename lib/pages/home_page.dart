@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:flutter/material.dart';
 
@@ -53,12 +54,11 @@ class Home extends StatelessWidget {
                               primary: Colors.green
                           ),
                           child: Text('History'),
-                          onPressed: null
-                        /*() {
+                          onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                          return MoodPage();
+                          return HistoryPage();
                         }));
-                      },*/
+                      },
                       )
                     ],
                   )
