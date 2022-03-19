@@ -14,36 +14,36 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(Home());
 }
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primaryColor: Colors.green,
-        ),
-        home: Builder(
-            builder: (context) => Scaffold(
-                  appBar: AppBar(
-                    title: Text("StressFree!"),
-                  ),
-                  body: Center(
-                      child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                        child: Text(
-                          "StressFree!",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.green),
-                          textScaleFactor: 4,
-                        ),
-                      ),
-                    ],
-                  )),
-                )));
-  }
-}
+//
+// class Home1 extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         theme: ThemeData(
+//           primaryColor: Colors.green,
+//         ),
+//         home: Builder(
+//             builder: (context) => Scaffold(
+//                   appBar: AppBar(
+//                     title: Text("StressFree!"),
+//                   ),
+//                   body: Center(
+//                       child: Column(
+//                     children: <Widget>[
+//                       Padding(
+//                         padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+//                         child: Text(
+//                           "StressFree!",
+//                           style: const TextStyle(
+//                               fontWeight: FontWeight.bold, color: Colors.green),
+//                           textScaleFactor: 4,
+//                         ),
+//                       ),
+//                     ],
+//                   )),
+//                 )));
+//   }
+// }
 
 class MyApp extends StatefulWidget {
   @override
