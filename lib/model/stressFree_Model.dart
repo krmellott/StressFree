@@ -6,6 +6,8 @@ class stressFree_Model {
   final databaseReference =
       FirebaseDatabase.instance.reference().child('activity');
 
+  ///Inserts a given activity into the firebase database given
+  ///a set of parameters.
   dbInsertActivity(String name, bool status, List date) {
     print("dbInsertActivity called on: " +
         name +
@@ -16,15 +18,17 @@ class stressFree_Model {
         "}");
     print("Date verification: " + verifyActivityDate(date).toString());
     if (verifyActivityDate(date)) {
-      print("date was verified!");
       databaseReference.set({
         'title': name,
         'status': status,
         'date': [date[0], date[1], date[2]]
       });
+      print("{ok:1}");
     }
   }
 
+  ///Accepts a date from the user and verifies if it is a valid date
+  ///returns true if valid date, false if not
   verifyActivityDate(List date) {
     return (date[0] >= 1 && date[0] <= 12) &&
         (date[1] >= 1 && date[0] <= 31) &&
