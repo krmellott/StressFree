@@ -56,11 +56,12 @@ class _MoodPage extends State<MoodPage> {
                          setState(() {
                            _MoodPage().currMood = newMood!;
                            controllerReference.insertMoodData(currMood, [_selectedDate]);
+
                          });
                        },
                          items: Moods.values.map((Moods mood) {
                            return DropdownMenuItem<Moods>(
-                               value: currMood,
+                               value: mood,
                                child: Text(mood.toString()));
                          }).toList()
                      ),
