@@ -60,7 +60,7 @@ class _MoodPage extends State<MoodPage> {
                        },
                          items: Moods.values.map((Moods mood) {
                            return DropdownMenuItem<Moods>(
-                               value: currMood,
+                               value: mood,
                                child: Text(mood.toString()));
                          }).toList()
                      ),
