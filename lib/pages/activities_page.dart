@@ -14,6 +14,7 @@ class ActivitiesPage extends StatelessWidget {
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
   DateTime _selectedDate = DateTime.now();
+  var date = DateTime(0, 0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -23,40 +24,64 @@ class ActivitiesPage extends StatelessWidget {
         title: const Text("Activities"),
       ),
       body: Column(children: [
-        _addTaskBar(),
+        _addTaskBar(context),
         _addDatePicker(),
       ]),
     );
   }
 
   // function to get the current date using the intl package
-  _addTaskBar() {
+  _addTaskBar(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Get current date and time
-                Text(DateFormat.yMMMMd().format(DateTime.now()),
-                    style: _subHeadingFont),
-                Text(
-                  "Today",
-                  style: _headingFont,
-                ),
-              ],
+        margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Get current date and time
+                  Text(DateFormat.yMMMMd().format(DateTime.now()),
+                      style: _subHeadingFont),
+                  Text(
+                    "Today",
+                    style: _headingFont,
+                  ),
+                ],
+              ),
             ),
-          ),
-          MyButton(
-              label: "+Add Task",
-              onTap: () => controllerReference
-                  .insertActivityData("test1", false, [1, 2, 2000]))
-        ],
-      ),
-    );
+            MyButton(
+                label: "+Add Task",
+                onTap: () => //controllerReference
+                    //.insertActivityData("test1", false, [1, 2, 2000]))
+                    // showDialog<String>(
+                    // context: context,
+                    // builder: (BuildContext context) => SimpleDialog(
+                    //   title: const Text('Insert Activity'),
+                    //   children: <Widget>[
+                    //     TextField(
+                    //       decoration: InputDecoration(
+                    //         border: OutlineInputBorder(),
+                    //         labelText: 'Tell us what you did!',
+                    //       ),
+                    //     ),
+                    //     Container(
+                    //       height: 200,
+                    //       child: CupertinoDatePicker(
+                    //         mode: CupertinoDatePickerMode.date,
+                    //         initialDateTime: DateTime.now(),
+                    //         onDateTimeChanged: (DateTime newDateTime) {
+                    //           date = newDateTime;
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    //)
+                    _insertDialogue(context)),
+          ],
+        ));
   }
 
   _addDatePicker() {
@@ -78,6 +103,33 @@ class ActivitiesPage extends StatelessWidget {
         onDateChange: (date) {
           _selectedDate = date; // storing selected date into a variable
         },
+      ),
+    );
+  }
+
+  _insertDialogue(BuildContext context) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => SimpleDialog(
+        title: const Text('Insert Activity'),
+        children: <Widget>[
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Tell us what you did!',
+            ),
+          ),
+          Container(
+            height: 200,
+            child: CupertinoDatePicker(
+              mode: CupertinoDatePickerMode.date,
+              initialDateTime: DateTime.now(),
+              onDateTimeChanged: (DateTime newDateTime) {
+                date = newDateTime;
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
