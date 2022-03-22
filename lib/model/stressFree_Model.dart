@@ -27,8 +27,21 @@ class stressFree_Model {
     }
   }
 
+<<<<<<< HEAD
   ///Accepts a date from the user and verifies if it is a valid date
   ///returns true if valid date, false if not
+=======
+  dbRetrieveActivities() async {
+    var snapshot = await databaseReference.get();
+    if (snapshot.exists) {
+      print("snapshot successful:" + snapshot.value.toString());
+    } else {
+      print("snapshot does not exist!");
+    }
+    return snapshot;
+  }
+
+>>>>>>> a27b9359299fdd3b0b1742d3801de88a28e3b771
   verifyActivityDate(List date) {
     return (date[0] >= 1 && date[0] <= 12) &&
         (date[1] >= 1 && date[0] <= 31) &&
