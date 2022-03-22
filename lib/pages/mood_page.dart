@@ -1,7 +1,8 @@
 import '/utils/units_constant.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firstapp/pages//chart/line_chart.dart';
+import 'package:firstapp/pages//chart_container.dart';
 
 class MoodPage extends StatefulWidget {
   @override
@@ -33,6 +34,20 @@ class _MoodPage extends State<MoodPage> {
                             fontWeight: FontWeight.bold, color: Colors.green),
                         textScaleFactor: 4,
                       ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.green
+                      ),
+                      child: Text('Show/Hide Graph'),
+                      onPressed: () {
+
+                      },
+                    ),
+                    ChartContainer(
+                          title: 'Mood Graph',
+                          color: Colors.green,
+                          chart: LineChartContent(),
                     ),
                   ]),
                 ))));
