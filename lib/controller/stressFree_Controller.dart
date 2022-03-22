@@ -1,10 +1,12 @@
+import 'package:firstapp/utils/units_constant.dart';
+
 import '../model/stressFree_Model.dart';
 
 class stressFree_Controller {
   final modelReference = new stressFree_Model();
 
-  /// {'name':<string>, 'status':<bool>, 'date':{'month':<int>,'day':<int>,'year':<int>}}
-  void insertActivityData(String name, bool status, List date) {
+  /// inserts: {'name':<string>, 'status':<bool>, 'date':{'month':<int>,'day':<int>,'year':<int>}}
+  insertActivityData(String name, bool status, List date) {
     print("ctrllr.insertActivityData{" +
         name +
         ", " +
@@ -15,5 +17,10 @@ class stressFree_Controller {
         date[2].toString() +
         "}");
     modelReference.dbInsertActivity(name, status, date);
+  }
+
+  /// inserts: {'mood':<String>, 'date':{'month':<int>,'day':<int>,'year':<int>}}
+  insertMoodData(Moods mood, List date) {
+    modelReference.dbInsertMood(mood, date);
   }
 }

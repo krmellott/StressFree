@@ -1,38 +1,43 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import '../utils/units_constant.dart';
 
 class stressFree_Model {
-  final databaseReference =
-      FirebaseDatabase.instance.reference().child('activity');
+  final databaseReference = FirebaseDatabase.instance.reference();
 
   ///Inserts a given activity into the firebase database given
   ///a set of parameters.
   dbInsertActivity(String name, bool status, List date) {
-    print("dbInsertActivity called on: " +
-        name +
-        ", " +
-        status.toString() +
-        ", " +
-        date.toString() +
-        "}");
-    print("Date verification: " + verifyActivityDate(date).toString());
     if (verifyActivityDate(date)) {
-      databaseReference.set({
+      databaseReference.child('activity').set({
         'title': name,
         'status': status,
         'date': [date[0], date[1], date[2]]
       });
       print("{ok:1}");
+    } else {
+      print("{ok:0} => An error occurred!");
     }
   }
 
-<<<<<<< HEAD
-  ///Accepts a date from the user and verifies if it is a valid date
-  ///returns true if valid date, false if not
-=======
+  /// Inserts into the database a list of parameters into the 'mood' collection in
+  /// the database.
+  dbInsertMood(Moods mood, List date) {
+    if (verifyActivityDate(date)) {
+      databaseReference.child('moods').set({
+        'mood': mood.toString(),
+        'date': [date[0], date[1], date[2]]
+      });
+      print("{ok:1}");
+    } else {
+      print("{ok:0} => An error occurred!");
+    }
+  }
+
+  /// Returns a snapshot of the 'activity' collection from the database
   dbRetrieveActivities() async {
-    var snapshot = await databaseReference.get();
+    var snapshot = await databaseReference.child('activity').get();
     if (snapshot.exists) {
       print("snapshot successful:" + snapshot.value.toString());
     } else {
@@ -41,7 +46,19 @@ class stressFree_Model {
     return snapshot;
   }
 
->>>>>>> a27b9359299fdd3b0b1742d3801de88a28e3b771
+  /// Returns a snapshot of the 'mood; collection from the database
+  dbRetrieveMoods() async {
+    var snapshot = await databaseReference.child('moods').get();
+    if (snapshot.exists) {
+      print("snapshot successful:" + snapshot.value.toString());
+    } else {
+      print("snapshot does not exist!");
+    }
+    return snapshot;
+  }
+
+  ///Accepts a date from the user and verifies if it is a valid date
+  ///returns true if valid date, false if not
   verifyActivityDate(List date) {
     return (date[0] >= 1 && date[0] <= 12) &&
         (date[1] >= 1 && date[0] <= 31) &&
