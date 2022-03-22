@@ -1,5 +1,6 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
+import 'package:firstapp/model/stressFree_Model.dart';
 import 'package:firstapp/utils/buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class ActivitiesPage extends StatelessWidget {
   final _headingFont = TextStyle(
       fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.black);
   final controllerReference = new stressFree_Controller();
+  final modelReference = new stressFree_Model();
   DateTime _selectedDate = DateTime.now();
 
   @override

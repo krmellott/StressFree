@@ -25,6 +25,16 @@ class stressFree_Model {
     }
   }
 
+  dbRetrieveActivities() async {
+    var snapshot = await databaseReference.get();
+    if (snapshot.exists) {
+      print("snapshot successful:" + snapshot.value.toString());
+    } else {
+      print("snapshot does not exist!");
+    }
+    return snapshot;
+  }
+
   verifyActivityDate(List date) {
     return (date[0] >= 1 && date[0] <= 12) &&
         (date[1] >= 1 && date[0] <= 31) &&
