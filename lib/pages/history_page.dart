@@ -14,7 +14,27 @@ class HistoryPage extends StatelessWidget {
 
     const title = "History";
 
-    return MaterialApp(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(title),
+      ),
+      body:GridView.count(
+        crossAxisCount: 7, //sets the grid to be 7 boxes wide
+        //padding:,
+        // Generate 35 widgets that display their index in the List.
+        children: List.generate(35, (index) {
+          return Center(
+            child: Text(
+              'Day $index',
+              // this is theme stuff, we can worry about it later
+              //style: Theme.of(context).textTheme.headline5,
+            ),
+          );
+        }),
+      ),
+    );
+
+    /*return MaterialApp(
       title: title,
       home: Scaffold(
         appBar: AppBar(
@@ -35,7 +55,7 @@ class HistoryPage extends StatelessWidget {
           }),
         ),
       ),
-    );
+    );*/
 /*
     return Scaffold(
       body: Center(
