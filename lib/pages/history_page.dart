@@ -1,8 +1,8 @@
+import 'package:firstapp/pages/past_activity_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 // TODO: implement TableCalendar
-// TODO: Change box color to match selected mood that day
 // TODO: Allow user to click on day to view the activities they did that day
 class HistoryPage extends StatefulWidget {
   @override
@@ -46,33 +46,23 @@ class ActivitiesCalendar extends State<HistoryPage> {
         onPageChanged: (focusedDay) {
           _focusedDay = focusedDay;
         },//onPageChanged
+        ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.green
+            ),
+            child: Text('Edit Activities'),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                return PastActivities();
+              }));
+            },
+          ),
+        ]
       )
     );
 
-    /*return MaterialApp(
-      title: title,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(title),
-        ),
-        body:GridView.count(
-          crossAxisCount: 7, //sets the grid to be 7 boxes wide
-          //padding:,
-          // Generate 35 widgets that display their index in the List.
-          children: List.generate(35, (index) {
-            return Center(
-              child: Text(
-                  'Day $index',
-                  // this is theme stuff, we can worry about it later
-                  //style: Theme.of(context).textTheme.headline5,
-                ),
-            );
-          }),
-        ),
-      ),
-    );*/
-/*
-    return Scaffold(
+   /* return Scaffold(
       body: Center(
         child: Text('Your History Here!'),
       ),
