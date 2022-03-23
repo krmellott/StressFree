@@ -62,22 +62,32 @@ class _MoodPage extends State<MoodPage> {
                       switch(newMood) {
                       case Moods.Neutral: {
                         color = Colors.grey;
+                        setState(() {
+                        });
                       }
                       break;
                       case Moods.Angry: {
                         color = Colors.red;
+                        setState(() {
+                        });
                       }
                       break;
                       case Moods.Happy: {
-                        color = Colors.green;
+                        color = Colors.yellow;
+                        setState(() {
+                        });
                       }
                       break;
                       case Moods.Elated: {
                         color = Colors.purple;
+                        setState(() {
+                        });
                       }
                       break;
                       case Moods.Sad: {
                         color = Colors.blueAccent;
+                        setState(() {
+                        });
                       }
                       break;
 
