@@ -1,6 +1,8 @@
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firstapp/model/stressFree_Model.dart';
 
 class PastActivities extends StatefulWidget {
   @override
@@ -20,10 +22,18 @@ class _PastActivities extends State<PastActivities> {
         child: Column(
           children: [
             Text('Activity history here.'),
+            printTasks()
           ],
 
         )
       )
     );
   }
+
+  printTasks() {
+    stressFree_Model model = new stressFree_Model();
+    Query query = model.dbRetrieveActivitiesByCompletion(true);
+    print(query.toString());
+  }
+
 }

@@ -61,6 +61,11 @@ class stressFree_Model {
     return query;
   }
 
+  dbRetrieveActivitiesByCompletion(bool completion) async {
+    Query query = databaseReference.child('activity').equalTo({"status" : completion});
+    return query;
+  }
+
   /// Returns a snapshot of the 'mood; collection from the database
   dbRetrieveMoods() async {
     var snapshot = await databaseReference.child('moods').get();
