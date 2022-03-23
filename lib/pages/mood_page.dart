@@ -84,7 +84,7 @@ class _MoodPage extends State<MoodPage> {
                       }
                       break;
                       case Moods.Sad: {
-                        color = Colors.blueAccent;
+                        color = Colors.lightBlueAccent;
                         setState(() {
                         });
                       }
