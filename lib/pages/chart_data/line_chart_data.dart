@@ -15,13 +15,13 @@ List<LineChartBarData> lineChartBarData = [
         //day on x, mood on y
         //FlSpot(getDay()[i].toDouble(), getMood()[i].toDouble()),
         //...
-        FlSpot(1, 8),
-        FlSpot(2, 12.4),
-        FlSpot(3, 10.8),
-        FlSpot(4, 9),
-        FlSpot(5, 8),
-        FlSpot(6, 8.6),
-        FlSpot(7, 10)
+        FlSpot(1, 5),
+        FlSpot(2, 2),
+        FlSpot(3, 1),
+        FlSpot(4, 4),
+        FlSpot(5, 3),
+        FlSpot(6, 3),
+        FlSpot(7, 4)
       ]
   )
 ];
