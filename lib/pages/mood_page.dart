@@ -23,9 +23,10 @@ class _MoodPage extends State<MoodPage> {
   DateTime _selectedDate = DateTime.now();
 
   Widget build(BuildContext context) {
-
+    Color color = Colors.grey;
     return Scaffold(
-      backgroundColor: Colors.grey,
+
+      backgroundColor: color,
       appBar: AppBar(
         title: Text("Moods"),
       ),
@@ -55,25 +56,25 @@ class _MoodPage extends State<MoodPage> {
                         _MoodPage().currMood = newMood!;
                         currMood = newMood!;
                         controllerReference.insertMoodData(currMood, [DateTime.now().month, DateTime.now().day, DateTime.now().year]);
-                        switch(newMood) {
+                      switch(newMood) {
                       case Moods.Neutral: {
-                        backgroundColor: Colors.grey;
+                        color = Colors.grey;
                       }
                       break;
                       case Moods.Angry: {
-                        new ThemeData(scaffoldBackgroundColor: Colors.red);
+                        color = Colors.red;
                       }
                       break;
                       case Moods.Happy: {
-                        new ThemeData(scaffoldBackgroundColor: Colors.green);
+                        color = Colors.green;
                       }
                       break;
                       case Moods.Elated: {
-                        new ThemeData(scaffoldBackgroundColor: Colors.purple);;
+                        color = Colors.purple;
                       }
                       break;
                       case Moods.Sad: {
-                        new ThemeData(scaffoldBackgroundColor: Colors.blueAccent);
+                        color = Colors.blueAccent;
                       }
                       break;
 
