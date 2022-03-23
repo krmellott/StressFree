@@ -39,12 +39,21 @@ class stressFree_Model {
   /// Returns a snapshot of the 'activity' collection from the database
   dbRetrieveActivities() async {
     var snapshot = await databaseReference.child('activity').get();
+    Query query = databaseReference.child('activity').equalTo({"date": []});
     if (snapshot.exists) {
       print("snapshot successful:" + snapshot.value.toString());
     } else {
       print("snapshot does not exist!");
     }
     return snapshot;
+  }
+
+  dbRetrieveActivitiesByDate(DateTime date) async {
+    Query query = databaseReference.child('activity').equalTo({
+      "date": [date.month, date.day, date.year]
+    });
+
+    return query;
   }
 
   /// Returns a snapshot of the 'mood; collection from the database
