@@ -18,6 +18,7 @@ class MoodPage extends StatefulWidget {
 
 class _MoodPage extends State<MoodPage> {
   bool isVisible = false;
+  Color color = Colors.grey;
   @override
   Moods currMood = Moods.Neutral;
   final controllerReference = new stressFree_Controller();
@@ -25,7 +26,7 @@ class _MoodPage extends State<MoodPage> {
   DateTime _selectedDate = DateTime.now();
 
   Widget build(BuildContext context) {
-    Color color = Colors.grey;
+
     return Scaffold(
 
       backgroundColor: color,
