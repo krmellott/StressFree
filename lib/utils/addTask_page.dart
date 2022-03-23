@@ -49,20 +49,26 @@ class addTask_page extends StatelessWidget {
   }
 
   _insertRadio(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Radio<TaskCompleted>(
-            groupValue: _taskCompleted,
-            value: TaskCompleted.YES,
-            onChanged: (TaskCompleted? value) {
-              _taskCompleted = value;
-            }),
-        Radio<TaskCompleted>(
-            groupValue: _taskCompleted,
-            value: TaskCompleted.NO,
-            onChanged: (TaskCompleted? value) {
-              _taskCompleted = value;
-            })
+        ListTile(
+            title: const Text('Task completed!'),
+            leading: Radio<TaskCompleted>(
+                groupValue: _taskCompleted,
+                value: TaskCompleted.YES,
+                onChanged: (TaskCompleted? value) {
+                  //setState(() {
+                  _taskCompleted = TaskCompleted.YES;
+                  //});
+                })),
+        ListTile(
+            title: const Text('Task not complete!'),
+            leading: Radio<TaskCompleted>(
+                groupValue: _taskCompleted,
+                value: TaskCompleted.NO,
+                onChanged: (TaskCompleted? value) {
+                  _taskCompleted = value;
+                }))
       ],
     );
   }
