@@ -51,7 +51,7 @@ class ActivitiesCalendar extends State<HistoryPage> {
             style: ElevatedButton.styleFrom(
                 primary: Colors.green
             ),
-            child: Text('Edit Activities'),
+            child: Text('Completed Activities'),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                 return PastActivities();
