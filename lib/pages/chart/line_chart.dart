@@ -9,7 +9,7 @@ class LineChartContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return LineChart(
       LineChartData(
-        minX: 0,
+        minX: 1,
         minY: 1,
         maxX: 7,
         maxY: 5,
@@ -36,7 +36,23 @@ class LineChartContent extends StatelessWidget {
           bottomTitles: SideTitles(
             showTitles: true,
             getTitles: (value) {
-              return value.toInt().toString();
+              switch (value.toInt()) {
+                case 1:
+                  return 'Mon';
+                case 2:
+                  return 'Tues';
+                case 3:
+                  return 'Wed';
+                case 4:
+                  return 'Thu';
+                case 5:
+                  return 'Fri';
+                case 6:
+                  return 'Sat';
+                case 7:
+                  return 'Sun';
+              }
+              return '';
             },
           ),
           rightTitles: SideTitles(
