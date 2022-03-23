@@ -7,6 +7,7 @@ import 'package:firstapp/pages/home_page.dart';
 import '/utils/units_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:firstapp/pages//chart/line_chart.dart';
 import 'package:firstapp/pages//chart_container.dart';
 
@@ -16,6 +17,7 @@ class MoodPage extends StatefulWidget {
 }
 
 class _MoodPage extends State<MoodPage> {
+  bool isVisible = false;
   @override
   Moods currMood = Moods.Neutral;
   final controllerReference = new stressFree_Controller();
@@ -23,9 +25,10 @@ class _MoodPage extends State<MoodPage> {
   DateTime _selectedDate = DateTime.now();
 
   Widget build(BuildContext context) {
-
+    Color color = Colors.grey;
     return Scaffold(
-      backgroundColor: Colors.grey,
+
+      backgroundColor: color,
       appBar: AppBar(
         title: Text("Moods"),
       ),
@@ -55,25 +58,35 @@ class _MoodPage extends State<MoodPage> {
                         _MoodPage().currMood = newMood!;
                         currMood = newMood!;
                         controllerReference.insertMoodData(currMood, [DateTime.now().month, DateTime.now().day, DateTime.now().year]);
-                        switch(newMood) {
+                      switch(newMood) {
                       case Moods.Neutral: {
-                        backgroundColor: Colors.grey;
+                        color = Colors.grey;
+                        setState(() {
+                        });
                       }
                       break;
                       case Moods.Angry: {
-                        new ThemeData(scaffoldBackgroundColor: Colors.red);
+                        color = Colors.red;
+                        setState(() {
+                        });
                       }
                       break;
                       case Moods.Happy: {
-                        new ThemeData(scaffoldBackgroundColor: Colors.green);
+                        color = Colors.yellow;
+                        setState(() {
+                        });
                       }
                       break;
                       case Moods.Elated: {
-                        new ThemeData(scaffoldBackgroundColor: Colors.purple);;
+                        color = Colors.purple;
+                        setState(() {
+                        });
                       }
                       break;
                       case Moods.Sad: {
-                        new ThemeData(scaffoldBackgroundColor: Colors.blueAccent);
+                        color = Colors.blueAccent;
+                        setState(() {
+                        });
                       }
                       break;
 
@@ -93,80 +106,23 @@ class _MoodPage extends State<MoodPage> {
                   ),
                   child: Text('Show/Hide Graph'),
                   onPressed: () {
+                    isVisible = !isVisible;
+                    setState(() {
 
+                    });
                   },
                 ),
-                ChartContainer(
-                  title: 'Mood Graph',
-                  color: Colors.green,
-                  chart: LineChartContent(),
-                ),
+                Visibility(
+                  child: ChartContainer(
+                    title: 'Mood Graph',
+                    color: Colors.green,
+                    chart: LineChartContent(),
+                  ),
+                  visible: isVisible,
+                )
               ]
           ),
         )
     );
-
-
-    /*return MaterialApp(
-        title: 'Mood',
-        theme: ThemeData(
-          primaryColor: Colors.white,
-        ),
-        home: Builder(
-            builder: (context) => Scaffold(
-                appBar: AppBar(
-                  title: Text("Moods"),
-                ),
-                body: Center(
-                  child: Column(
-                      children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                        child: Text(
-                         "Mood",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.green),
-                         textScaleFactor: 4,
-                        ),
-                      ),
-                     DropdownButton<Moods>(
-                       hint: Text('Please choose a mood'),
-                       value: currMood,
-                       icon: const Icon(Icons.arrow_downward),
-                       style: const TextStyle(color: Colors.green),
-                       underline: Container(
-                         height: 2,
-                         color: Colors.green,
-                       ),
-                       onChanged: (newMood) {
-                         setState(() {
-                           _MoodPage().currMood = newMood!;
-                           controllerReference.insertMoodData(currMood, [_selectedDate]);
-
-                         });
-                       },
-                         items: Moods.values.map((Moods mood) {
-                           return DropdownMenuItem<Moods>(
-                               value: mood,
-                               child: Text(mood.toString()));
-                         }).toList()
-                     ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.green
-                          ),
-                          child: Text('Show/Hide Graph'),
-                          onPressed: () {
-
-                          },
-                        ),
-                        ChartContainer(
-                          title: 'Mood Graph',
-                          color: Colors.green,
-                          chart: LineChartContent(),
-                        ),
-                      ]
-                  ),
-                ))));*/
   }
 }
