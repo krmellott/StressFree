@@ -8,16 +8,6 @@ import 'activities_page.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    /*
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Column(children: [
-      ]),
-    );
-     */
-
 
     return MaterialApp(
         theme: ThemeData(
@@ -39,7 +29,7 @@ class Home extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             primary: Colors.green
                         ),
-                        child: Text('Enter Activity'),
+                        child: Text('Edit Activities'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                             return ActivitiesPage();
@@ -51,7 +41,7 @@ class Home extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             primary: Colors.green
                         ),
-                        child: Text('Enter Mood'),
+                        child: Text('Enter and View Daily Mood'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                             return MoodPage();
@@ -64,7 +54,7 @@ class Home extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               primary: Colors.green
                           ),
-                          child: Text('Activity Calendar'),
+                          child: Text('View Activity Calendar and History'),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                           return HistoryPage();
@@ -79,38 +69,4 @@ class Home extends StatelessWidget {
         )
     );
   }
-}
-
-class _MyApp extends State<MyApp> {
-  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'StressFree!',
-      theme: ThemeData(
-        primaryColor: Colors.green,
-      ),
-      home: FutureBuilder(
-        future: _fbApp,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            print('Error: ${snapshot.error.toString()}');
-            return Text("Something went wrong!");
-          } else if (snapshot.hasData) {
-            return Text("here"); //change this
-            //return RandomWords();
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    );
-  }
-}
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyApp createState() => _MyApp();
 }
