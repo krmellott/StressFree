@@ -11,7 +11,6 @@ class HistoryPage extends StatefulWidget {
 
 class ActivitiesCalendar extends State<HistoryPage> {
   @override
-  static const title = "Activity Calendar";
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -19,7 +18,7 @@ class ActivitiesCalendar extends State<HistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(title),
+        title: const Text("Activity Calendar"),
       ),
       body:TableCalendar(
         firstDay: DateTime.utc(2000,1,1),
