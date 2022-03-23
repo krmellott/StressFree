@@ -16,13 +16,14 @@ class MoodPage extends StatefulWidget {
 
 class _MoodPage extends State<MoodPage> {
   bool isVisible = false;
+  Color color = Colors.grey;
   @override
   Moods currMood = Moods.Neutral;
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
 
   Widget build(BuildContext context) {
-    Color color = Colors.grey;
+
     return Scaffold(
 
       backgroundColor: color,

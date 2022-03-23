@@ -2,10 +2,48 @@ import 'package:firstapp/utils/units_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+class RadioTask extends StatefulWidget {
+  const RadioTask({Key? key}) : super(key: key);
+
+  @override
+  State<RadioTask> createState() => _RadioTaskState();
+}
+
+class _RadioTaskState extends State<RadioTask> {
+  TaskCompleted? _taskCompleted = TaskCompleted.NO;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+            title: const Text('Task completed!'),
+            leading: Radio<TaskCompleted>(
+                groupValue: _taskCompleted,
+                value: TaskCompleted.YES,
+                onChanged: (TaskCompleted? value) {
+                  setState(() {
+                    _taskCompleted = TaskCompleted.YES;
+                  });
+                })),
+        ListTile(
+            title: const Text('Task not complete!'),
+            leading: Radio<TaskCompleted>(
+                groupValue: _taskCompleted,
+                value: TaskCompleted.NO,
+                onChanged: (TaskCompleted? value) {
+                  setState(() {
+                    _taskCompleted = value;
+                  });
+                }))
+      ],
+    );
+  }
+}
+
 class addTask_page extends StatelessWidget {
   DateTime date = DateTime(0, 0, 0);
   String message = "";
-  TaskCompleted? _taskCompleted = TaskCompleted.NO;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +55,7 @@ class addTask_page extends StatelessWidget {
           children: [
             _insertTextBox(context),
             _insertDate(context),
-            _insertRadio(context)
+            RadioTask(),
           ],
         ));
   }
@@ -46,30 +84,5 @@ class addTask_page extends StatelessWidget {
             },
           ),
         ));
-  }
-
-  _insertRadio(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-            title: const Text('Task completed!'),
-            leading: Radio<TaskCompleted>(
-                groupValue: _taskCompleted,
-                value: TaskCompleted.YES,
-                onChanged: (TaskCompleted? value) {
-                  //setState(() {
-                  _taskCompleted = TaskCompleted.YES;
-                  //});
-                })),
-        ListTile(
-            title: const Text('Task not complete!'),
-            leading: Radio<TaskCompleted>(
-                groupValue: _taskCompleted,
-                value: TaskCompleted.NO,
-                onChanged: (TaskCompleted? value) {
-                  _taskCompleted = value;
-                }))
-      ],
-    );
   }
 }
