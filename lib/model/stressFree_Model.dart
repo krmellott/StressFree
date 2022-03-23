@@ -56,6 +56,11 @@ class stressFree_Model {
     return query;
   }
 
+  dbRetrieveActivitiesSortedByPriority() {
+    Query query = databaseReference.child('activity').orderByChild("priority");
+    return query;
+  }
+
   /// Returns a snapshot of the 'mood; collection from the database
   dbRetrieveMoods() async {
     var snapshot = await databaseReference.child('moods').get();
