@@ -3,9 +3,7 @@ import '/pages/chart_data/line_chart_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-
 class LineChartContent extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return LineChart(
