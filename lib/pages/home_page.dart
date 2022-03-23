@@ -8,6 +8,17 @@ import 'activities_page.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    /*
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home'),
+      ),
+      body: Column(children: [
+      ]),
+    );
+     */
+
+
     return MaterialApp(
         theme: ThemeData(
           primaryColor: Colors.green,
@@ -55,9 +66,10 @@ class Home extends StatelessWidget {
                           ),
                           child: Text('History'),
                           onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                           return HistoryPage();
-                        }));
+                        }
+                        ));
                       },
                       )
                     ],
