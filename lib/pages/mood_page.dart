@@ -2,8 +2,6 @@ import 'package:firstapp/utils/units_constant.dart';
 import 'package:flutter/src/material/dropdown.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/stressFree_Model.dart';
-import 'package:firstapp/pages/home_page.dart';
-
 import '/utils/units_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +21,6 @@ class _MoodPage extends State<MoodPage> {
   Moods currMood = Moods.Neutral;
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
-  DateTime _selectedDate = DateTime.now();
 
   Widget build(BuildContext context) {
 
@@ -41,7 +38,7 @@ class _MoodPage extends State<MoodPage> {
                   child: Text(
                     "Mood",
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.green),
+                        fontWeight: FontWeight.bold, color: Colors.white),
                     textScaleFactor: 4,
                   ),
                 ),
@@ -49,15 +46,15 @@ class _MoodPage extends State<MoodPage> {
                     hint: Text('Please choose a mood'),
                     value: currMood,
                     icon: const Icon(Icons.arrow_downward),
-                    style: const TextStyle(color: Colors.green),
+                    style: const TextStyle(color: Colors.black),
                     underline: Container(
                       height: 2,
-                      color: Colors.green,
+                      color: Colors.white,
                     ),
                     onChanged: (newMood) {
                       setState(() {
                         _MoodPage().currMood = newMood!;
-                        currMood = newMood!;
+                        currMood = newMood;
                         controllerReference.insertMoodData(currMood, [DateTime.now().month, DateTime.now().day, DateTime.now().year]);
                       switch(newMood) {
                       case Moods.Neutral: {
@@ -73,7 +70,7 @@ class _MoodPage extends State<MoodPage> {
                       }
                       break;
                       case Moods.Happy: {
-                        color = Colors.yellow;
+                        color = Colors.amber;
                         setState(() {
                         });
                       }
@@ -85,7 +82,7 @@ class _MoodPage extends State<MoodPage> {
                       }
                       break;
                       case Moods.Sad: {
-                        color = Colors.lightBlueAccent;
+                        color = Colors.blueAccent;
                         setState(() {
                         });
                       }
