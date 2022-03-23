@@ -103,9 +103,12 @@ class _MoodPage extends State<MoodPage> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.green
+                      primary: Colors.white,
                   ),
-                  child: Text('Show/Hide Graph'),
+                  child: Text(
+                      'Show/Hide Graph',
+                      style: const TextStyle(color: Colors.black)
+                  ),
                   onPressed: () {
                     isVisible = !isVisible;
                     setState(() {
@@ -116,7 +119,7 @@ class _MoodPage extends State<MoodPage> {
                 Visibility(
                   child: ChartContainer(
                     title: 'Mood Graph',
-                    color: Colors.green,
+                    color: Colors.white,
                     chart: LineChartContent(),
                   ),
                   visible: isVisible,

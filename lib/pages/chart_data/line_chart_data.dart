@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '/model/stressFree_Model.dart';
 
 List<Color> lineColor = [
-  Colors.white,
+  Colors.black,
 ];
 
 List<LineChartBarData> lineChartBarData = [
