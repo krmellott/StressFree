@@ -25,6 +25,7 @@ class _MoodPage extends State<MoodPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         title: Text("Moods"),
       ),
@@ -52,13 +53,38 @@ class _MoodPage extends State<MoodPage> {
                     onChanged: (newMood) {
                       setState(() {
                         _MoodPage().currMood = newMood!;
-                        controllerReference.insertMoodData(currMood, [_selectedDate]);
-                      });
+                        currMood = newMood!;
+                        controllerReference.insertMoodData(currMood, [DateTime.now().month, DateTime.now().day, DateTime.now().year]);
+                        switch(newMood) {
+                      case Moods.Neutral: {
+                        backgroundColor: Colors.grey;
+                      }
+                      break;
+                      case Moods.Angry: {
+                        new ThemeData(scaffoldBackgroundColor: Colors.red);
+                      }
+                      break;
+                      case Moods.Happy: {
+                        new ThemeData(scaffoldBackgroundColor: Colors.green);
+                      }
+                      break;
+                      case Moods.Elated: {
+                        new ThemeData(scaffoldBackgroundColor: Colors.purple);;
+                      }
+                      break;
+                      case Moods.Sad: {
+                        new ThemeData(scaffoldBackgroundColor: Colors.blueAccent);
+                      }
+                      break;
+
+
+                    }}
+                      );
                     },
                     items: Moods.values.map((Moods mood) {
                       return DropdownMenuItem<Moods>(
                           value: mood,
-                          child: Text(mood.toString()));
+                          child: Text(mood.toString().substring(6)));
                     }).toList()
                 ),
                 ElevatedButton(
