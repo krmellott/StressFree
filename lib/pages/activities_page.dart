@@ -1,6 +1,7 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/stressFree_Model.dart';
+import 'package:firstapp/utils/addTask_page.dart';
 import 'package:firstapp/utils/buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,33 +54,12 @@ class ActivitiesPage extends StatelessWidget {
             ),
             MyButton(
                 label: "+Add Task",
-                onTap: () => //controllerReference
-                    //.insertActivityData("test1", false, [1, 2, 2000]))
-                    // showDialog<String>(
-                    // context: context,
-                    // builder: (BuildContext context) => SimpleDialog(
-                    //   title: const Text('Insert Activity'),
-                    //   children: <Widget>[
-                    //     TextField(
-                    //       decoration: InputDecoration(
-                    //         border: OutlineInputBorder(),
-                    //         labelText: 'Tell us what you did!',
-                    //       ),
-                    //     ),
-                    //     Container(
-                    //       height: 200,
-                    //       child: CupertinoDatePicker(
-                    //         mode: CupertinoDatePickerMode.date,
-                    //         initialDateTime: DateTime.now(),
-                    //         onDateTimeChanged: (DateTime newDateTime) {
-                    //           date = newDateTime;
-                    //         },
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    //)
-                    _insertDialogue(context)),
+                onTap: () => {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return addTask_page();
+                      }))
+                    }),
           ],
         ));
   }
@@ -107,7 +87,8 @@ class ActivitiesPage extends StatelessWidget {
     );
   }
 
-  _insertDialogue(BuildContext context) {
+  //todo: Create a string navigation of dialogues.
+  _insertDialogueTask(BuildContext context) {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => SimpleDialog(
@@ -119,6 +100,18 @@ class ActivitiesPage extends StatelessWidget {
               labelText: 'Tell us what you did!',
             ),
           ),
+          RaisedButton(onPressed: Navigator.of(context).pop)
+        ],
+      ),
+    );
+  }
+
+  _insertDialogueDate(BuildContext context) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => SimpleDialog(
+        title: const Text('When did you finish the task?'),
+        children: <Widget>[
           Container(
             height: 200,
             child: CupertinoDatePicker(
@@ -129,6 +122,7 @@ class ActivitiesPage extends StatelessWidget {
               },
             ),
           ),
+          RaisedButton(onPressed: Navigator.of(context).pop)
         ],
       ),
     );

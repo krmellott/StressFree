@@ -8,11 +8,12 @@ class stressFree_Model {
 
   ///Inserts a given activity into the firebase database given
   ///a set of parameters.
-  dbInsertActivity(String name, bool status, List date) {
+  dbInsertActivity(String name, bool status, List date, int priority) {
     if (verifyActivityDate(date)) {
       databaseReference.child('activity').set({
         'title': name,
         'status': status,
+        'priority': priority,
         'date': [date[0], date[1], date[2]]
       });
       print("{ok:1}");

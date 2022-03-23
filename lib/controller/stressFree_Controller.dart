@@ -6,7 +6,7 @@ class stressFree_Controller {
   final modelReference = new stressFree_Model();
 
   /// inserts: {'name':<string>, 'status':<bool>, 'date':{'month':<int>,'day':<int>,'year':<int>}}
-  insertActivityData(String name, bool status, List date) {
+  insertActivityData(String name, bool status, List date, int priority) {
     print("ctrllr.insertActivityData{" +
         name +
         ", " +
@@ -16,7 +16,7 @@ class stressFree_Controller {
         date[1].toString() +
         date[2].toString() +
         "}");
-    modelReference.dbInsertActivity(name, status, date);
+    modelReference.dbInsertActivity(name, status, date, priority);
   }
 
   /// inserts: {'mood':<String>, 'date':{'month':<int>,'day':<int>,'year':<int>}}

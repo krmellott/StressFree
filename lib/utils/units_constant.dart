@@ -5,3 +5,8 @@ enum Moods {
   Sad,
   Angry,
 }
+
+enum TaskCompleted {
+  YES,
+  NO,
+}
