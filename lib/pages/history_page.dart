@@ -20,10 +20,13 @@ class ActivitiesCalendar extends State<HistoryPage> {
       appBar: AppBar(
         title: const Text("Activity Calendar"),
       ),
-      body:TableCalendar(
-        firstDay: DateTime.utc(2000,1,1),
-        lastDay: DateTime.utc(2050,12,31),
-        focusedDay: DateTime.now(),
+      body: //Center (
+      Column(
+        children: [
+          TableCalendar(
+            firstDay: DateTime.utc(2000,1,1),
+            lastDay: DateTime.utc(2050,12,31),
+            focusedDay: DateTime.now(),
 
         selectedDayPredicate: (day) { //used to determine which day has been selected by the user
           return isSameDay(_selectedDay, day);
@@ -73,6 +76,36 @@ class ActivitiesCalendar extends State<HistoryPage> {
       body: Center(
         child: Text('Your History Here!'),
       ),
+            selectedDayPredicate: (day) { //used to determine which day has been selected by the user
+              return isSameDay(_selectedDay, day);
+            },
+            onDaySelected: (selectedDay, focusedDay) { //highlights the day the user selected
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
+              }); //setState
+            }, // onDaySelected
+            calendarFormat: _calendarFormat,
+            onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+            },
+          ),
+
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.green
+            ),
+            child: Text('Edit Activities'),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                return PastActivities();
+              }));
+            },
+          ),
+        ]
+      )
     );
     */
 
