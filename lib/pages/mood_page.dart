@@ -2,7 +2,6 @@ import 'package:firstapp/utils/units_constant.dart';
 import 'package:flutter/src/material/dropdown.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/stressFree_Model.dart';
-import 'package:firstapp/pages/home_page.dart';
 import '/utils/units_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,6 @@ class _MoodPage extends State<MoodPage> {
   Moods currMood = Moods.Neutral;
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
-  DateTime _selectedDate = DateTime.now();
 
   Widget build(BuildContext context) {
     Color color = Colors.grey;
@@ -55,7 +53,7 @@ class _MoodPage extends State<MoodPage> {
                     onChanged: (newMood) {
                       setState(() {
                         _MoodPage().currMood = newMood!;
-                        currMood = newMood!;
+                        currMood = newMood;
                         controllerReference.insertMoodData(currMood, [DateTime.now().month, DateTime.now().day, DateTime.now().year]);
                       switch(newMood) {
                       case Moods.Neutral: {
@@ -83,7 +81,7 @@ class _MoodPage extends State<MoodPage> {
                       }
                       break;
                       case Moods.Sad: {
-                        color = Colors.BlueAccent;
+                        color = Colors.blueAccent;
                         setState(() {
                         });
                       }
