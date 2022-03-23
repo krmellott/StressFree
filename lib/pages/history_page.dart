@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 // TODO: implement TableCalendar
-// TODO: Change box color to match selected mood that day
 // TODO: Allow user to click on day to view the activities they did that day
 class HistoryPage extends StatefulWidget {
   @override
@@ -29,6 +28,44 @@ class ActivitiesCalendar extends State<HistoryPage> {
             lastDay: DateTime.utc(2050,12,31),
             focusedDay: DateTime.now(),
 
+        selectedDayPredicate: (day) { //used to determine which day has been selected by the user
+          return isSameDay(_selectedDay, day);
+        },
+        onDaySelected: (selectedDay, focusedDay) { //highlights the day the user selected
+          setState(() {
+            _selectedDay = selectedDay;
+            _focusedDay = focusedDay;
+          }); //setState
+        }, // onDaySelected
+        calendarFormat: _calendarFormat,
+        onFormatChanged: (format) {
+          setState(() {
+            _calendarFormat = format;
+          }); //setState
+        },//onFormatChanged
+        onPageChanged: (focusedDay) {
+          _focusedDay = focusedDay;
+        },//onPageChanged
+        ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.green
+            ),
+            child: Text('Completed Activities'),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                return PastActivities();
+              }));
+            },
+          ),
+        ]
+      )
+    );
+
+   /* return Scaffold(
+      body: Center(
+        child: Text('Your History Here!'),
+      ),
             selectedDayPredicate: (day) { //used to determine which day has been selected by the user
               return isSameDay(_selectedDay, day);
             },
@@ -60,5 +97,8 @@ class ActivitiesCalendar extends State<HistoryPage> {
         ]
       )
     );
+    */
+
   }
+
 }
