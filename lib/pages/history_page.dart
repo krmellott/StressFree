@@ -1,37 +1,47 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-class HistoryPage extends StatelessWidget {
+import 'package:table_calendar/table_calendar.dart';
+// TODO: implement TableCalendar
+// TODO: Change box color to match selected mood that day
+// TODO: Allow user to click on day to view the activities they did that day
+class HistoryPage extends StatefulWidget {
   @override
+  ActivitiesCalendar createState() => ActivitiesCalendar();
+}
+
+class ActivitiesCalendar extends State<HistoryPage> {
+  @override
+  static const title = "Activity Calendar";
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+
   Widget build(BuildContext context) {
-    // these come first
-    // TODO: Fix day display so it starts with 1 instead of 0
-    // TODO: Make grid start on the proper day of the week instead of every month starting on sunday
-    // TODO: Display the name of the day in top row
-    // these two come later
-    // TODO: Change box color to match selected mood that day
-    // TODO: Allow user to click on day to view the activities they did that day
-
-    const title = "History";
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(title),
       ),
-      body:GridView.count(
-        crossAxisCount: 7, //sets the grid to be 7 boxes wide
-        //padding:,
-        // Generate 35 widgets that display their index in the List.
-        children: List.generate(35, (index) {
-          return Center(
-            child: Text(
-              'Day $index',
-              // this is theme stuff, we can worry about it later
-              //style: Theme.of(context).textTheme.headline5,
-            ),
-          );
-        }),
-      ),
+      body:TableCalendar(
+        firstDay: DateTime.utc(2000,1,1),
+        lastDay: DateTime.utc(2050,12,31),
+        focusedDay: DateTime.now(),
+
+        selectedDayPredicate: (day) { //used to determine which day has been selected by the user
+          return isSameDay(_selectedDay, day);
+        },
+        onDaySelected: (selectedDay, focusedDay) { //highlights the day the user selected
+          setState(() {
+            _selectedDay = selectedDay;
+            _focusedDay = focusedDay;
+          }); //setState
+        }, // onDaySelected
+        calendarFormat: _calendarFormat,
+        onFormatChanged: (format) {
+          setState(() {
+            _calendarFormat = format;
+          });
+        },
+      )
     );
 
     /*return MaterialApp(
