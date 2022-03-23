@@ -38,8 +38,11 @@ class ActivitiesCalendar extends State<HistoryPage> {
         onFormatChanged: (format) {
           setState(() {
             _calendarFormat = format;
-          });
-        },
+          }); //setState
+        },//onFormatChanged
+        onPageChanged: (focusedDay) {
+          _focusedDay = focusedDay;
+        },//onPageChanged
       )
     );
 
