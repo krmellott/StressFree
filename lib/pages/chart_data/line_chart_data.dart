@@ -2,6 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import '/model/stressFree_Model.dart';
 
+final modelReference = new stressFree_Model();
+
 List<Color> lineColor = [
   Colors.black,
 ];
@@ -26,10 +28,10 @@ List<LineChartBarData> lineChartBarData = [
   )
 ];
 
-// List<int> getMood (){
-//   dbRetrieveMoods();
-// }
-//
-// List<int> getDay(){
-//   dbRetrieveMoods();
-// }
+/* List<int> getMood (){
+   modelReference.dbRetrieveMoods();
+ }
+
+ List<int> getDay(){
+   modelReference.dbRetrieveMoods();
+ } */

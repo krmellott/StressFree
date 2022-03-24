@@ -19,24 +19,26 @@ class ChartContainer extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width * 0.95,
         height: MediaQuery.of(context).size.width * 0.95 * 0.65,
-        padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+        padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Text(
               title,
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.only(
+                      top: 10,
+                      left: 0),
                   child: chart,
                 ))
           ],

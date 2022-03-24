@@ -6,8 +6,9 @@ import '/utils/units_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:firstapp/pages//chart/line_chart.dart';
-import 'package:firstapp/pages//chart_container.dart';
+//import 'package:firstapp/pages//chart/line_chart.dart';
+//import 'package:firstapp/pages//chart_container.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MoodPage extends StatefulWidget {
   @override
@@ -114,10 +115,29 @@ class _MoodPage extends State<MoodPage> {
                   },
                 ),
                 Visibility(
-                  child: ChartContainer(
+                  /*child: ChartContainer(
                     title: 'Mood Graph',
                     color: Colors.white,
                     chart: LineChartContent(),
+                  ),*/
+                  child: SfCartesianChart(
+                    // Initialize category axis
+                      primaryXAxis: CategoryAxis(),
+                      series: <ChartSeries>[
+                        // Initialize line series
+                        LineSeries<ChartData, String>(
+                            dataSource: [
+                              // Bind data source
+                              ChartData('Jan', 35),
+                              ChartData('Feb', 28),
+                              ChartData('Mar', 34),
+                              ChartData('Apr', 32),
+                              ChartData('May', 40)
+                            ],
+                            xValueMapper: (ChartData data, _) => data.x,
+                            yValueMapper: (ChartData data, _) => data.y
+                        )
+                      ]
                   ),
                   visible: isVisible,
                 )
@@ -126,4 +146,9 @@ class _MoodPage extends State<MoodPage> {
         )
     );
   }
+}
+class ChartData {
+  ChartData(this.x, this.y);
+  final String x;
+  final double? y;
 }

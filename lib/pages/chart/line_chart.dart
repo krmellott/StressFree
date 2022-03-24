@@ -36,6 +36,7 @@ class LineChartContent extends StatelessWidget {
           bottomTitles: SideTitles(
             interval: 1,
             showTitles: true,
+            textAlign: TextAlign.center,
             getTitles: (value) {
               switch (value.toInt()) {
                 case 1:
