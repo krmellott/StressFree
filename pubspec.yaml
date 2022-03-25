@@ -40,6 +40,7 @@ dependencies:
   intl: # install package for time and date
   date_picker_timeline:
   fl_chart: ^0.46.0
+  syncfusion_flutter_charts: ^19.4.56
   # cloud_firestore: ^3.1.9
 
 dev_dependencies:
