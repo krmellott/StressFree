@@ -6,8 +6,6 @@ import '/utils/units_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-//import 'package:firstapp/pages//chart/line_chart.dart';
-//import 'package:firstapp/pages//chart_container.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MoodPage extends StatefulWidget {
@@ -22,6 +20,8 @@ class _MoodPage extends State<MoodPage> {
   Moods currMood = Moods.Neutral;
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
+
+
 
   Widget build(BuildContext context) {
 
@@ -88,8 +88,6 @@ class _MoodPage extends State<MoodPage> {
                         });
                       }
                       break;
-
-
                     }}
                       );
                     },
@@ -101,7 +99,7 @@ class _MoodPage extends State<MoodPage> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
+                    primary: Colors.white,
                   ),
                   child: Text(
                       'Show/Hide Graph',
@@ -112,34 +110,105 @@ class _MoodPage extends State<MoodPage> {
                     setState(() {
 
                     });
-                  },
+                    },
                 ),
                 Visibility(
-                  /*child: ChartContainer(
-                    title: 'Mood Graph',
-                    color: Colors.white,
-                    chart: LineChartContent(),
-                  ),*/
-                  child: SfCartesianChart(
-                    // Initialize category axis
-                      primaryXAxis: CategoryAxis(),
-                      series: <ChartSeries>[
-                        // Initialize line series
-                        LineSeries<ChartData, String>(
-                            dataSource: [
-                              // Bind data source
-                              ChartData('Jan', 35),
-                              ChartData('Feb', 28),
-                              ChartData('Mar', 34),
-                              ChartData('Apr', 32),
-                              ChartData('May', 40)
-                            ],
-                            xValueMapper: (ChartData data, _) => data.x,
-                            yValueMapper: (ChartData data, _) => data.y
-                        )
-                      ]
-                  ),
-                  visible: isVisible,
+                    visible: isVisible,
+                    child: Row (
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column (
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 41.5),
+                              child: Text(
+                                'Elated',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 41.5),
+                              child: Text(
+                                'Happy',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 41.5),
+                              child: Text(
+                                'Neutral',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 41.5),
+                              child: Text(
+                                'Sad',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'Angry',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SfCartesianChart(
+                            zoomPanBehavior: ZoomPanBehavior(
+                              enablePinching: true,
+                              zoomMode: ZoomMode.x,
+                              enablePanning: true,
+                            ),
+                            primaryXAxis: CategoryAxis(
+                              labelStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            title: ChartTitle(text: 'Mood Graph'),
+                            primaryYAxis: NumericAxis(
+                              maximum: 5,
+                              minimum: 1,
+                              isVisible: false,
+                            ),
+                            series: <ChartSeries>[
+                              LineSeries<ChartData, String>(
+                                  color: Colors.white,
+                                  markerSettings: MarkerSettings(
+                                    isVisible: true,
+                                  ),
+                                  dataSource: [
+                                    ChartData('2/1/22', 5),
+                                    ChartData('2/2/22', 2),
+                                    ChartData('2/3/22', 1),
+                                    ChartData('2/4/22', 4),
+                                    ChartData('2/5/22', 3),
+                                    ChartData('2/6/22', 3),
+                                    ChartData('2/7/22', 4)
+                                  ],
+                                  xValueMapper: (ChartData data, _) => data.x,
+                                  yValueMapper: (ChartData data, _) => data.y
+                              )
+                            ]
+                        ),
+                      ],
+                    )
                 )
               ]
           ),
