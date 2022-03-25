@@ -55,6 +55,7 @@ class ActivitiesPage extends StatelessWidget {
             MyButton(
                 label: "+Add Task",
                 onTap: () => {
+                      //modelReference.dbRetrieveActivities()
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
                         return addTask_page();
