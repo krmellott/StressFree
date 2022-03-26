@@ -1,4 +1,6 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:collection';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,51 +12,42 @@ class stressFree_Model {
 
   ///Inserts a given activity into the firebase database given
   ///a set of parameters.
-  dbInsertActivity(String name, bool status, List date, int priority) {
-    // if (verifyActivityDate(date)) {
-    //   databaseReference.child('activity').set({
-    //     'title': name,
-    //     'status': status,
-    //     'priority': priority,
-    //     'date': [date[0], date[1], date[2]]
-    //   });
-    //   print("{ok:1}");
-    // } else {
-    //   print("{ok:0} => An error occurred!");
-    // }
+  dbInsertActivity(String name, bool status, List date, int priority) async {
+    if (verifyActivityDate(date)) {
+      return await firestoreInstance.collection('activity').add({
+        'title': name,
+        'status': status,
+        'date': [date[0], date[1], date[2]],
+        'priority': priority
+      });
+    } else {
+      print("{ok:0} => An error occurred!");
+    }
   }
 
   /// Inserts into the database a list of parameters into the 'mood' collection in
   /// the database.
-  dbInsertMood(Moods mood, List date) {
-    // if (verifyActivityDate(date)) {
-    //   databaseReference.child('moods').set({
-    //     'mood': mood.toString(),
-    //     'date': [date[0], date[1], date[2]]
-    //   });
-    //   print("{ok:1}");
-    // } else {
-    //   print("{ok:0} => An error occurred!");
-    // }
+  dbInsertMood(Moods mood, List date) async {
+    if (verifyActivityDate(date)) {
+      return await firestoreInstance.collection('moods').add({
+        'mood': mood.toString(),
+        'date': [date[0], date[1], date[2]]
+      });
+    } else {
+      print("{ok:0} => An error occurred!");
+    }
   }
 
   /// Returns a snapshot of the 'activity' collection from the database
   dbRetrieveActivities() async {
-    // DataSnapshot snapshot = await databaseReference.child('activity').get();
-    // //Query query = databaseReference.child('activity').equalTo({"date": []});
-    // if (snapshot.exists) {
-    //   print("snapshot successful:" + snapshot.value.toString());
-    // } else {
-    //   print("snapshot does not exist!");
-    // }
-
+    Queue queryQueue = new Queue();
     firestoreInstance.collection("activity").get().then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
         print(result.data());
+        queryQueue.add(result);
       });
     });
-
-    // return snapshot;
+    return queryQueue;
   }
 
   dbRetrieveActivitiesByDate(DateTime date) async {
