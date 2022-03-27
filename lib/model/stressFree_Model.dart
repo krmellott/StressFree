@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapp/utils/Activity.dart';
 import '../utils/units_constant.dart';
 
 class stressFree_Model {
@@ -52,8 +53,18 @@ class stressFree_Model {
   }
 
   //when called, use: stressFree_Model().activities
-  Stream<QuerySnapshot> get activities {
-    return firestoreInstance.collection("activity").snapshots();
+  Stream<List<Activity>> get activities {
+    return firestoreInstance
+        .collection("activity")
+        .snapshots()
+        .map(_activityListFromSnapshot);
+  }
+
+  List<Activity> _activityListFromSnapshot(QuerySnapshot query) {
+    return query.docs.map((doc) {
+      return Activity(doc.get('title') ?? '', doc.get('priority').toString(),
+          doc.get('status'), doc.get('date'));
+    }).toList();
   }
 
   dbRetrieveActivitiesByDate(DateTime date) async {
