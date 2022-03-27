@@ -51,6 +51,11 @@ class stressFree_Model {
     return queryQueue;
   }
 
+  //when called, use: stressFree_Model().activities
+  Stream<QuerySnapshot> get activities {
+    return firestoreInstance.collection("activity").snapshots();
+  }
+
   dbRetrieveActivitiesByDate(DateTime date) async {
     // Query query = databaseReference.child('activity').equalTo({
     //   "date": [date.month, date.day, date.year]

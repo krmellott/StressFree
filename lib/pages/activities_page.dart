@@ -28,7 +28,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
   String? selected;
   List<String> sortBy = ['Date', 'Title', 'Priority'];
 
-  stressFree_Model model = new stressFree_Model();
+  stressFree_Model model = stressFree_Model();
 
   @override
   Widget build(BuildContext context) {
@@ -144,46 +144,45 @@ class _ActivitiesPage extends State<ActivitiesPage> {
     );
   }
 
-  _taskColumn(){
+  _taskColumn() {
     return Container(
-      margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
-       child: Expanded(
+        margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
+        child: Expanded(
             child: SingleChildScrollView(
                 child: Column(
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('My Activities', style: _subHeadingFont1,),
-                        _insertDropDownMenu(),
-                      ],
-                    )
-                  ],
-                )
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'My Activities',
+                  style: _subHeadingFont1,
+                ),
+                _insertDropDownMenu(),
+              ],
             )
-        )
-    );
+          ],
+        ))));
   }
 
-  _insertDropDownMenu(){
+  _insertDropDownMenu() {
     return DropdownButton<String>(
-      value: selected,
-      items: sortBy.map(buildMenuItem).toList(),
-      onChanged: (value) => setState(() => selected = value),
-      icon: Icon(Icons.arrow_drop_down, color: Colors.black,),
-      hint: Text('Sort by: ', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold))
-    );
+        value: selected,
+        items: sortBy.map(buildMenuItem).toList(),
+        onChanged: (value) => setState(() => selected = value),
+        icon: Icon(
+          Icons.arrow_drop_down,
+          color: Colors.black,
+        ),
+        hint: Text('Sort by: ',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)));
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-    value: item,
+      value: item,
       child: Text(
         item,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      )
-  );
-
-
+      ));
 }
-
