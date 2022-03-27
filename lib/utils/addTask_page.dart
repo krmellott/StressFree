@@ -13,7 +13,7 @@ class AddTask extends StatefulWidget {
 
 class _AddTaskState extends State<AddTask> {
   stressFree_Controller SFControllerRef = stressFree_Controller();
-  DateTime date = DateTime(0, 0, 0);
+  DateTime date = DateTime.now();
   String message = "";
   int _dropdownValue = 3;
   TaskCompleted _taskCompleted = TaskCompleted.NO;
@@ -136,6 +136,7 @@ class _AddTaskState extends State<AddTask> {
             isCompleted = false;
           SFControllerRef.insertActivityData(message, isCompleted,
               [date.month, date.day, date.year], _dropdownValue);
+          Navigator.pop(context);
         });
   }
 }

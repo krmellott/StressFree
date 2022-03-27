@@ -12,7 +12,8 @@ class stressFree_Model {
 
   ///Inserts a given activity into the firebase database given
   ///a set of parameters.
-  dbInsertActivity(String name, bool status, List date, int priority) async {
+  Future dbInsertActivity(
+      String name, bool status, List date, int priority) async {
     if (verifyActivityDate(date)) {
       return await firestoreInstance.collection('activity').add({
         'title': name,
@@ -83,8 +84,17 @@ class stressFree_Model {
   ///Accepts a date from the user and verifies if it is a valid date
   ///returns true if valid date, false if not
   verifyActivityDate(List date) {
-    return (date[0] >= 1 && date[0] <= 12) &&
+    bool isDate = (date[0] >= 1 && date[0] <= 12) &&
         (date[1] >= 1 && date[0] <= 31) &&
         (date[2] >= 1900);
+    print("The date is: " +
+        date[0].toString() +
+        "/" +
+        date[1].toString() +
+        "/" +
+        date[2].toString() +
+        " is " +
+        isDate.toString());
+    return isDate;
   }
 }
