@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +24,7 @@ class Home extends StatelessWidget {
                         padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                         child: Text("StressFree!",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green), textScaleFactor: 4,)
                         ,),
+
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Colors.green

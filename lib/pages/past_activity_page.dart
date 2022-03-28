@@ -1,7 +1,5 @@
-//import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firstapp/model/stressFree_Model.dart';
 
 class PastActivities extends StatefulWidget {
   @override
@@ -10,20 +8,46 @@ class PastActivities extends StatefulWidget {
 
 class _PastActivities extends State<PastActivities> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Completed Activities'),
-        ),
-        body: Center(
-            child: Column(
-          children: [Text('Activity history here.'), printTasks()],
-        )));
-  }
 
-  printTasks() {
-    stressFree_Model model = new stressFree_Model();
-    //Query query = model.dbRetrieveActivitiesByCompletion(true);
-    //print(query.toString());
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Completed Activities'),
+      ),
+      body:
+      StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('activity').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData)
+            return Text('No completed activities.');
+
+          return ListView.builder(
+             itemCount: snapshot.data?.docs.length,
+             itemBuilder: (context, index) {
+               if(snapshot.data?.docs[index]['status'] == true) {
+                 final title = snapshot.data?.docs[index]['title'];
+                 final date = snapshot.data?.docs[index]['date'];
+                 final priority = snapshot.data?.docs[index]['priority'];
+
+                 return Padding (
+                     padding: EdgeInsets.only(top: 5.0),
+                     child: Card(
+                       margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+                       child: ListTile(
+                         title: Text(title),
+                         subtitle: Text('Due date: ' + date.toString() + '\nPriority: ' + priority.toString()),
+                         //subtitle: Text('Priority: ' + priority),
+                       ),
+                     )
+                 );
+               }
+
+               return SizedBox(width: 0, height: 0);
+             }
+          );
+        }
+      )
+    );
   }
 }
