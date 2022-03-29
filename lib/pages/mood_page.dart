@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MoodPage extends StatefulWidget {
   @override
@@ -20,11 +21,16 @@ class _MoodPage extends State<MoodPage> {
   Moods currMood = Moods.Neutral;
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
+  List<ChartData> testList = <ChartData>[];
+
 
 
 
   Widget build(BuildContext context) {
-
+ /*   for (int i = 1; i < 5; i++) {
+      String testDate = i.toString() + '/33/22';
+      testList.add(ChartData(testDate, 2));
+    } */
     return Scaffold(
 
       backgroundColor: color,
@@ -170,42 +176,78 @@ class _MoodPage extends State<MoodPage> {
                             ),
                           ],
                         ),
-                        SfCartesianChart(
-                            zoomPanBehavior: ZoomPanBehavior(
-                              enablePinching: true,
-                              zoomMode: ZoomMode.x,
-                              enablePanning: true,
-                            ),
-                            primaryXAxis: CategoryAxis(
-                              labelStyle: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            title: ChartTitle(text: 'Mood Graph'),
-                            primaryYAxis: NumericAxis(
-                              maximum: 5,
-                              minimum: 1,
-                              isVisible: false,
-                            ),
-                            series: <ChartSeries>[
-                              LineSeries<ChartData, String>(
-                                  color: Colors.white,
-                                  markerSettings: MarkerSettings(
-                                    isVisible: true,
+                    StreamBuilder(
+                        stream: FirebaseFirestore.instance.collection('mood').snapshots(),
+                        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData)
+                            return Text('No past moods.');
+                          else {
+                            List<ChartData> dataSet = <ChartData>[];
+                            for (int i = 1; i < 5; i++) {
+                              String testDate = i.toString() + '/33/22';
+                              testList.add(ChartData(testDate, i.toDouble()));
+                            }
+                            for (int i = 0; i < 7; i++) {
+                            //snapshot.data?.docs.forEach((element) {
+                              //var mood = element['mood'];
+                              //var date = element['date'];
+                              var mood = snapshot.data?.docs[i]['mood'];
+                              var date = snapshot.data?.docs[i]['date'];
+                              String dateString = date.toString();
+                              String moodString = mood.toString();
+                              double moodDouble = 3;
+                              switch (moodString) {
+                                case "Moods.Elated":
+                                  moodDouble = 5;
+                                  break;
+                                case "Moods.Happy":
+                                  moodDouble = 4;
+                                  break;
+                                case "Moods.Neutral":
+                                  moodDouble = 3;
+                                  break;
+                                case "Moods.Sad":
+                                  moodDouble = 2;
+                                  break;
+                                case "Moods.Angry":
+                                  moodDouble = 1;
+                              }
+                              dataSet.add(ChartData(dateString, moodDouble));
+                            } //);
+                            return SfCartesianChart(
+                                zoomPanBehavior: ZoomPanBehavior(
+                                  enablePinching: true,
+                                  zoomMode: ZoomMode.x,
+                                  enablePanning: true,
+                                ),
+                                primaryXAxis: CategoryAxis(
+                                  labelStyle: TextStyle(
+                                    color: Colors.white,
                                   ),
-                                  dataSource: [
-                                    ChartData('2/1/22', 5),
-                                    ChartData('2/2/22', 2),
-                                    ChartData('2/3/22', 1),
-                                    ChartData('2/4/22', 4),
-                                    ChartData('2/5/22', 3),
-                                    ChartData('2/6/22', 3),
-                                    ChartData('2/7/22', 4)
-                                  ],
-                                  xValueMapper: (ChartData data, _) => data.x,
-                                  yValueMapper: (ChartData data, _) => data.y
-                              )
-                            ]
+                                ),
+                                title: ChartTitle(text: 'Mood Graph'),
+                                primaryYAxis: NumericAxis(
+                                  maximum: 5,
+                                  minimum: 1,
+                                  isVisible: false,
+                                ),
+
+                                series: <ChartSeries>[
+                                  LineSeries<ChartData, String>(
+                                      color: Colors.white,
+                                      markerSettings: MarkerSettings(
+                                        isVisible: true,
+                                      ),
+                                      dataSource: dataSet,
+                                      xValueMapper: (ChartData data, _) =>
+                                      data.x,
+                                      yValueMapper: (ChartData data, _) =>
+                                      data.y
+                                  )
+                                ]
+                            );
+                          }
+                        }
                         ),
                       ],
                     )
