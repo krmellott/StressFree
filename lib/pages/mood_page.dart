@@ -118,11 +118,15 @@ class _MoodPage extends State<MoodPage> {
                     });
                     },
                 ),
-                Visibility(
+                Container(
+                  width: 375,
+                    height: 230,
+                    child: Visibility(
                     visible: isVisible,
                     child: Row (
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Column (
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -176,8 +180,10 @@ class _MoodPage extends State<MoodPage> {
                             ),
                           ],
                         ),
-                    StreamBuilder(
-                        stream: FirebaseFirestore.instance.collection('mood').snapshots(),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance.collection("moods").orderBy("date", descending: true).snapshots(),
                         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                           if (!snapshot.hasData)
                             return Text('No past moods.');
@@ -187,6 +193,7 @@ class _MoodPage extends State<MoodPage> {
                               String testDate = i.toString() + '/33/22';
                               testList.add(ChartData(testDate, i.toDouble()));
                             }
+                            
                             for (int i = 0; i < 7; i++) {
                             //snapshot.data?.docs.forEach((element) {
                               //var mood = element['mood'];
@@ -231,14 +238,13 @@ class _MoodPage extends State<MoodPage> {
                                   minimum: 1,
                                   isVisible: false,
                                 ),
-
                                 series: <ChartSeries>[
                                   LineSeries<ChartData, String>(
                                       color: Colors.white,
                                       markerSettings: MarkerSettings(
                                         isVisible: true,
                                       ),
-                                      dataSource: dataSet,
+                                      dataSource: testList,
                                       xValueMapper: (ChartData data, _) =>
                                       data.x,
                                       yValueMapper: (ChartData data, _) =>
@@ -249,8 +255,10 @@ class _MoodPage extends State<MoodPage> {
                           }
                         }
                         ),
+                        )
                       ],
                     )
+                )
                 )
               ]
           ),
