@@ -1,5 +1,5 @@
 import 'dart:collection';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/stressFree_Model.dart';
@@ -25,10 +25,11 @@ class _ActivitiesPage extends State<ActivitiesPage> {
   final modelReference = new stressFree_Model();
   DateTime _selectedDate = DateTime.now();
   var date = DateTime(0, 0, 0);
-  String? selected;
+  String? selected = 'Date';
   List<String> sortBy = ['Date', 'Title', 'Priority'];
 
-  stressFree_Model model = stressFree_Model();
+  stressFree_Model model = new stressFree_Model();
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +38,35 @@ class _ActivitiesPage extends State<ActivitiesPage> {
       appBar: AppBar(
         title: const Text("Activities"),
       ),
-      body: Column(children: [
-        _addTaskBar(context),
-        _addDatePicker(),
-        _taskColumn(),
-      ]),
+      body: Column(
+        children: [
+          _addTaskBar(context),
+          _addDatePicker(),
+          _taskColumn(context),
+          _sortActivities(selected)
+        ],
+      ),
     );
   }
 
-  // function to get the current date using the intl package
+  Widget _buildListItem(BuildContext context,DocumentSnapshot document){
+    var data = document.data() as Map<String, dynamic>;
+    if(data['status'] == false){
+      return Padding(
+        padding: const EdgeInsets.all(1.0),
+        child: Card(
+          child: ListTile(
+            title: Text('Name: '+data['title']),
+            subtitle: Text('Due date: ' +
+                data['date'].toString() +
+                '\nPriority: ' + data['priority'].toString()),
+          ),
+        ),
+      );
+    }
+    return SizedBox(width: 0, height: 0);
+  }
+
   _addTaskBar(BuildContext context) {
     Queue aQueue;
     return Container(
@@ -103,86 +124,102 @@ class _ActivitiesPage extends State<ActivitiesPage> {
     );
   }
 
-  //todo: Create a string navigation of dialogues.
-  _insertDialogueTask(BuildContext context) {
-    showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => SimpleDialog(
-        title: const Text('Insert Activity'),
-        children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Tell us what you did!',
-            ),
-          ),
-          RaisedButton(onPressed: Navigator.of(context).pop)
-        ],
-      ),
-    );
-  }
-
-  _insertDialogueDate(BuildContext context) {
-    showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => SimpleDialog(
-        title: const Text('When did you finish the task?'),
-        children: <Widget>[
-          Container(
-            height: 200,
-            child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              initialDateTime: DateTime.now(),
-              onDateTimeChanged: (DateTime newDateTime) {
-                date = newDateTime;
-              },
-            ),
-          ),
-          RaisedButton(onPressed: Navigator.of(context).pop)
-        ],
-      ),
-    );
-  }
-
-  _taskColumn() {
+  _taskColumn(BuildContext context){
     return Container(
-        margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
-        child: Expanded(
+      margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
+       child: Expanded(
             child: SingleChildScrollView(
                 child: Column(
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'My Activities',
-                  style: _subHeadingFont1,
-                ),
-                _insertDropDownMenu(),
-              ],
+                  children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('My Activities', style: _subHeadingFont1,),
+                        _insertDropDownMenu(context),
+                      ],
+                    ),
+                    // _buildActivitiesList()
+                  ],
+                )
             )
-          ],
-        ))));
+        )
+    );
   }
 
-  _insertDropDownMenu() {
+  _insertDropDownMenu(BuildContext context){
     return DropdownButton<String>(
-        value: selected,
-        items: sortBy.map(buildMenuItem).toList(),
-        onChanged: (value) => setState(() => selected = value),
-        icon: Icon(
-          Icons.arrow_drop_down,
-          color: Colors.black,
-        ),
-        hint: Text('Sort by: ',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)));
+      value: selected,
+      items: sortBy.map(buildMenuItem).toList(),
+      onChanged: (value) => setState(() => {
+        selected = value,
+        // _sortActivities(selected!)
+      }),
+      icon: Icon(Icons.arrow_drop_down, color: Colors.black,),
+      // hint: Text('Sort by: ', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold))
+    );
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-      value: item,
+    value: item,
       child: Text(
         item,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      ));
+      )
+  );
+
+  _sortActivities(String? label){
+    switch(label){
+      case 'Date':
+        return Expanded(
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('activity')
+                  .orderBy('date')
+                  .snapshots(),
+              builder: (context,AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) return const Text('Loading...');
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context,index) =>
+                      _buildListItem(context,snapshot.data!.docs[index]),
+                );
+              }),
+        );
+      case 'Title':
+        return Expanded(
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('activity')
+                  .orderBy('title')
+                  .snapshots(),
+              builder: (context,AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) return const Text('Loading...');
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context,index) =>
+                      _buildListItem(context,snapshot.data!.docs[index]),
+                );
+              }),
+        );
+      case 'Priority':
+        return Expanded(
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('activity')
+                  .orderBy('priority')
+                  .snapshots(),
+              builder: (context,AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) return const Text('Loading...');
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context,index) =>
+                      _buildListItem(context,snapshot.data!.docs[index]),
+                );
+              }),
+        );
+    }
+  }
+
 }
+
