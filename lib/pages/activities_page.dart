@@ -19,11 +19,14 @@ class _ActivitiesPage extends State<ActivitiesPage> {
       fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.grey);
   final _subHeadingFont1 = TextStyle(
       fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.black);
+  final _subHeadingFont2 = TextStyle(
+      fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black);
+  final _subHeadingFont3 = TextStyle(
+      fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.grey);
   final _headingFont = TextStyle(
       fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.black);
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
-  DateTime _selectedDate = DateTime.now();
   var date = DateTime(0, 0, 0);
   String? selected = 'Date';
   List<String> sortBy = ['Date', 'Title', 'Priority'];
@@ -56,10 +59,11 @@ class _ActivitiesPage extends State<ActivitiesPage> {
         padding: const EdgeInsets.all(1.0),
         child: Card(
           child: ListTile(
-            title: Text('Name: '+data['title']),
+            title: Text(data['title'], style: _subHeadingFont2,),
             subtitle: Text('Due date: ' +
                 data['date'].toString() +
-                '\nPriority: ' + data['priority'].toString()),
+                '\nPriority: ' + data['priority'].toString(),
+            style: _subHeadingFont3,),
           ),
         ),
       );
@@ -117,9 +121,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
             fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
         monthTextStyle: TextStyle(
             fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
-        onDateChange: (date) {
-          _selectedDate = date; // storing selected date into a variable
-        },
+        onDateChange: (date) {},
       ),
     );
   }
