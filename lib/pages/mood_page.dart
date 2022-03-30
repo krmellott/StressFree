@@ -63,7 +63,7 @@ class _MoodPage extends State<MoodPage> {
                         _MoodPage().currMood = newMood!;
                         currMood = newMood;
                         controllerReference.insertMoodData(currMood, [DateTime.now().month, DateTime.now().day, DateTime.now().year]);
-                      switch(newMood) {
+                        switch(newMood) {
                       case Moods.Neutral: {
                         color = Colors.grey;
                         setState(() {
