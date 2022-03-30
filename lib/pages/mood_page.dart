@@ -120,7 +120,7 @@ class _MoodPage extends State<MoodPage> {
                 ),
                 Container(
                   width: 375,
-                    height: 230,
+                    height: 300,
                     child: Visibility(
                     visible: isVisible,
                     child: Row (
@@ -132,7 +132,7 @@ class _MoodPage extends State<MoodPage> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(bottom: 41.5),
+                              padding: EdgeInsets.only(top: 35, bottom: 41.5),
                               child: Text(
                                 'Elated',
                                 textAlign: TextAlign.right,
@@ -189,12 +189,14 @@ class _MoodPage extends State<MoodPage> {
                             return Text('No past moods.');
                           else {
                             List<ChartData> dataSet = <ChartData>[];
-                            for (int i = 1; i < 5; i++) {
+                            for (int i = 1; i < 8; i++) {
                               String testDate = i.toString() + '/33/22';
+                              if (i > 5) {testList.add((ChartData(testDate, (i - 4.0))));}
+                              else
                               testList.add(ChartData(testDate, i.toDouble()));
                             }
                             
-                            for (int i = 0; i < 7; i++) {
+                            for (int i = 0; i < 17; i++) {
                             //snapshot.data?.docs.forEach((element) {
                               //var mood = element['mood'];
                               //var date = element['date'];
@@ -244,7 +246,7 @@ class _MoodPage extends State<MoodPage> {
                                       markerSettings: MarkerSettings(
                                         isVisible: true,
                                       ),
-                                      dataSource: testList,
+                                      dataSource: dataSet,
                                       xValueMapper: (ChartData data, _) =>
                                       data.x,
                                       yValueMapper: (ChartData data, _) =>
