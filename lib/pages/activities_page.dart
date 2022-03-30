@@ -33,7 +33,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
 
   stressFree_Model model = new stressFree_Model();
 
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -52,18 +51,24 @@ class _ActivitiesPage extends State<ActivitiesPage> {
     );
   }
 
-  Widget _buildListItem(BuildContext context,DocumentSnapshot document){
+  Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     var data = document.data() as Map<String, dynamic>;
-    if(data['status'] == false){
+    if (data['status'] == false) {
       return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
           child: ListTile(
-            title: Text(data['title'], style: _subHeadingFont2,),
-            subtitle: Text('Due date: ' +
-                data['date'].toString() +
-                '\nPriority: ' + data['priority'].toString(),
-            style: _subHeadingFont3,),
+            title: Text(
+              data['title'],
+              style: _subHeadingFont2,
+            ),
+            subtitle: Text(
+              'Due date: ' +
+                  data['date'].toString() +
+                  '\nPriority: ' +
+                  data['priority'].toString(),
+              style: _subHeadingFont3,
+            ),
           ),
         ),
       );
@@ -126,52 +131,54 @@ class _ActivitiesPage extends State<ActivitiesPage> {
     );
   }
 
-  _taskColumn(BuildContext context){
+  _taskColumn(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
-       child: Expanded(
+        margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
+        child: Expanded(
             child: SingleChildScrollView(
                 child: Column(
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('My Activities', style: _subHeadingFont1,),
-                        _insertDropDownMenu(context),
-                      ],
-                    ),
-                    // _buildActivitiesList()
-                  ],
-                )
-            )
-        )
-    );
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'My Activities',
+                  style: _subHeadingFont1,
+                ),
+                _insertDropDownMenu(context),
+              ],
+            ),
+            // _buildActivitiesList()
+          ],
+        ))));
   }
 
-  _insertDropDownMenu(BuildContext context){
+  _insertDropDownMenu(BuildContext context) {
     return DropdownButton<String>(
       value: selected,
       items: sortBy.map(buildMenuItem).toList(),
       onChanged: (value) => setState(() => {
-        selected = value,
-        // _sortActivities(selected!)
-      }),
-      icon: Icon(Icons.arrow_drop_down, color: Colors.black,),
+            selected = value,
+            // _sortActivities(selected!)
+          }),
+      icon: Icon(
+        Icons.arrow_drop_down,
+        color: Colors.black,
+      ),
       // hint: Text('Sort by: ', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold))
     );
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-    value: item,
+      value: item,
       child: Text(
         item,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      )
-  );
+      ));
 
-  _sortActivities(String? label){
-    switch(label){
+  _sortActivities(String? label) {
+    switch (label) {
       case 'Date':
         return Expanded(
           child: StreamBuilder(
@@ -179,12 +186,12 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                   .collection('activity')
                   .orderBy('date')
                   .snapshots(),
-              builder: (context,AsyncSnapshot snapshot) {
+              builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context,index) =>
-                      _buildListItem(context,snapshot.data!.docs[index]),
+                  itemBuilder: (context, index) =>
+                      _buildListItem(context, snapshot.data!.docs[index]),
                 );
               }),
         );
@@ -195,12 +202,12 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                   .collection('activity')
                   .orderBy('title')
                   .snapshots(),
-              builder: (context,AsyncSnapshot snapshot) {
+              builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context,index) =>
-                      _buildListItem(context,snapshot.data!.docs[index]),
+                  itemBuilder: (context, index) =>
+                      _buildListItem(context, snapshot.data!.docs[index]),
                 );
               }),
         );
@@ -211,17 +218,15 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                   .collection('activity')
                   .orderBy('priority')
                   .snapshots(),
-              builder: (context,AsyncSnapshot snapshot) {
+              builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context,index) =>
-                      _buildListItem(context,snapshot.data!.docs[index]),
+                  itemBuilder: (context, index) =>
+                      _buildListItem(context, snapshot.data!.docs[index]),
                 );
               }),
         );
     }
   }
-
 }
-

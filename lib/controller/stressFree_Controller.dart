@@ -24,5 +24,7 @@ class stressFree_Controller {
     modelReference.dbInsertMood(mood, date);
   }
 
-
+  insertVideo(String title, String genre, bool isFavorite, String URL) {
+    modelReference.dbInsertVideo(title, genre, isFavorite, URL);
+  }
 }
