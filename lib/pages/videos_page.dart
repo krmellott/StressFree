@@ -44,13 +44,28 @@ class _VideoPage extends State<VideoPage> {
                     textScaleFactor: 4,
                   ),
                 ),
-
                 Row(
-
                     children: [
                       new DropdownButton(
-                          items: null, onChanged: null),
-                      new DropdownButton(items: null, onChanged: null)
+                          hint: Text('Please choose a topic'),
+                          items: null, onChanged: null,
+                          icon: const Icon(Icons.arrow_downward),
+                          style: const TextStyle(color: Colors.black),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.white,
+                          ),
+                      ),
+                      new DropdownButton(
+                        hint: Text('Please choose a video'),
+                        items: null, onChanged: null,
+                        icon: const Icon(Icons.arrow_downward),
+                        style: const TextStyle(color: Colors.black),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.white,
+                        ),
+                      )
                     ],
                   ),
                 ],
