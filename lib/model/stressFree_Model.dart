@@ -26,6 +26,12 @@ class stressFree_Model {
     }
   }
 
+  Future dbInsertVideo(
+      String name, String style, bool isFavorite, String url) async {
+    return await firestoreInstance.collection('videos').add(
+        {'name': name, 'style': style, 'isFavorite': isFavorite, 'url': url});
+  }
+
   /// Inserts into the database a list of parameters into the 'mood' collection in
   /// the database.
   dbInsertMood(Moods mood, List date) async {
