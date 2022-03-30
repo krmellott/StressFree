@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firstapp/model/stressFree_Model.dart';
 import 'package:firstapp/pages/past_activity_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:firstapp/pages/journal_main_page.dart';
 // TODO: implement TableCalendar
 // TODO: Allow user to click on day to view the activities they did that day
 class HistoryPage extends StatefulWidget {
@@ -51,25 +51,39 @@ class ActivitiesCalendar extends State<HistoryPage> {
           _focusedDay = focusedDay;
         },//onPageChanged
         ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Colors.green
-            ),
-            child: Text('Completed Activities'),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                return PastActivities();
-              }));
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.green
+                ),
+                child: Text('Completed Activities'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                    return PastActivities();
+                  }));
+                },
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple
+                ),
+                child: Text('Journal'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                    return MainJournal();
+                  }));
+                },
+              ),
+            ]
           ),
           Expanded(
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance.collection('activity').snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  onDaySelected:
                   if (!snapshot.hasData)
                     return Text('No activities found.');
-
                   return new ListView.builder(
                       shrinkWrap: true,
                       itemCount: snapshot.data?.docs.length,
