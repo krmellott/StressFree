@@ -89,7 +89,7 @@ class ActivitiesCalendar extends State<HistoryPage> {
 
   Widget _buildListItem(BuildContext context,DocumentSnapshot document){
     var data = document.data() as Map<String, dynamic>;
-    if(data['status'] == false/* && data['date'] == _selectedDay*/){
+    if(data['status'] == false && data['date'][2] == _selectedDay?.year && data['date'][0] == _selectedDay?.month && data['date'][1] == _selectedDay?.day  ){
       return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
