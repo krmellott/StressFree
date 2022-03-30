@@ -30,10 +30,18 @@ class stressFree_Model {
   /// the database.
   dbInsertMood(Moods mood, List date) async {
     if (verifyActivityDate(date)) {
-      return await firestoreInstance.collection('moods').add({
-        'mood': mood.toString(),
-        'date': [date[0], date[1], date[2]]
-      });
+     /* var recentAddition = await firestoreInstance.collection('moods').orderBy("date", descending: true).limit(1).get();
+      String compareDate = '[' + date.toString() + ']';
+      if (compareDate == recentAddition.docs[0]['date'].toString()){
+      var docUID = firestoreInstance.collection('moods').orderBy("date", descending: true).snapshots();
+        return firestoreInstance.collection('moods').doc('').update({'mood': mood.toString()});
+      }
+      else { */
+        return await firestoreInstance.collection('moods').add({
+          'mood': mood.toString(),
+          'date': [date[0], date[1], date[2]]
+        });
+     // }
     } else {
       print("{ok:0} => An error occurred!");
     }
