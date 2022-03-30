@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firstapp/model/stressFree_Model.dart';
 import 'package:firstapp/pages/past_activity_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +39,7 @@ class ActivitiesCalendar extends State<HistoryPage> {
             _selectedDay = selectedDay;
             _focusedDay = focusedDay;
           }); //setState
+
         }, // onDaySelected
         calendarFormat: _calendarFormat,
         onFormatChanged: (format) {
@@ -58,47 +62,48 @@ class ActivitiesCalendar extends State<HistoryPage> {
               }));
             },
           ),
+          Expanded(
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('activity').snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  onDaySelected:
+                  if (!snapshot.hasData)
+                    return Text('No activities found.');
+
+                  return new ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data?.docs.length,
+                      itemBuilder: (context, index) {
+                        return _buildListItem(context, snapshot.data!.docs[index]);
+                      }
+                  );
+                }
+            )
+          ),
+
         ]
       )
     );
-
-   /* return Scaffold(
-      body: Center(
-        child: Text('Your History Here!'),
-      ),
-            selectedDayPredicate: (day) { //used to determine which day has been selected by the user
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) { //highlights the day the user selected
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-              }); //setState
-            }, // onDaySelected
-            calendarFormat: _calendarFormat,
-            onFormatChanged: (format) {
-              setState(() {
-                _calendarFormat = format;
-              });
-            },
-          ),
-
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Colors.green
-            ),
-            child: Text('Edit Activities'),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                return PastActivities();
-              }));
-            },
-          ),
-        ]
-      )
-    );
-    */
-
   }
+
+
+  Widget _buildListItem(BuildContext context,DocumentSnapshot document){
+    var data = document.data() as Map<String, dynamic>;
+    if(data['status'] == false/* && data['date'] == _selectedDay*/){
+      return Padding(
+        padding: const EdgeInsets.all(1.0),
+        child: Card(
+          child: ListTile(
+            title: Text(data['title']),
+            subtitle: Text('Due date: ' +
+                data['date'].toString() + '\nPriority: ' + data['priority'].toString()),
+          ),
+        ),
+      );
+    }
+    return SizedBox(width: 0, height: 0);
+  }
+
+
 
 }
