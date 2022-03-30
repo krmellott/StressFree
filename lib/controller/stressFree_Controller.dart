@@ -23,4 +23,6 @@ class stressFree_Controller {
   insertMoodData(Moods mood, List date) {
     modelReference.dbInsertMood(mood, date);
   }
+
+
 }

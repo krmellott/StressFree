@@ -1,5 +1,6 @@
 import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
+import 'package:firstapp/pages/videos_page.dart';
 import 'package:flutter/material.dart';
 
 import 'activities_page.dart';
@@ -61,6 +62,18 @@ class Home extends StatelessWidget {
                         }
                         ));
                       },
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.green
+                        ),
+                        child: Text('View Videos from YouTube'),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                            return VideoPage();
+                          }
+                          ));
+                        },
                       )
                     ],
                   )
