@@ -196,7 +196,7 @@ class _MoodPage extends State<MoodPage> {
                               testList.add(ChartData(testDate, i.toDouble()));
                             }
                             
-                            for (int i = 0; i < 17; i++) {
+                            for (int i = 0; i < 7; i++) {
                             //snapshot.data?.docs.forEach((element) {
                               //var mood = element['mood'];
                               //var date = element['date'];
