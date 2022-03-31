@@ -20,33 +20,35 @@ class VideoScreen extends StatelessWidget {
               children: snapshot.data!.docs.map<Widget>((document) {
                 var url = document['url'];
                 YoutubePlayerController _controller = YoutubePlayerController(
-                    initialVideoId: YoutubePlayer.convertUrlToId(url)!,
-                    flags: YoutubePlayerFlags(
-                      autoPlay: false,
-                      mute: false,
-                      isLive: false,
-                      loop: false,
-                      forceHD: false,
-                    ),
+                  initialVideoId: YoutubePlayer.convertUrlToId(url)!,
+                  flags: YoutubePlayerFlags(
+                    autoPlay: false,
+                    mute: false,
+                    isLive: false,
+                    loop: false,
+                    forceHD: false,
+                  ),
                 );
                 return Center(
                   child: Container(
-                    width: MediaQuery.of(context).size.width/1.2,
+                    width: MediaQuery.of(context).size.width / 1.2,
                     child: Column(
                       children: <Widget>[
                         Padding(
-                            padding: EdgeInsets.only(top: 20),
-                            child: Text(document['name']),
+                          padding: EdgeInsets.only(top: 20),
+                          child: Text(document['name']),
                         ),
-                        YoutubePlayer(controller: _controller, liveUIColor: Colors.blue,)
+                        YoutubePlayer(
+                          controller: _controller,
+                          liveUIColor: Colors.blue,
+                        )
                       ],
                     ),
                   ),
                 );
               }).toList(),
             );
-          }
-      ),
+          }),
     );
   }
 
@@ -74,6 +76,4 @@ class VideoScreen extends StatelessWidget {
     }
     return SizedBox(width: 0, height: 0);
   }
-
 }
-
