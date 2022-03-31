@@ -1,11 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:firstapp/pages/videos_page.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 import 'activities_page.dart';
 
 class Home extends StatelessWidget {
+
+  int tipID() {
+    Random random = new Random();
+    return random.nextInt(9) + 1;
+  }
+
   const Home({Key? key}) : super(key: key);
 
   @override
@@ -70,18 +78,26 @@ class Home extends StatelessWidget {
                   },
                 ),
               ],
-            )),
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                    padding: EdgeInsets.only(top: 20.0, bottom: 40.0),
-                    child: Text('Tip text here',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.green),
-                        textScaleFactor: 1.5)))
+            )
+            ),
+
+            StreamBuilder (
+                stream: FirebaseFirestore.instance.collection('tips').snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  return Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                          padding: EdgeInsets.only(top: 20.0, bottom: 40.0, left: 20.0, right: 20.0),
+                          child: Text('Tip: ' + snapshot.data?.docs[tipID()]['tip'], style: const TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
+                              textScaleFactor: 1.5)
+                      )
+                  );
+                }
+            )
           ],
         ),
-      ),
+      )
     );
   }
 }
