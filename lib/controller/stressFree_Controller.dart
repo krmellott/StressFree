@@ -27,4 +27,8 @@ class stressFree_Controller {
   insertVideo(String title, String genre, bool isFavorite, String URL) {
     modelReference.dbInsertVideo(title, genre, isFavorite, URL);
   }
+
+  insertJournalData(String title, List date, String body) {
+    modelReference.dbInsertJournal(body, date, title);
+  }
 }
