@@ -45,6 +45,18 @@ class stressFree_Model {
     }
   }
 
+  dbInsertJournal(String body, List date, String title) async {
+    if (verifyActivityDate(date)) {
+      return await firestoreInstance.collection('journal').add({
+        'title': title,
+        'body': body,
+        'date': [date[0], date[1], date[2]],
+      });
+    } else {
+      print("{ok:0} => An error occurred!");
+    }
+  }
+
   /// Returns a snapshot of the 'activity' collection from the database
   dbRetrieveActivities() async {
     Queue queryQueue = new Queue();
