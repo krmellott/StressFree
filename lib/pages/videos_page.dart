@@ -46,6 +46,9 @@ class _VideoPage extends State<VideoPage> {
                 ),
                 Row(
                     children: [
+                      Padding(
+                      padding: EdgeInsets.all(20)
+                      ),
                       new DropdownButton(
                           hint: Text('Please choose a topic'),
                           items: null, onChanged: null,
@@ -56,16 +59,6 @@ class _VideoPage extends State<VideoPage> {
                             color: Colors.white,
                           ),
                       ),
-                      new DropdownButton(
-                        hint: Text('Please choose a video'),
-                        items: null, onChanged: null,
-                        icon: const Icon(Icons.arrow_downward),
-                        style: const TextStyle(color: Colors.black),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.white,
-                        ),
-                      )
                     ],
                   ),
                 ],

@@ -20,7 +20,7 @@ class _PastActivities extends State<PastActivities> {
         stream: FirebaseFirestore.instance.collection('activity').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData)
-            return Text('No completed activities.');
+            return Text('No completed activities.',style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black45), textScaleFactor: 1.25);
 
           return ListView.builder(
              itemCount: snapshot.data?.docs.length,
