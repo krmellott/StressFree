@@ -182,90 +182,108 @@ class _MoodPage extends State<MoodPage> {
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                    child: StreamBuilder(
-                        stream: FirebaseFirestore.instance.collection("moods").orderBy("date", descending: true).snapshots(),
-                        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (!snapshot.hasData)
-                            return Text('No past moods.');
-                          else {
-                            List<ChartData> dataSet = <ChartData>[];
-                            for (int i = 1; i < 8; i++) {
-                              String testDate = i.toString() + '/33/22';
-                              if (i > 5) {testList.add((ChartData(testDate, (i - 4.0))));}
-                              else
-                              testList.add(ChartData(testDate, i.toDouble()));
-                            }
-                            
-                            for (int i = 0; i < 7; i++) {
-                            //snapshot.data?.docs.forEach((element) {
-                              //var mood = element['mood'];
-                              //var date = element['date'];
-                              var mood = snapshot.data?.docs[i]['mood'];
-                              var date = snapshot.data?.docs[i]['date'];
-                              String dateString = date.toString();
-                              String moodString = mood.toString();
-                              double moodDouble = 3;
-                              switch (moodString) {
-                                case "Moods.Elated":
-                                  moodDouble = 5;
-                                  break;
-                                case "Moods.Happy":
-                                  moodDouble = 4;
-                                  break;
-                                case "Moods.Neutral":
-                                  moodDouble = 3;
-                                  break;
-                                case "Moods.Sad":
-                                  moodDouble = 2;
-                                  break;
-                                case "Moods.Angry":
-                                  moodDouble = 1;
-                              }
-                              dataSet.add(ChartData(dateString, moodDouble));
-                            } //);
-                            return SfCartesianChart(
-                                zoomPanBehavior: ZoomPanBehavior(
-                                  enablePinching: true,
-                                  zoomMode: ZoomMode.x,
-                                  enablePanning: true,
-                                ),
-                                primaryXAxis: CategoryAxis(
-                                  labelStyle: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                title: ChartTitle(text: 'Mood Graph'),
-                                primaryYAxis: NumericAxis(
-                                  maximum: 5,
-                                  minimum: 1,
-                                  isVisible: false,
-                                ),
-                                series: <ChartSeries>[
-                                  LineSeries<ChartData, String>(
-                                      color: Colors.white,
-                                      markerSettings: MarkerSettings(
-                                        isVisible: true,
+                          child: StreamBuilder(
+                              stream: FirebaseFirestore.instance.collection("moods").orderBy("date", descending: true).snapshots(),
+                              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (!snapshot.hasData)
+                                  return Text('No past moods.');
+                                else {
+                                  List<ChartData> dataSet = <ChartData>[];
+                                  if (snapshot.data?.docs.length.compareTo(6) == 1) {
+                                    for (int i = 0; i < 7; i++) {
+                                      var mood = snapshot.data?.docs[i]['mood'];
+                                      var date = snapshot.data?.docs[i]['date'];
+                                      String moodString = mood.toString();
+                                      double moodDouble = 3;
+                                      switch (moodString) {
+                                        case "Moods.Elated":
+                                          moodDouble = 5;
+                                          break;
+                                        case "Moods.Happy":
+                                          moodDouble = 4;
+                                          break;
+                                        case "Moods.Neutral":
+                                          moodDouble = 3;
+                                          break;
+                                        case "Moods.Sad":
+                                          moodDouble = 2;
+                                          break;
+                                        case "Moods.Angry":
+                                          moodDouble = 1;
+                                      }
+                                      dataSet.add(ChartData(dateFormat(date), moodDouble));
+                                    }
+                                  }
+                                  else {
+                                    for (int i = 0; snapshot.data?.docs.length.compareTo(i) == 1; i++) {
+                                      var mood = snapshot.data?.docs[i]['mood'];
+                                      var date = snapshot.data?.docs[i]['date'];
+                                      String moodString = mood.toString();
+                                      double moodDouble = 3;
+                                      switch (moodString) {
+                                        case "Moods.Elated":
+                                          moodDouble = 5;
+                                          break;
+                                        case "Moods.Happy":
+                                          moodDouble = 4;
+                                          break;
+                                        case "Moods.Neutral":
+                                          moodDouble = 3;
+                                          break;
+                                        case "Moods.Sad":
+                                          moodDouble = 2;
+                                          break;
+                                        case "Moods.Angry":
+                                          moodDouble = 1;
+                                      }
+                                      dataSet.add(
+                                          ChartData(dateFormat(date), moodDouble));
+                                    }
+                                  }
+                                  return SfCartesianChart(
+                                      zoomPanBehavior: ZoomPanBehavior(
+                                        enablePinching: true,
+                                        zoomMode: ZoomMode.x,
+                                        enablePanning: true,
                                       ),
-                                      dataSource: dataSet,
-                                      xValueMapper: (ChartData data, _) =>
-                                      data.x,
-                                      yValueMapper: (ChartData data, _) =>
-                                      data.y
-                                  )
-                                ]
-                            );
-                          }
-                        }
-                        ),
+                                      primaryXAxis: CategoryAxis(
+                                        labelStyle: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      title: ChartTitle(text: 'Mood Graph'),
+                                      primaryYAxis: NumericAxis(
+                                        maximum: 5,
+                                        minimum: 1,
+                                        isVisible: false,
+                                      ),
+                                      series: <ChartSeries>[
+                                        LineSeries<ChartData, String>(
+                                            color: Colors.white,
+                                            markerSettings: MarkerSettings(
+                                              isVisible: true,
+                                            ),
+                                            dataSource: dataSet,
+                                            xValueMapper: (ChartData data, _) => data.x,
+                                            yValueMapper: (ChartData data, _) => data.y
+                                        )
+                                      ]
+                                  );
+                                }
+                              }
+                              ),
                         )
                       ],
                     )
-                )
+                    )
                 )
               ]
           ),
         )
     );
+  }
+  String dateFormat(var date){
+    return date[0].toString() + '/' + date[1].toString() + '/' + date[2].toString().substring(2, 4);
   }
 }
 class ChartData {
