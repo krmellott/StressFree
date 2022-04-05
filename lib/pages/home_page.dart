@@ -7,14 +7,18 @@ import 'dart:math';
 
 import 'activities_page.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _Home createState() => _Home();
+}
+
+class _Home extends State<Home> {
 
   int tipID() {
     Random random = new Random();
     return random.nextInt(9) + 1;
   }
 
-  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +49,9 @@ class Home extends StatelessWidget {
                         MaterialPageRoute(builder: (BuildContext context) {
                       return ActivitiesPage();
                     }));
+                    setState(() {
+
+                    });
                   },
                 ),
                 ElevatedButton(
@@ -55,6 +62,9 @@ class Home extends StatelessWidget {
                         MaterialPageRoute(builder: (BuildContext context) {
                       return MoodPage();
                     }));
+                    setState(() {
+
+                    });
                   },
                 ),
                 ElevatedButton(
@@ -65,6 +75,9 @@ class Home extends StatelessWidget {
                         MaterialPageRoute(builder: (BuildContext context) {
                       return HistoryPage();
                     }));
+                    setState(() {
+
+                    });
                   },
                 ),
                 ElevatedButton(
@@ -75,6 +88,9 @@ class Home extends StatelessWidget {
                         MaterialPageRoute(builder: (BuildContext context) {
                       return VideoPage();
                     }));
+                    setState(() {
+
+                    });
                   },
                 ),
               ],
