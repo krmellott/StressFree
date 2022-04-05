@@ -29,6 +29,6 @@ class stressFree_Controller {
   }
 
   insertJournalData(String title, List date, String body) {
-    modelReference.dbInsertJournal(body, date, title);
+    modelReference.dbInsertJournal(title, date, body);
   }
 }
