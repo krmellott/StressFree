@@ -1,3 +1,4 @@
+import 'package:firstapp/utils/add_videos.dart';
 import 'package:firstapp/utils/units_constant.dart';
 import 'package:flutter/src/material/dropdown.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
@@ -17,55 +18,51 @@ class VideoPage extends StatefulWidget {
 class _VideoPage extends State<VideoPage> {
   bool isVisible = false;
   Color color = Colors.grey;
-  @override
+  String? selected = 'Meditation';
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
+  List<String> genre = ['Meditation',
+    'Deep Breathing', 'Cute Cat Videos', 'Muscle Relaxation'];
 
+  @override
   Widget build(BuildContext context) {
-    /*   for (int i = 1; i < 5; i++) {
-      String testDate = i.toString() + '/33/22';
-      testList.add(ChartData(testDate, 2));
-    } */
+    // TODO: implement build
     return Scaffold(
-
-        backgroundColor: color,
-        appBar: AppBar(
-          title: Text("Videos"),
-        ),
-        body: Center(
-          child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                  child: Text(
-                    "Videos",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                    textScaleFactor: 4,
-                  ),
-                ),
-                Row(
-                    children: [
-                      Padding(
-                      padding: EdgeInsets.all(20)
-                      ),
-                      new DropdownButton(
-                          hint: Text('Please choose a topic'),
-                          items: null, onChanged: null,
-                          icon: const Icon(Icons.arrow_downward),
-                          style: const TextStyle(color: Colors.black),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.white,
-                          ),
-                      ),
-                    ],
-                  ),
-                ],
-
-
-              )
-          ),
-        );
+      appBar: AppBar(
+        title: const Text("Videos"),
+      ),
+      body: Column(
+        children: [
+          _dropDownItems(context),
+          VideoScreen(collectionPath: selected),
+        ],
+      ),
+    );
   }
+
+  _dropDownItems(BuildContext context) {
+    return DropdownButton<String>(
+      value: selected,
+      items: genre.map(buildGenreItem).toList(),
+      isExpanded: true,
+      onChanged: (value) => setState(() => {
+        selected = value,
+      }),
+      icon: Icon(
+        Icons.arrow_drop_down,
+        color: Colors.black,
+      ),
+      hint: Text('Genre: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),),
+    );
+  }
+
+  DropdownMenuItem<String> buildGenreItem(String item) => DropdownMenuItem(
+      value: item,
+      child: Text(
+        item,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        textAlign: TextAlign.center,
+      )
+  );
+
 }
