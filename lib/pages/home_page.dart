@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:firstapp/pages/videos_page.dart';
+import 'package:firstapp/utils/add_videos.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'activities_page.dart';
+import 'videos_page.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -137,7 +139,7 @@ class _Home extends State<Home> {
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
-                      return VideoPage();
+                      return VideosPage();
                     }));
                     setState(() {
 
