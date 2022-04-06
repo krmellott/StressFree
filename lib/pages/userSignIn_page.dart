@@ -34,6 +34,7 @@ class _UserAuthState extends State<UserAuth> {
                       _createTextFields(),
                       _createSignUpButton(context),
                       _createSendButton(context),
+                      _createAutoSignIn(context)
                     ],
                   )),
                 )));
@@ -107,6 +108,20 @@ class _UserAuthState extends State<UserAuth> {
         ));
   }
 
+  _createAutoSignIn(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.only(top: 20),
+        child: MyButton(
+            label: 'dev login',
+            onTap: () {
+              // Navigator.of(context)
+              //     .push(MaterialPageRoute(builder: (BuildContext context) {
+              //   return Home();
+              // }));
+              _devSignIn(context);
+            }));
+  }
+
   _OnSignIn(BuildContext context) async {
     try {
       final user = await FirebaseAuth.instance
@@ -125,6 +140,25 @@ class _UserAuthState extends State<UserAuth> {
       }
     } finally {
       //  print(userCredential.user.uid);
+    }
+  }
+
+  _devSignIn(BuildContext context) async {
+    try {
+      final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: 'testuser@live.com', password: 'abc123');
+      if (user != null) {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (BuildContext context) {
+          return Home();
+        }));
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
     }
   }
 }
