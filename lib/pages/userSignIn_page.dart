@@ -85,11 +85,11 @@ class _UserAuthState extends State<UserAuth> {
         child: MyButton(
             label: 'Log In!',
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (BuildContext context) {
-                return Home();
-              }));
-              //_OnSignIn(context);
+              // Navigator.of(context)
+              //     .push(MaterialPageRoute(builder: (BuildContext context) {
+              //   return Home();
+              // }));
+              _OnSignIn(context);
             }));
   }
 
@@ -99,20 +99,24 @@ class _UserAuthState extends State<UserAuth> {
         child: TextButton(
           child: Text("Don't have an account? Sign up here!"),
           onPressed: () {
-            _OnSignIn(context);
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (BuildContext context) {
+              return SignIn();
+            }));
           },
         ));
   }
 
   _OnSignIn(BuildContext context) async {
-    UserCredential? userCredential;
     try {
-      userCredential = await FirebaseAuth.instance
+      final user = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: UserEmail, password: UserPass);
-      // Navigator.of(context)
-      //     .push(MaterialPageRoute(builder: (BuildContext context) {
-      //   return SignIn();
-      // }));
+      if (user != null) {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (BuildContext context) {
+          return Home();
+        }));
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
