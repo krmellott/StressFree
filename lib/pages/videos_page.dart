@@ -1,21 +1,21 @@
-import 'package:firstapp/utils/add_videos.dart';
-import 'package:firstapp/utils/units_constant.dart';
-import 'package:flutter/src/material/dropdown.dart';
+import 'package:firstapp/pages/VideoScreens/cat_videos.dart';
+import 'package:firstapp/pages/VideoScreens/deep_breathing.dart';
+import 'package:firstapp/pages/VideoScreens/meditation.dart';
+import 'package:firstapp/pages/VideoScreens/muscle_relaxation.dart';
+import 'package:firstapp/utils/image_buttons.dart';
+import 'package:firstapp/utils/video_images.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/stressFree_Model.dart';
-import '/utils/units_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-class VideoPage extends StatefulWidget {
+class VideosPage extends StatefulWidget {
   @override
-  _VideoPage createState() => _VideoPage();
+  _VideosPage createState() => _VideosPage();
 }
 
-class _VideoPage extends State<VideoPage> {
+class _VideosPage extends State<VideosPage> {
   bool isVisible = false;
   Color color = Colors.grey;
   String? selected = 'Meditation';
@@ -31,38 +31,55 @@ class _VideoPage extends State<VideoPage> {
       appBar: AppBar(
         title: const Text("Videos"),
       ),
-      body: Column(
-        children: [
-          _dropDownItems(context),
-          VideoScreen(collectionPath: selected),
-        ],
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ImageButton(
+                  label: "Meditation Videos",
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return Meditation();
+                      })),
+                  image: VideoImage.meditation
+              ),
+              ImageButton(
+                  label: "Deep Breathing Videos",
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return DeepBreathing();
+                      })),
+                  image: VideoImage.breathing
+              ),
+              ImageButton(
+                  label: "Muscle Relaxation Videos",
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return MuscleRelaxion();
+                      })),
+                  image: VideoImage.relaxation
+              ),
+              ImageButton(
+                  label: "Cute Cat Videos",
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return CatVideos();
+                      })),
+                  image: VideoImage.cuteCats
+              ),
+              ImageButton(
+                  label: "Bookmarks",
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (BuildContext context) {
+                        return CatVideos();
+                      })),
+                  image: VideoImage.favorites
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
-
-  _dropDownItems(BuildContext context) {
-    return DropdownButton<String>(
-      value: selected,
-      items: genre.map(buildGenreItem).toList(),
-      isExpanded: true,
-      onChanged: (value) => setState(() => {
-        selected = value,
-      }),
-      icon: Icon(
-        Icons.arrow_drop_down,
-        color: Colors.black,
-      ),
-      hint: Text('Genre: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),),
-    );
-  }
-
-  DropdownMenuItem<String> buildGenreItem(String item) => DropdownMenuItem(
-      value: item,
-      child: Text(
-        item,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        textAlign: TextAlign.center,
-      )
-  );
 
 }
