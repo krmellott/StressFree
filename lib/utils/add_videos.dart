@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 
 class VideoScreen extends StatefulWidget {
-  final String? collectionPath;
+  final String collectionPath;
   const VideoScreen({Key? key, required this.collectionPath}) : super(key: key);
 
   @override
@@ -14,12 +14,11 @@ class VideoScreen extends StatefulWidget {
 
 class _VideoScreen extends State<VideoScreen> {
   Color _iconColor = Colors.grey;
-  bool _isPressed = false;
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: StreamBuilder(
-          stream: _getCollectionPath(widget.collectionPath),
+          stream: FirebaseFirestore.instance.collection(widget.collectionPath).snapshots(), //_getCollectionPath(widget.collectionPath),
           builder: (context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) return const Text('Loading...');
             return ListView(
@@ -60,6 +59,8 @@ class _VideoScreen extends State<VideoScreen> {
                                     color: _iconColor
                                 ),
                                 onPressed: () {
+                                  setState(() {
+                                  });
                                 },
                             )
                             // _favoriteIcon()
@@ -75,31 +76,5 @@ class _VideoScreen extends State<VideoScreen> {
       ),
     );
   }
-
-  _getCollectionPath(String? path){
-    switch(path){
-      case 'Meditation': return FirebaseFirestore.instance.collection('meditation videos').snapshots();
-      case 'Deep Breathing': return FirebaseFirestore.instance.collection('deep breathing videos').snapshots();
-      case 'Cute Cat Videos': return FirebaseFirestore.instance.collection('cute cat videos').snapshots();
-      case 'Muscle Relaxation': return FirebaseFirestore.instance.collection('guided muscle relaxation').snapshots();
-    }
-  }
-
-  // _favoriteIcon(){
-  //   return IconButton(
-  //       onPressed: (){
-  //         // FirebaseFirestore.instance.collection('meditation videos')
-  //         //     .doc('10 Minute Mindfulness Meditation').update({
-  //         //   'isFavorite': !_isPressed
-  //         // });
-  //         // _isPressed = !_isPressed;
-  //         setState(() {});
-  //       },
-  //       icon: Icon(
-  //         Icons.star_border,
-  //       )
-  //   );
-  // }
-
 }
 
