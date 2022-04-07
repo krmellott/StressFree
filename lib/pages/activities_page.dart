@@ -160,7 +160,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
       items: sortBy.map(buildMenuItem).toList(),
       onChanged: (value) => setState(() => {
             selected = value,
-            // _sortActivities(selected!)
           }),
       icon: Icon(
         Icons.arrow_drop_down,
@@ -216,7 +215,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('activity')
-                  .orderBy('priority')
+                  .orderBy('priority', descending: true)
                   .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) return const Text('Loading...');
