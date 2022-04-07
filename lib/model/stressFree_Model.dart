@@ -1,8 +1,4 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:collection';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import '../utils/units_constant.dart';
@@ -28,10 +24,16 @@ class stressFree_Model {
   }
 
   Future dbInsertVideo(
-      String name, String style, bool isFavorite, String url) async {
-    return await firestoreInstance.collection('videos').add(
-        {'name': name, 'style': style, 'isFavorite': isFavorite, 'url': url});
+      bool isFavorite, String name, String url) async {
+    return await firestoreInstance.collection('favorite videos').doc(name).set(
+        {'isFavorite': isFavorite,'name': name,  'url': url});
   }
+
+  Future dbRemoveVideo(String collection, String name) async {
+    return await firestoreInstance.collection('favorite videos').doc(name).delete();
+
+  }
+
 
   /// Inserts into the database a list of parameters into the 'mood' collection in
   /// the database.

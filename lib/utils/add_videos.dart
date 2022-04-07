@@ -1,3 +1,4 @@
+import 'package:firstapp/model/stressFree_Model.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,12 +15,14 @@ class VideoScreen extends StatefulWidget {
 
 class _VideoScreen extends State<VideoScreen> {
   Color _iconColor = Colors.grey;
+  final modelReference = new stressFree_Model();
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: StreamBuilder(
           stream: FirebaseFirestore.instance.collection(widget.collectionPath).snapshots(), //_getCollectionPath(widget.collectionPath),
           builder: (context, AsyncSnapshot snapshot) {
+            String collection = widget.collectionPath.toString();
             if (!snapshot.hasData) return const Text('Loading...');
             return ListView(
               children: snapshot.data!.docs.map<Widget>((document) {
@@ -52,16 +55,30 @@ class _VideoScreen extends State<VideoScreen> {
                               ),
                             ),
                             // SizedBox(width: 50),
+
                             IconButton(
                                 icon: Icon(
                                     Icons.bookmark_border_sharp,
                                     size: 30.0,
-                                    color: _iconColor
+                                    color: _iconColor = document['isFavorite'] ? Colors.green : Colors.red,
                                 ),
-                                onPressed: () {
+                              onPressed: () {
+                                if (_iconColor == Colors.red){
+                                  FirebaseFirestore.instance.collection(collection).doc(document['name']).update({'isFavorite': true});
                                   setState(() {
+                                    color: _iconColor = document['isFavorite'] ? Colors.green : Colors.red;
                                   });
-                                },
+                                  modelReference.dbInsertVideo(true, document['name'], url);
+                                }
+                                if (_iconColor == Colors.green){
+                                  FirebaseFirestore.instance.collection(collection).doc(document['name']).update({'isFavorite': false});
+                                  setState(() {
+                                    color: _iconColor = document['isFavorite'] ? Colors.green : Colors.red;
+                                  });
+                                  modelReference.dbRemoveVideo(collection, document['name']);
+                                }
+
+                              },
                             )
                             // _favoriteIcon()
                           ],
