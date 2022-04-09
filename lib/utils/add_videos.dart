@@ -35,6 +35,7 @@ class _VideoScreen extends State<VideoScreen> {
                     isLive: false,
                     loop: false,
                     forceHD: false,
+                    controlsVisibleAtStart: false,
                   ),
                 );
                 return Expanded(
@@ -54,7 +55,6 @@ class _VideoScreen extends State<VideoScreen> {
                                 ),
                               ),
                             ),
-                            // SizedBox(width: 50),
 
                             IconButton(
                                 icon: Icon(
