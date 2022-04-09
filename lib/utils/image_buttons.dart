@@ -11,10 +11,10 @@ class  ImageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24)
+        borderRadius: BorderRadius.circular(30)
       ),
-      child: Stack(
-        alignment: Alignment.center,
+      child: Column(
+        // alignment: Alignment.center,
         children: <Widget>[
           Ink.image(
             image: NetworkImage(image),
@@ -29,7 +29,8 @@ class  ImageButton extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
-              color: Colors.white
+              color: Colors.black,
+              // backgroundColor: Colors.lightBlueAccent
             ),
           )
         ]
