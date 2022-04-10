@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/stressFree_Model.dart';
 import 'package:firstapp/utils/addTask_page.dart';
@@ -30,6 +31,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
   var date = DateTime(0, 0, 0);
   String? selected = 'Date';
   List<String> sortBy = ['Date', 'Title', 'Priority'];
+  final String _userID = FirebaseAuth.instance.currentUser!.uid;
 
   stressFree_Model model = new stressFree_Model();
 
@@ -45,7 +47,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
           _addTaskBar(context),
           _addDatePicker(),
           _taskColumn(context),
-          _sortActivities(selected)
+          _sortActivities(selected, context)
         ],
       ),
     );
@@ -53,7 +55,12 @@ class _ActivitiesPage extends State<ActivitiesPage> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     var data = document.data() as Map<String, dynamic>;
-    if (data['status'] == false) {
+    print("document data in build list item: " + document.data().toString());
+    print("    This doc has 'status' == " + data['status'].toString());
+    print("    The condition is printing as: " +
+        (data['status'] == 'false').toString());
+    if (data['status'] == 'false') {
+      print("document data is false with " + data['title'].toString());
       return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
@@ -99,13 +106,21 @@ class _ActivitiesPage extends State<ActivitiesPage> {
             ),
             MyButton(
                 label: "+Add Task",
-                onTap: () => {
-                      //modelReference.dbInsertMood(Moods.Neutral, [1, 1, 2000])
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return AddTask();
-                      }))
-                    }),
+                onTap: () {
+                  print("UserID: " + _userID);
+                  modelReference.dbRetrieveActivities('$_userID');
+                  print("Snapshot: " +
+                      FirebaseFirestore.instance
+                          .collection('activity')
+                          .where('userId', isEqualTo: _userID)
+                          .snapshots()
+                          .first
+                          .toString());
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return AddTask();
+                  }));
+                }),
           ],
         ));
   }
@@ -176,16 +191,27 @@ class _ActivitiesPage extends State<ActivitiesPage> {
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
       ));
 
-  _sortActivities(String? label) {
+  _sortActivities(String? label, BuildContext context) {
     switch (label) {
       case 'Date':
         return Expanded(
+          //child:
+          // FutureBuilder(
+          //   future: _userID,
+          //   builder:
+          //   )
           child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('activity')
-                  .orderBy('date')
-                  .snapshots(),
+              stream: modelReference.orderedActivities(
+                  'activity', 'date', '$_userID'),
+              // FirebaseFirestore.instance
+              //     .collection('activity')
+              //     .orderBy('date')
+              //     //.where('userID', isEqualTo: '$_userID')
+              //     .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
+                snapshot.data.docs.forEach((doc) {
+                  print("Doc: " + doc.data().toString());
+                });
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
@@ -197,10 +223,12 @@ class _ActivitiesPage extends State<ActivitiesPage> {
       case 'Title':
         return Expanded(
           child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('activity')
-                  .orderBy('title')
-                  .snapshots(),
+              stream: modelReference.orderedActivities(
+                  'activity', 'title', '$_userID'),
+              // FirebaseFirestore.instance
+              //     .collection('activity')
+              //     .orderBy('title')
+              //     .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(
@@ -213,10 +241,12 @@ class _ActivitiesPage extends State<ActivitiesPage> {
       case 'Priority':
         return Expanded(
           child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('activity')
-                  .orderBy('priority', descending: true)
-                  .snapshots(),
+              stream: modelReference.orderedActivitiesWithSort(
+                  'activity', 'priority', true, '$_userID'),
+              // FirebaseFirestore.instance
+              //     .collection('activity')
+              //     .orderBy('priority', descending: true)
+              //     .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(

@@ -1,6 +1,7 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:collection';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,18 +9,21 @@ import '../utils/units_constant.dart';
 
 class stressFree_Model {
   final firestoreInstance = FirebaseFirestore.instance;
+  final _uid = FirebaseAuth.instance.currentUser!.uid.toString();
   //final databaseReference = FirebaseDatabase.instance.reference();
 
   ///Inserts a given activity into the firebase database given
   ///a set of parameters.
   Future dbInsertActivity(
       String name, bool status, List date, int priority) async {
+    String uid = await getCurrentUser();
     if (verifyActivityDate(date)) {
       return await firestoreInstance.collection('activity').add({
-        'title': name,
-        'status': status,
+        'title': '$name',
+        'status': '$status',
         'date': [date[0], date[1], date[2]],
-        'priority': priority
+        'priority': '$priority',
+        'userId': '$uid'
       });
     } else {
       print("{ok:0} => An error occurred!");
@@ -36,13 +40,20 @@ class stressFree_Model {
   /// the database.
   dbInsertMood(Moods mood, List date) async {
     if (verifyActivityDate(date)) {
-      var recentAddition = await firestoreInstance.collection('moods').orderBy("date", descending: true).limit(1).get();
+      var recentAddition = await firestoreInstance
+          .collection('moods')
+          .orderBy("date", descending: true)
+          .limit(1)
+          .get();
       String compareDate = date.toString();
-      if (compareDate.compareTo(recentAddition.docs[0]['date'].toString()) == 0){
+      if (compareDate.compareTo(recentAddition.docs[0]['date'].toString()) ==
+          0) {
         var docID = recentAddition.docs.first.id;
-        return firestoreInstance.collection('moods').doc(docID.toString()).update({'mood': mood.toString()});
-      }
-      else {
+        return firestoreInstance
+            .collection('moods')
+            .doc(docID.toString())
+            .update({'mood': mood.toString()});
+      } else {
         return await firestoreInstance.collection('moods').add({
           'mood': mood.toString(),
           'date': [date[0], date[1], date[2]]
@@ -66,9 +77,13 @@ class stressFree_Model {
   }
 
   /// Returns a snapshot of the 'activity' collection from the database
-  dbRetrieveActivities() async {
+  dbRetrieveActivities(String userId) async {
     Queue queryQueue = new Queue();
-    firestoreInstance.collection("activity").get().then((querySnapshot) {
+    firestoreInstance
+        .collection("activity")
+        .where('userId', isEqualTo: userId)
+        .get()
+        .then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
         print(result.data());
         queryQueue.add(result);
@@ -80,6 +95,44 @@ class stressFree_Model {
   //when called, use: stressFree_Model().activities
   Stream<QuerySnapshot> get activities {
     return firestoreInstance.collection("activity").snapshots();
+  }
+
+  Stream<QuerySnapshot> orderedActivities(
+      String collection, String orderPreference, String currUid) {
+    print('userID: ' + currUid);
+    firestoreInstance
+        .collection("activity")
+        .where('userId', isEqualTo: currUid)
+        .snapshots()
+        .forEach((element) {
+      element.docs.forEach((doc) {
+        print("Doc: " + doc.data().toString());
+      });
+    });
+    return firestoreInstance
+        .collection(collection)
+        .orderBy(orderPreference)
+        .where('userId', isEqualTo: currUid)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> orderedActivitiesWithSort(
+      String collection, String orderPreference, bool sort, String currUid) {
+    print('userID: ' + currUid);
+    firestoreInstance
+        .collection("activity")
+        .where('userId', isEqualTo: currUid)
+        .snapshots()
+        .forEach((element) {
+      element.docs.forEach((doc) {
+        print("Doc: " + doc.data().toString());
+      });
+    });
+    return firestoreInstance
+        .collection(collection)
+        .orderBy(orderPreference, descending: sort)
+        .where('userId', isEqualTo: currUid)
+        .snapshots();
   }
 
   dbRetrieveActivitiesByDate(DateTime date) async {
@@ -127,5 +180,11 @@ class stressFree_Model {
         " is " +
         isDate.toString());
     return isDate;
+  }
+
+  getCurrentUser() async {
+    final user = await FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
+    return uid.toString();
   }
 }
