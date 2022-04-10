@@ -23,4 +23,16 @@ class stressFree_Controller {
   insertMoodData(Moods mood, List date) {
     modelReference.dbInsertMood(mood, date);
   }
+
+  insertVideo(String title, bool isFavorite, String URL) {
+    modelReference.dbInsertVideo(isFavorite, title,  URL);
+  }
+
+  removeVideo(String collection, String title) {
+    modelReference.dbRemoveVideo(collection, title);
+  }
+
+  insertJournalData(String title, List date, String body) {
+    modelReference.dbInsertJournal(body, date, title);
+  }
 }
