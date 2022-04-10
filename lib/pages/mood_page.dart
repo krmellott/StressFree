@@ -23,112 +23,101 @@ class _MoodPage extends State<MoodPage> {
   final modelReference = new stressFree_Model();
   List<ChartData> testList = <ChartData>[];
 
-
-
-
   Widget build(BuildContext context) {
- /*   for (int i = 1; i < 5; i++) {
-      String testDate = i.toString() + '/33/22';
-      testList.add(ChartData(testDate, 2));
-    } */
     return Scaffold(
-
-      backgroundColor: color,
-      appBar: AppBar(
-        title: Text("Moods"),
-      ),
+        backgroundColor: color,
+        appBar: AppBar(
+          title: Text("Moods"),
+        ),
         body: Center(
-          child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                  child: Text(
-                    "Mood",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                    textScaleFactor: 4,
-                  ),
+          child: Column(children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: Text(
+                "Mood",
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.white),
+                textScaleFactor: 4,
+              ),
+            ),
+            DropdownButton<Moods>(
+                hint: Text('Please choose a mood'),
+                value: currMood,
+                icon: const Icon(Icons.arrow_downward),
+                style: const TextStyle(color: Colors.black),
+                underline: Container(
+                  height: 2,
+                  color: Colors.white,
                 ),
-                DropdownButton<Moods>(
-                    hint: Text('Please choose a mood'),
-                    value: currMood,
-                    icon: const Icon(Icons.arrow_downward),
-                    style: const TextStyle(color: Colors.black),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.white,
-                    ),
-                    onChanged: (newMood) {
-                      setState(() {
-                        _MoodPage().currMood = newMood!;
-                        currMood = newMood;
-                        controllerReference.insertMoodData(currMood, [DateTime.now().month, DateTime.now().day, DateTime.now().year]);
-                        switch(newMood) {
-                      case Moods.Neutral: {
-                        color = Colors.grey;
-                        setState(() {
-                        });
-                      }
-                      break;
-                      case Moods.Angry: {
-                        color = Colors.red;
-                        setState(() {
-                        });
-                      }
-                      break;
-                      case Moods.Happy: {
-                        color = Colors.amber;
-                        setState(() {
-                        });
-                      }
-                      break;
-                      case Moods.Elated: {
-                        color = Colors.purple;
-                        setState(() {
-                        });
-                      }
-                      break;
-                      case Moods.Sad: {
-                        color = Colors.blueAccent;
-                        setState(() {
-                        });
-                      }
-                      break;
-                    }}
-                      );
-                    },
-                    items: Moods.values.map((Moods mood) {
-                      return DropdownMenuItem<Moods>(
-                          value: mood,
-                          child: Text(mood.toString().substring(6)));
-                    }).toList()
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                  ),
-                  child: Text(
-                      'Show/Hide Graph',
-                      style: const TextStyle(color: Colors.black)
-                  ),
-                  onPressed: () {
-                    isVisible = !isVisible;
-                    setState(() {
-
-                    });
-                    },
-                ),
-                Container(
-                  width: 375,
-                    height: 300,
-                    child: Visibility(
+                onChanged: (newMood) {
+                  setState(() {
+                    _MoodPage().currMood = newMood!;
+                    currMood = newMood;
+                    controllerReference.insertMoodData(currMood, [
+                      DateTime.now().month,
+                      DateTime.now().day,
+                      DateTime.now().year
+                    ]);
+                    switch (newMood) {
+                      case Moods.Neutral:
+                        {
+                          color = Colors.grey;
+                          setState(() {});
+                        }
+                        break;
+                      case Moods.Angry:
+                        {
+                          color = Colors.red;
+                          setState(() {});
+                        }
+                        break;
+                      case Moods.Happy:
+                        {
+                          color = Colors.amber;
+                          setState(() {});
+                        }
+                        break;
+                      case Moods.Elated:
+                        {
+                          color = Colors.purple;
+                          setState(() {});
+                        }
+                        break;
+                      case Moods.Sad:
+                        {
+                          color = Colors.blueAccent;
+                          setState(() {});
+                        }
+                        break;
+                    }
+                  });
+                },
+                items: Moods.values.map((Moods mood) {
+                  return DropdownMenuItem<Moods>(
+                      value: mood, child: Text(mood.toString().substring(6)));
+                }).toList()),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+              ),
+              child: Text('Show/Hide Graph',
+                  style: const TextStyle(color: Colors.black)),
+              onPressed: () {
+                isVisible = !isVisible;
+                setState(() {});
+              },
+            ),
+            Container(
+                width: 375,
+                height: 300,
+                child: Visibility(
                     visible: isVisible,
-                    child: Row (
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Column (
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Padding(
@@ -183,13 +172,18 @@ class _MoodPage extends State<MoodPage> {
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: StreamBuilder(
-                              stream: FirebaseFirestore.instance.collection("moods").orderBy("date", descending: true).snapshots(),
-                              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              stream: FirebaseFirestore.instance
+                                  .collection("moods")
+                                  .orderBy("date", descending: true)
+                                  .snapshots(),
+                              builder: (context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
                                 if (!snapshot.hasData)
                                   return Text('No past moods.');
                                 else {
                                   List<ChartData> dataSet = <ChartData>[];
-                                  if (snapshot.data?.docs.length.compareTo(6) == 1) {
+                                  if (snapshot.data?.docs.length.compareTo(6) ==
+                                      1) {
                                     for (int i = 0; i < 7; i++) {
                                       var mood = snapshot.data?.docs[i]['mood'];
                                       var date = snapshot.data?.docs[i]['date'];
@@ -211,11 +205,15 @@ class _MoodPage extends State<MoodPage> {
                                         case "Moods.Angry":
                                           moodDouble = 1;
                                       }
-                                      dataSet.add(ChartData(dateFormat(date), moodDouble));
+                                      dataSet.add(ChartData(
+                                          dateFormat(date), moodDouble));
                                     }
-                                  }
-                                  else {
-                                    for (int i = 0; snapshot.data?.docs.length.compareTo(i) == 1; i++) {
+                                  } else {
+                                    for (int i = 0;
+                                        snapshot.data?.docs.length
+                                                .compareTo(i) ==
+                                            1;
+                                        i++) {
                                       var mood = snapshot.data?.docs[i]['mood'];
                                       var date = snapshot.data?.docs[i]['date'];
                                       String moodString = mood.toString();
@@ -236,8 +234,8 @@ class _MoodPage extends State<MoodPage> {
                                         case "Moods.Angry":
                                           moodDouble = 1;
                                       }
-                                      dataSet.add(
-                                          ChartData(dateFormat(date), moodDouble));
+                                      dataSet.add(ChartData(
+                                          dateFormat(date), moodDouble));
                                     }
                                   }
                                   return SfCartesianChart(
@@ -264,30 +262,32 @@ class _MoodPage extends State<MoodPage> {
                                               isVisible: true,
                                             ),
                                             dataSource: dataSet,
-                                            xValueMapper: (ChartData data, _) => data.x,
-                                            yValueMapper: (ChartData data, _) => data.y
-                                        )
-                                      ]
-                                  );
+                                            xValueMapper: (ChartData data, _) =>
+                                                data.x,
+                                            yValueMapper: (ChartData data, _) =>
+                                                data.y)
+                                      ]);
                                 }
-                              }
-                              ),
+                              }),
                         )
                       ],
-                    )
-                    )
-                )
-              ]
-          ),
-        )
-    );
+                    )))
+          ]),
+        ));
   }
-  String dateFormat(var date){
-    return date[0].toString() + '/' + date[1].toString() + '/' + date[2].toString().substring(2, 4);
+
+  String dateFormat(var date) {
+    return date[0].toString() +
+        '/' +
+        date[1].toString() +
+        '/' +
+        date[2].toString().substring(2, 4);
   }
 }
+
 class ChartData {
   ChartData(this.x, this.y);
+
   final String x;
   final double? y;
 }

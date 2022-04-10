@@ -17,7 +17,7 @@ class ActivitiesPage extends StatefulWidget {
 
 class _ActivitiesPage extends State<ActivitiesPage> {
   final _subHeadingFont = TextStyle(
-      fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.grey);
+      fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.black);
   final _subHeadingFont1 = TextStyle(
       fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.black);
   final _subHeadingFont2 = TextStyle(
@@ -42,13 +42,20 @@ class _ActivitiesPage extends State<ActivitiesPage> {
       appBar: AppBar(
         title: const Text("Activities"),
       ),
-      body: Column(
-        children: [
-          _addTaskBar(context),
-          _addDatePicker(),
-          _taskColumn(context),
-          _sortActivities(selected, context)
-        ],
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.lightBlueAccent, Colors.white])),
+        child: Column(
+          children: [
+            _addTaskBar(context),
+            _addDatePicker(),
+            _taskColumn(context),
+            _sortActivities(selected, context)
+          ],
+        ),
       ),
     );
   }

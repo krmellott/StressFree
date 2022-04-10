@@ -1,11 +1,10 @@
 import 'package:firstapp/pages/VideoScreens/cat_videos.dart';
 import 'package:firstapp/pages/VideoScreens/deep_breathing.dart';
+import 'package:firstapp/pages/VideoScreens/favorite_page.dart';
 import 'package:firstapp/pages/VideoScreens/meditation.dart';
 import 'package:firstapp/pages/VideoScreens/muscle_relaxation.dart';
 import 'package:firstapp/utils/image_buttons.dart';
 import 'package:firstapp/utils/video_images.dart';
-import 'package:firstapp/controller/stressFree_Controller.dart';
-import 'package:firstapp/model/stressFree_Model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,14 +15,6 @@ class VideosPage extends StatefulWidget {
 }
 
 class _VideosPage extends State<VideosPage> {
-  bool isVisible = false;
-  Color color = Colors.grey;
-  String? selected = 'Meditation';
-  final controllerReference = new stressFree_Controller();
-  final modelReference = new stressFree_Model();
-  List<String> genre = ['Meditation',
-    'Deep Breathing', 'Cute Cat Videos', 'Muscle Relaxation'];
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -32,6 +23,16 @@ class _VideosPage extends State<VideosPage> {
         title: const Text("Videos"),
       ),
       body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.lightBlueAccent,
+                  Colors.white
+                ]
+            )
+        ),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -68,10 +69,10 @@ class _VideosPage extends State<VideosPage> {
                   image: VideoImage.cuteCats
               ),
               ImageButton(
-                  label: "Bookmarks",
+                  label: "Favorite Videos",
                   onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(builder: (BuildContext context) {
-                        return CatVideos();
+                        return FavoriteVideos();
                       })),
                   image: VideoImage.favorites
               ),

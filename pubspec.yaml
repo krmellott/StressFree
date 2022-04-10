@@ -31,6 +31,7 @@ dependencies:
   #cloud_firestore: ^2.5.4
   firebase_core: ^1.6.0
   cloud_firestore: ^2.5.1
+  firebase_messaging: ^10.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -64,6 +65,13 @@ flutter:
     - family: BetterGrade
       fonts:
         - asset: assets/BetterGrade-519DV.ttf
+    - family: ComicSans
+      fonts:
+        - asset: assets/COMIC.TTF
+        - asset: assets/comici.ttf
+          style: italic
+        - asset: assets/design.graffiti.comicsansmsgras.ttf
+          weight: 700
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
