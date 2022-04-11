@@ -62,11 +62,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     var data = document.data() as Map<String, dynamic>;
-    print("document data in build list item: " + document.data().toString());
-    print("    This doc has 'status' == " + data['status'].toString());
-    print("    The condition is printing as: " +
-        (data['status'] == 'false').toString());
-    if (data['status'] == 'false') {
+    if (data['status'] == false) {
       print("document data is false with " + data['title'].toString());
       return Padding(
         padding: const EdgeInsets.all(1.0),
@@ -216,9 +212,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
               //     //.where('userID', isEqualTo: '$_userID')
               //     .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
-                snapshot.data.docs.forEach((doc) {
-                  print("Doc: " + doc.data().toString());
-                });
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstapp/utils/units_constant.dart';
 import 'package:flutter/src/material/dropdown.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
@@ -22,6 +23,7 @@ class _MoodPage extends State<MoodPage> {
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
   List<ChartData> testList = <ChartData>[];
+  final String _userID = FirebaseAuth.instance.currentUser!.uid;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,10 +174,12 @@ class _MoodPage extends State<MoodPage> {
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: StreamBuilder(
-                              stream: FirebaseFirestore.instance
-                                  .collection("moods")
-                                  .orderBy("date", descending: true)
-                                  .snapshots(),
+                              stream: modelReference.orderedActivitiesWithSort(
+                                  'moods', 'date', true, '$_userID'),
+                              //FirebaseFirestore.instance
+                              //.collection("moods")
+                              //.orderBy("date", descending: true)
+                              //.snapshots(),
                               builder: (context,
                                   AsyncSnapshot<QuerySnapshot> snapshot) {
                                 if (!snapshot.hasData)
