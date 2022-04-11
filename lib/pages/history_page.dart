@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firstapp/model/stressFree_Model.dart';
 import 'package:firstapp/pages/past_activity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:firstapp/pages/journal_main_page.dart';
+
 // TODO: implement TableCalendar
 // TODO: Allow user to click on day to view the activities they did that day
 class HistoryPage extends StatefulWidget {
@@ -16,108 +18,100 @@ class ActivitiesCalendar extends State<HistoryPage> {
   @override
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
+  DateTime? _selectedDay = DateTime.now();
+  final modelReference = new stressFree_Model();
+  final String _userID = FirebaseAuth.instance.currentUser!.uid;
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Activity Calendar"),
-      ),
-      body: //Center (
-      Column(
-        children: [
+        appBar: AppBar(
+          title: const Text("Activity Calendar"),
+        ),
+        body: //Center (
+            Column(children: [
           TableCalendar(
-            firstDay: DateTime.utc(2000,1,1),
-            lastDay: DateTime.utc(2050,12,31),
+            firstDay: DateTime.utc(2000, 1, 1),
+            lastDay: DateTime.utc(2050, 12, 31),
             focusedDay: DateTime.now(),
 
-        selectedDayPredicate: (day) { //used to determine which day has been selected by the user
-          return isSameDay(_selectedDay, day);
-        },
-        onDaySelected: (selectedDay, focusedDay) { //highlights the day the user selected
-          setState(() {
-            _selectedDay = selectedDay;
-            _focusedDay = focusedDay;
-          }); //setState
-
-        }, // onDaySelected
-        calendarFormat: _calendarFormat,
-        onFormatChanged: (format) {
-          setState(() {
-            _calendarFormat = format;
-          }); //setState
-        },//onFormatChanged
-        onPageChanged: (focusedDay) {
-          _focusedDay = focusedDay;
-        },//onPageChanged
-        ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.green
-                ),
-                child: Text('Completed Activities'),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                    return PastActivities();
-                  }));
-                },
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.purple
-                ),
-                child: Text('Journal'),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                    return MainJournal();
-                  }));
-                },
-              ),
-            ]
+            selectedDayPredicate: (day) {
+              //used to determine which day has been selected by the user
+              return isSameDay(_selectedDay, day);
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              //highlights the day the user selected
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
+              }); //setState
+            }, // onDaySelected
+            calendarFormat: _calendarFormat,
+            onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              }); //setState
+            }, //onFormatChanged
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+            }, //onPageChanged
           ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.green),
+              child: Text('Completed Activities'),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return PastActivities();
+                }));
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.purple),
+              child: Text('Journal'),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return MainJournal();
+                }));
+              },
+            ),
+          ]),
           Expanded(
-            child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('activity').snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData)
-                    return Text('No activities found.');
-                  return new ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data?.docs.length,
-                      itemBuilder: (context, index) {
-                        return _buildListItem(context, snapshot.data!.docs[index]);
-                      }
-                  );
-                }
-            )
-          ),
-
-        ]
-      )
-    );
+              child: StreamBuilder(
+                  stream: modelReference.dbRetrieveActivities('$_userID'),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) return Text('No activities found.');
+                    return new ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data?.docs.length,
+                        itemBuilder: (context, index) {
+                          return _buildListItem(
+                              context, snapshot.data!.docs[index]);
+                        });
+                  })),
+        ]));
   }
 
-
-  Widget _buildListItem(BuildContext context,DocumentSnapshot document){
+  Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     var data = document.data() as Map<String, dynamic>;
-    if(data['status'] == false && data['date'][2] == _selectedDay?.year && data['date'][0] == _selectedDay?.month && data['date'][1] == _selectedDay?.day  ){
+    if (data['status'] == false &&
+        data['date'][2] == _selectedDay?.year &&
+        data['date'][0] == _selectedDay?.month &&
+        data['date'][1] == _selectedDay?.day) {
       return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
           child: ListTile(
             title: Text(data['title']),
             subtitle: Text('Due date: ' +
-                data['date'].toString() + '\nPriority: ' + data['priority'].toString()),
+                data['date'].toString() +
+                '\nPriority: ' +
+                data['priority'].toString()),
           ),
         ),
       );
     }
     return SizedBox(width: 0, height: 0);
   }
-
-
-
 }

@@ -55,16 +55,23 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-  fonts:
-    - family: BackStay
-      fonts:
-        - asset: assets/BackstayRegular-mLBpm.ttf
-    - family: LoftyGoals
-      fonts:
-        - asset: assets/LoftygoalsRegular-9Y5Xy.otf
-    - family: BetterGrade
-      fonts:
-        - asset: assets/BetterGrade-519DV.ttf
+#  fonts:
+#    - family: BackStay
+#      fonts:
+#        - asset: assets/BackstayRegular-mLBpm.ttf
+#    - family: LoftyGoals
+#      fonts:
+#        - asset: assets/LoftygoalsRegular-9Y5Xy.otf
+#    - family: BetterGrade
+#      fonts:
+#        - asset: assets/BetterGrade-519DV.ttf
+#    - family: ComicSans
+#      fonts:
+#        - asset: assets/COMIC.TTF
+#        - asset: assets/comici.ttf
+#          style: italic
+#        - asset: assets/design.graffiti.comicsansmsgras.ttf
+#          weight: 700
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

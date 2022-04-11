@@ -12,5 +12,5 @@ class VideoImage {
       'https://i.ytimg.com/vi/SQJrYw1QvSQ/maxresdefault.jpg';
 
   static String get favorites =>
-      'https://wanderingnerdgirl.files.wordpress.com/2017/04/tbf.jpg?w=434&h=436';
+      'https://i.pinimg.com/564x/31/64/c8/3164c88a698819042dde3803aa6d45b8.jpg';
 }
