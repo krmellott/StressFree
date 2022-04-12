@@ -12,7 +12,7 @@ class AddEntry extends StatefulWidget {
 }
 
 class _AddEntry extends State<AddEntry> {
-  stressFree_Controller SFControllerRef = stressFree_Controller();
+  StressFreeController SFControllerRef = StressFreeController();
   DateTime date = DateTime.now();
   String body = "";
   String title = "";
