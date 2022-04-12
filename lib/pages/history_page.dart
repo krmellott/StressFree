@@ -20,7 +20,6 @@ class ActivitiesCalendar extends State<HistoryPage> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
   final modelReference = new stressFree_Model();
-  final String _userID = FirebaseAuth.instance.currentUser!.uid;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +78,7 @@ class ActivitiesCalendar extends State<HistoryPage> {
           ]),
           Expanded(
               child: StreamBuilder(
-                  stream: modelReference.dbRetrieveActivities('$_userID'),
+                  stream: modelReference.dbRetrieveActivities(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) return Text('No activities found.');
                     return new ListView.builder(

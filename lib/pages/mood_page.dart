@@ -23,7 +23,6 @@ class _MoodPage extends State<MoodPage> {
   final controllerReference = new stressFree_Controller();
   final modelReference = new stressFree_Model();
   List<ChartData> testList = <ChartData>[];
-  final String _userID = FirebaseAuth.instance.currentUser!.uid;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,7 +174,7 @@ class _MoodPage extends State<MoodPage> {
                           scrollDirection: Axis.horizontal,
                           child: StreamBuilder(
                               stream: modelReference.orderedActivitiesWithSort(
-                                  'moods', 'date', true, '$_userID'),
+                                  'moods', 'date', true),
                               //FirebaseFirestore.instance
                               //.collection("moods")
                               //.orderBy("date", descending: true)

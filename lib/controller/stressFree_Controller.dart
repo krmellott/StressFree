@@ -5,7 +5,6 @@ import '../model/stressFree_Model.dart';
 
 class stressFree_Controller {
   final modelReference = new stressFree_Model();
-  final String _userID = FirebaseAuth.instance.currentUser!.uid;
 
   /// inserts: {'name':<string>, 'status':<bool>, 'date':{'month':<int>,'day':<int>,'year':<int>}}
   insertActivityData(String name, bool status, List date, int priority) {
@@ -23,7 +22,7 @@ class stressFree_Controller {
 
   /// inserts: {'mood':<String>, 'date':{'month':<int>,'day':<int>,'year':<int>}}
   insertMoodData(Moods mood, List date) {
-    modelReference.dbInsertMood(mood, date, _userID);
+    modelReference.dbInsertMood(mood, date);
   }
 
   insertVideo(String title, bool isFavorite, String URL) {
@@ -35,6 +34,6 @@ class stressFree_Controller {
   }
 
   insertJournalData(String title, List date, String body) {
-    modelReference.dbInsertJournal(body, date, title, _userID);
+    modelReference.dbInsertJournal(body, date, title);
   }
 }

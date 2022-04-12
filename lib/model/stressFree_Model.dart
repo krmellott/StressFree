@@ -16,14 +16,13 @@ class stressFree_Model {
   ///a set of parameters.
   Future dbInsertActivity(
       String name, bool status, List date, int priority) async {
-    String uid = await getCurrentUser();
     if (verifyActivityDate(date)) {
       return await firestoreInstance.collection('activity').add({
         'title': '$name',
         'status': status,
         'date': [date[0], date[1], date[2]],
         'priority': '$priority',
-        'userId': '$uid'
+        'userId': '$_uid'
       });
     } else {
       print("{ok:0} => An error occurred!");
@@ -46,12 +45,12 @@ class stressFree_Model {
 
   /// Inserts into the database a list of parameters into the 'mood' collection in
   /// the database.
-  dbInsertMood(Moods mood, List date, String userID) async {
+  dbInsertMood(Moods mood, List date) async {
     if (verifyActivityDate(date)) {
       var recentAddition = await firestoreInstance
           .collection('moods')
           .orderBy("date", descending: true)
-          .where('userId', isEqualTo: userID)
+          .where('userId', isEqualTo: _uid)
           .limit(1)
           .get();
       String compareDate = date.toString();
@@ -66,7 +65,7 @@ class stressFree_Model {
         return await firestoreInstance.collection('moods').add({
           'mood': mood.toString(),
           'date': [date[0], date[1], date[2]],
-          'userId': '$userID'
+          'userId': '$_uid'
         });
       }
     } else {
@@ -74,13 +73,13 @@ class stressFree_Model {
     }
   }
 
-  dbInsertJournal(String body, List date, String title, String userID) async {
+  dbInsertJournal(String body, List date, String title) async {
     if (verifyActivityDate(date)) {
       return await firestoreInstance.collection('journal').add({
         'title': title,
         'body': body,
         'date': [date[0], date[1], date[2]],
-        'userId': '$userID'
+        'userId': '$_uid'
       });
     } else {
       print("{ok:0} => An error occurred!");
@@ -88,19 +87,18 @@ class stressFree_Model {
   }
 
   /// Returns a snapshot of the 'activity' collection from the database
-  Stream<QuerySnapshot> dbRetrieveActivities(String userId) {
+  Stream<QuerySnapshot> dbRetrieveActivities() {
     return firestoreInstance
         .collection("activity")
-        .where('userId', isEqualTo: userId)
+        .where('userId', isEqualTo: _uid)
         .snapshots();
   }
 
   Stream<QuerySnapshot> orderedActivities(
-      String collection, String orderPreference, String currUid) {
-    print('userID: ' + currUid);
+      String collection, String orderPreference) {
     firestoreInstance
         .collection("activity")
-        .where('userId', isEqualTo: currUid)
+        .where('userId', isEqualTo: _uid)
         .snapshots()
         .forEach((element) {
       element.docs.forEach((doc) {
@@ -110,16 +108,15 @@ class stressFree_Model {
     return firestoreInstance
         .collection(collection)
         .orderBy(orderPreference)
-        .where('userId', isEqualTo: currUid)
+        .where('userId', isEqualTo: _uid)
         .snapshots();
   }
 
   Stream<QuerySnapshot> orderedActivitiesWithSort(
-      String collection, String orderPreference, bool sort, String currUid) {
-    print('userID: ' + currUid);
+      String collection, String orderPreference, bool sort) {
     firestoreInstance
         .collection("activity")
-        .where('userId', isEqualTo: currUid)
+        .where('userId', isEqualTo: _uid)
         .snapshots()
         .forEach((element) {
       element.docs.forEach((doc) {
@@ -129,7 +126,7 @@ class stressFree_Model {
     return firestoreInstance
         .collection(collection)
         .orderBy(orderPreference, descending: sort)
-        .where('userId', isEqualTo: currUid)
+        .where('userId', isEqualTo: _uid)
         .snapshots();
   }
 
