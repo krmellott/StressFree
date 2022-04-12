@@ -1,19 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firstapp/auth/signInHandler.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/home_page.dart';
 import '../utils/buttons.dart';
 
-class forgotPassword extends StatefulWidget {
-  const forgotPassword({Key? key}) : super(key: key);
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({Key? key}) : super(key: key);
 
   @override
-  State<forgotPassword> createState() => _forgotPasswordState();
+  State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _forgotPasswordState extends State<forgotPassword> {
-  String UserEmail = "";
+class _ForgotPasswordState extends State<ForgotPassword> {
+  String userEmail = "";
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +38,7 @@ class _forgotPasswordState extends State<forgotPassword> {
           ),
           onChanged: (String? email) {
             setState(() {
-              UserEmail = email!;
+              userEmail = email!;
             });
           },
         ));
@@ -52,14 +50,13 @@ class _forgotPasswordState extends State<forgotPassword> {
         child: MyButton(
             label: 'Send email!',
             onTap: () {
-              _OnRequest(context);
+              _onRequest(context);
             }));
   }
 
-  _OnRequest(BuildContext context) async {
+  _onRequest(BuildContext context) async {
     try {
-      final user =
-          await FirebaseAuth.instance.sendPasswordResetEmail(email: UserEmail);
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: userEmail);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showDialog<String>(

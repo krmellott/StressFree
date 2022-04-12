@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class  MyButton extends StatelessWidget {
+class MyButton extends StatelessWidget {
   final String label;
   final Function() onTap;
-  const MyButton({Key? key, required this.label, required this.onTap}) : super(key: key);
+  const MyButton({Key? key, required this.label, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,7 @@ class  MyButton extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TextStyle(
-              fontSize: 15.0,
-              color: Colors.white
-          ),
+          style: TextStyle(fontSize: 15.0, color: Colors.white),
         ),
       ),
     );

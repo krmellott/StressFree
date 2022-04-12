@@ -13,8 +13,8 @@ class UserAuth extends StatefulWidget {
 }
 
 class _UserAuthState extends State<UserAuth> {
-  String UserEmail = "";
-  String UserPass = "";
+  String _userEmail = "";
+  String _userPass = "";
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _UserAuthState extends State<UserAuth> {
               ),
               onChanged: (String? email) {
                 setState(() {
-                  UserEmail = email!;
+                  _userEmail = email!;
                 });
               },
             )),
@@ -74,7 +74,7 @@ class _UserAuthState extends State<UserAuth> {
               ),
               onChanged: (String? password) {
                 setState(() {
-                  UserPass = password!;
+                  _userPass = password!;
                 });
               },
             ))
@@ -88,7 +88,7 @@ class _UserAuthState extends State<UserAuth> {
         child: MyButton(
             label: 'Log In!',
             onTap: () {
-              _OnSignIn(context);
+              _onSignIn(context);
             }));
   }
 
@@ -114,7 +114,7 @@ class _UserAuthState extends State<UserAuth> {
           onPressed: () {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (BuildContext context) {
-              return forgotPassword();
+              return ForgotPassword();
             }));
           },
         ));
@@ -130,11 +130,11 @@ class _UserAuthState extends State<UserAuth> {
             }));
   }
 
-  _OnSignIn(BuildContext context) async {
+  _onSignIn(BuildContext context) async {
     try {
       final user = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: UserEmail, password: UserPass);
-      if (user != null) {
+          .signInWithEmailAndPassword(email: _userEmail, password: _userPass);
+      if (user.user!.uid != "") {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (BuildContext context) {
           return Home();
@@ -155,7 +155,7 @@ class _UserAuthState extends State<UserAuth> {
     try {
       final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: 'testuser@live.com', password: 'abc123');
-      if (user != null) {
+      if (user.user!.uid != "") {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (BuildContext context) {
           return Home();

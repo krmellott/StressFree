@@ -3,7 +3,7 @@ import 'package:firstapp/utils/units_constant.dart';
 
 import '../model/stressFree_Model.dart';
 
-class stressFree_Controller {
+class StressFree_Controller {
   final modelReference = new stressFree_Model();
   final String _userID = FirebaseAuth.instance.currentUser!.uid;
 

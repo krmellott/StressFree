@@ -20,7 +20,7 @@ class _MoodPage extends State<MoodPage> {
   Color color = Colors.grey;
   @override
   Moods currMood = Moods.Neutral;
-  final controllerReference = new stressFree_Controller();
+  final controllerReference = new StressFree_Controller();
   final modelReference = new stressFree_Model();
   List<ChartData> testList = <ChartData>[];
 

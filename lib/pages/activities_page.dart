@@ -26,7 +26,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
       fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.grey);
   final _headingFont = TextStyle(
       fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.black);
-  final controllerReference = new stressFree_Controller();
+  final controllerReference = new StressFree_Controller();
   final modelReference = new stressFree_Model();
   var date = DateTime(0, 0, 0);
   String? selected = 'Date';
