@@ -31,7 +31,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
   var date = DateTime(0, 0, 0);
   String? selected = 'Date';
   List<String> sortBy = ['Date', 'Title', 'Priority'];
-  final String _userID = FirebaseAuth.instance.currentUser!.uid;
 
   stressFree_Model model = new stressFree_Model();
 
@@ -110,15 +109,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
             MyButton(
                 label: "+Add Task",
                 onTap: () {
-                  print("UserID: " + _userID);
-                  modelReference.dbRetrieveActivities('$_userID');
-                  print("Snapshot: " +
-                      FirebaseFirestore.instance
-                          .collection('activity')
-                          .where('userId', isEqualTo: _userID)
-                          .snapshots()
-                          .first
-                          .toString());
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext context) {
                     return AddTask();
@@ -204,8 +194,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
           //   builder:
           //   )
           child: StreamBuilder(
-              stream: modelReference.orderedActivities(
-                  'activity', 'date', '$_userID'),
+              stream: modelReference.orderedActivities('activity', 'date'),
               // FirebaseFirestore.instance
               //     .collection('activity')
               //     .orderBy('date')
@@ -223,8 +212,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
       case 'Title':
         return Expanded(
           child: StreamBuilder(
-              stream: modelReference.orderedActivities(
-                  'activity', 'title', '$_userID'),
+              stream: modelReference.orderedActivities('activity', 'title'),
               // FirebaseFirestore.instance
               //     .collection('activity')
               //     .orderBy('title')
@@ -242,7 +230,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
         return Expanded(
           child: StreamBuilder(
               stream: modelReference.orderedActivitiesWithSort(
-                  'activity', 'priority', true, '$_userID'),
+                  'activity', 'priority', true),
               // FirebaseFirestore.instance
               //     .collection('activity')
               //     .orderBy('priority', descending: true)

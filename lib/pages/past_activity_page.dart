@@ -10,7 +10,6 @@ class PastActivities extends StatefulWidget {
 
 class _PastActivities extends State<PastActivities> {
   final modelReference = new stressFree_Model();
-  final String _userID = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class _PastActivities extends State<PastActivities> {
           title: const Text('Completed Activities'),
         ),
         body: StreamBuilder(
-            stream: modelReference.dbRetrieveActivities('$_userID'),
+            stream: modelReference.dbRetrieveActivities(),
             //FirebaseFirestore.instance.collection('activity').snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData)
