@@ -12,7 +12,7 @@ class HistoryPage extends StatefulWidget {
 
 class ActivitiesCalendar extends State<HistoryPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _focusedDay = DateTime.now();
+  //DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
   final modelReference = new StressFreeModel();
 
@@ -42,7 +42,7 @@ class ActivitiesCalendar extends State<HistoryPage> {
                       //highlights the day the user selected
                       setState(() {
                         _selectedDay = selectedDay;
-                        _focusedDay = focusedDay;
+                        //_focusedDay = focusedDay;
                       }); //setState
                     },
                     // onDaySelected
@@ -54,7 +54,7 @@ class ActivitiesCalendar extends State<HistoryPage> {
                     },
                     //onFormatChanged
                     onPageChanged: (focusedDay) {
-                      _focusedDay = focusedDay;
+                      //_focusedDay = focusedDay;
                     }, //onPageChanged
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [

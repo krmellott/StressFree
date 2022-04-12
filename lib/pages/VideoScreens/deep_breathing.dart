@@ -1,5 +1,4 @@
 import 'package:firstapp/utils/add_videos.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DeepBreathing extends StatelessWidget {
@@ -12,9 +11,7 @@ class DeepBreathing extends StatelessWidget {
         title: const Text("Deep Breathing"),
       ),
       body: Column(
-        children: [
-          VideoScreen(collectionPath: 'deep breathing videos')
-        ],
+        children: [VideoScreen(collectionPath: 'deep breathing videos')],
       ),
     );
   }

@@ -12,7 +12,7 @@ class AddEntry extends StatefulWidget {
 }
 
 class _AddEntry extends State<AddEntry> {
-  StressFreeController SFControllerRef = StressFreeController();
+  StressFreeController controllerRef = StressFreeController();
   DateTime date = DateTime.now();
   String body = "";
   String title = "";
@@ -23,61 +23,52 @@ class _AddEntry extends State<AddEntry> {
         appBar: AppBar(
           title: const Text("New Journal Entry"),
         ),
-        body: Center(
-            child: Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.lightBlueAccent, Colors.white])),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: 20, right: 20, top: 10),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Title your entry!',
-                              ),
-                              onChanged: (String? aTitle) {
-                                setState(() {
-                                  title = aTitle!;
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        MyButton(
-                          label: 'Save',
-                          onTap: () {
-                            SFControllerRef.insertJournalData(
-                                body, [date.month, date.day, date.year], title);
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    ),
-                    Container(
-                      margin:
-                          const EdgeInsets.only(left: 20, right: 10, top: 10),
-                      child: TextField(
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'What did you do today?',
-                        ),
-                        onChanged: (String? aBody) {
-                          setState(() {
-                            body = aBody!;
-                          });
-                        },
+        body: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Title your entry!',
                       ),
+                      onChanged: (String? aTitle) {
+                        setState(() {
+                          title = aTitle!;
+                        });
+                      },
                     ),
-                  ],
-                ))));
+                  ),
+                ),
+                MyButton(
+                  label: 'Save',
+                  onTap: () {
+                    controllerRef.insertJournalData(
+                        body, [date.month, date.day, date.year], title);
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
+              child: TextField(
+                maxLines: null,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'What did you do today?',
+                ),
+                onChanged: (String? aBody) {
+                  setState(() {
+                    body = aBody!;
+                  });
+                },
+              ),
+            ),
+          ],
+        ));
   }
 }
