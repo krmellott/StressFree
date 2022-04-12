@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstapp/utils/units_constant.dart';
 
-import '../model/stressFree_Model.dart';
+import '../model/StressFreeModel.dart';
 
 class StressFreeController {
   final modelReference = new StressFreeModel();

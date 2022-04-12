@@ -1,5 +1,4 @@
 import 'package:firstapp/utils/add_videos.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MuscleRelaxion extends StatelessWidget {
@@ -12,9 +11,7 @@ class MuscleRelaxion extends StatelessWidget {
         title: const Text("Muscle Relaxation"),
       ),
       body: Column(
-        children: [
-          VideoScreen(collectionPath: 'guided muscle relaxation')
-        ],
+        children: [VideoScreen(collectionPath: 'guided muscle relaxation')],
       ),
     );
   }

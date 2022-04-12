@@ -1,5 +1,4 @@
 import 'package:firstapp/utils/add_videos.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Meditation extends StatelessWidget {
