@@ -1,11 +1,8 @@
 import 'package:firstapp/controller/stressFree_Controller.dart';
-import 'package:firstapp/utils/Activity.dart';
 import 'package:firstapp/utils/buttons.dart';
 import 'package:firstapp/utils/units_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../model/stressFree_Model.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({Key? key}) : super(key: key);
@@ -15,7 +12,7 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  stressFree_Controller SFControllerRef = stressFree_Controller();
+  StressFreeController controllerRef = StressFreeController();
   DateTime date = DateTime.now();
   String message = "";
   int _dropdownValue = 3;
@@ -137,7 +134,7 @@ class _AddTaskState extends State<AddTask> {
             isCompleted = true;
           else
             isCompleted = false;
-          SFControllerRef.insertActivityData(message, isCompleted,
+          controllerRef.insertActivityData(message, isCompleted,
               [date.month, date.day, date.year], _dropdownValue);
           Navigator.pop(context);
         });

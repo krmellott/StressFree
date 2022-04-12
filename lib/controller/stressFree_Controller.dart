@@ -3,8 +3,8 @@ import 'package:firstapp/utils/units_constant.dart';
 
 import '../model/stressFree_Model.dart';
 
-class stressFree_Controller {
-  final modelReference = new stressFree_Model();
+class StressFreeController {
+  final modelReference = new StressFreeModel();
   final String _userID = FirebaseAuth.instance.currentUser!.uid;
 
   /// inserts: {'name':<string>, 'status':<bool>, 'date':{'month':<int>,'day':<int>,'year':<int>}}
@@ -26,8 +26,8 @@ class stressFree_Controller {
     modelReference.dbInsertMood(mood, date);
   }
 
-  insertVideo(String title, bool isFavorite, String URL) {
-    modelReference.dbInsertVideo(isFavorite, title, URL);
+  insertVideo(String title, bool isFavorite, String url) {
+    modelReference.dbInsertVideo(isFavorite, title, url);
   }
 
   removeVideo(String collection, String title) {

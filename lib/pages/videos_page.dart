@@ -5,9 +5,7 @@ import 'package:firstapp/pages/VideoScreens/meditation.dart';
 import 'package:firstapp/pages/VideoScreens/muscle_relaxation.dart';
 import 'package:firstapp/utils/image_buttons.dart';
 import 'package:firstapp/utils/video_images.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class VideosPage extends StatefulWidget {
   @override
@@ -27,60 +25,49 @@ class _VideosPage extends State<VideosPage> {
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Colors.lightBlueAccent,
-                  Colors.white
-                ]
-            )
-        ),
+                colors: [Colors.lightBlueAccent, Colors.white])),
         child: SingleChildScrollView(
           child: Column(
             children: [
               ImageButton(
                   label: "Meditation Videos",
                   onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) {
+                          MaterialPageRoute(builder: (BuildContext context) {
                         return Meditation();
                       })),
-                  image: VideoImage.meditation
-              ),
+                  image: VideoImage.meditation),
               ImageButton(
                   label: "Deep Breathing Videos",
                   onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) {
+                          MaterialPageRoute(builder: (BuildContext context) {
                         return DeepBreathing();
                       })),
-                  image: VideoImage.breathing
-              ),
+                  image: VideoImage.breathing),
               ImageButton(
                   label: "Muscle Relaxation Videos",
                   onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) {
+                          MaterialPageRoute(builder: (BuildContext context) {
                         return MuscleRelaxion();
                       })),
-                  image: VideoImage.relaxation
-              ),
+                  image: VideoImage.relaxation),
               ImageButton(
                   label: "Cute Cat Videos",
                   onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) {
+                          MaterialPageRoute(builder: (BuildContext context) {
                         return CatVideos();
                       })),
-                  image: VideoImage.cuteCats
-              ),
+                  image: VideoImage.cuteCats),
               ImageButton(
                   label: "Favorite Videos",
                   onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) {
+                          MaterialPageRoute(builder: (BuildContext context) {
                         return FavoriteVideos();
                       })),
-                  image: VideoImage.favorites
-              ),
+                  image: VideoImage.favorites),
             ],
           ),
         ),
       ),
     );
   }
-
 }

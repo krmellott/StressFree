@@ -13,9 +13,9 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final firestoreInstance = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
-  String _UserEmail = "";
-  String _UserPass = "";
-  String _UserPassVerification = "";
+  String _userEmail = "";
+  String _userPass = "";
+  String _userPassVerification = "";
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _SignInState extends State<SignIn> {
               ),
               onChanged: (String? email) {
                 setState(() {
-                  _UserEmail = email!;
+                  _userEmail = email!;
                 });
               },
             )),
@@ -58,7 +58,7 @@ class _SignInState extends State<SignIn> {
               ),
               onChanged: (String? password) {
                 setState(() {
-                  _UserPass = password!;
+                  _userPass = password!;
                 });
               },
             )),
@@ -72,7 +72,7 @@ class _SignInState extends State<SignIn> {
               ),
               onChanged: (String? password) {
                 setState(() {
-                  _UserPassVerification = password!;
+                  _userPassVerification = password!;
                 });
               },
             ))
@@ -84,16 +84,15 @@ class _SignInState extends State<SignIn> {
     return MyButton(
         label: "Sign Up!",
         onTap: () {
-          _SignUpAction(context);
+          _signUpAction(context);
         });
   }
 
-  _SignUpAction(BuildContext context) async {
+  _signUpAction(BuildContext context) async {
     if (_isValidForm()) {
       try {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: _UserEmail, password: _UserPass);
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _userEmail, password: _userPass);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
@@ -107,14 +106,14 @@ class _SignInState extends State<SignIn> {
       }
     } else {
       print("Passwords don't match!");
-      print(_UserEmail + " " + _UserPass + " " + _UserPassVerification);
+      print(_userEmail + " " + _userPass + " " + _userPassVerification);
     }
   }
 
   bool _isValidForm() {
-    return (!((_UserEmail == "") &&
-            (_UserPass == "") &&
-            (_UserPassVerification == "")) &&
-        (_UserPass == _UserPassVerification));
+    return (!((_userEmail == "") &&
+            (_userPass == "") &&
+            (_userPassVerification == "")) &&
+        (_userPass == _userPassVerification));
   }
 }

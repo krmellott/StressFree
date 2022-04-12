@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firstapp/model/stressFree_Model.dart';
+import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:firstapp/pages/past_activity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -19,7 +19,7 @@ class ActivitiesCalendar extends State<HistoryPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
-  final modelReference = new stressFree_Model();
+  final modelReference = new StressFreeModel();
 
   Widget build(BuildContext context) {
     return Scaffold(

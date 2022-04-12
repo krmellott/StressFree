@@ -26,13 +26,13 @@ class _ActivitiesPage extends State<ActivitiesPage> {
       fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.grey);
   final _headingFont = TextStyle(
       fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.black);
-  final controllerReference = new stressFree_Controller();
-  final modelReference = new stressFree_Model();
+  final controllerReference = new StressFreeController();
+  final modelReference = new StressFreeModel();
   var date = DateTime(0, 0, 0);
   String? selected = 'Date';
   List<String> sortBy = ['Date', 'Title', 'Priority'];
 
-  stressFree_Model model = new stressFree_Model();
+  StressFreeModel model = new StressFreeModel();
 
   @override
   Widget build(BuildContext context) {

@@ -58,7 +58,7 @@ class _Home extends State<Home> {
                                     icon: Icon(
                                       Icons.directions_run_rounded,
                                       color: Colors.white,
-                                      size: 30.0,
+                                      size: 25.0,
                                     ),
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.indigoAccent,
@@ -89,7 +89,7 @@ class _Home extends State<Home> {
                                     icon: Icon(
                                       Icons.sentiment_satisfied_rounded,
                                       color: Colors.white,
-                                      size: 30.0,
+                                      size: 25.0,
                                     ),
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.indigoAccent,
@@ -124,7 +124,7 @@ class _Home extends State<Home> {
                                     icon: Icon(
                                       Icons.access_time_rounded,
                                       color: Colors.white,
-                                      size: 30.0,
+                                      size: 25.0,
                                     ),
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.indigoAccent,
@@ -155,7 +155,7 @@ class _Home extends State<Home> {
                                     icon: Icon(
                                       Icons.play_arrow_rounded,
                                       color: Colors.white,
-                                      size: 30.0,
+                                      size: 25.0,
                                     ),
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.indigoAccent,

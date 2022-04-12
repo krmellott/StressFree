@@ -1,9 +1,8 @@
-import 'package:firstapp/model/stressFree_Model.dart';
+import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-
 
 class VideoScreen extends StatefulWidget {
   final String collectionPath;
@@ -15,12 +14,14 @@ class VideoScreen extends StatefulWidget {
 
 class _VideoScreen extends State<VideoScreen> {
   Color _iconColor = Colors.grey;
-  final modelReference = new stressFree_Model();
+  final modelReference = new StressFreeModel();
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection(widget.collectionPath).snapshots(), //_getCollectionPath(widget.collectionPath),
+          stream: FirebaseFirestore.instance
+              .collection(widget.collectionPath)
+              .snapshots(), //_getCollectionPath(widget.collectionPath),
           builder: (context, AsyncSnapshot snapshot) {
             String collection = widget.collectionPath.toString();
             if (!snapshot.hasData) return const Text('Loading...');
@@ -42,42 +43,62 @@ class _VideoScreen extends State<VideoScreen> {
                   child: Card(
                     child: Column(
                       children: <Widget>[
-                        YoutubePlayer(controller: _controller, liveUIColor: Colors.blue,),
+                        YoutubePlayer(
+                          controller: _controller,
+                          liveUIColor: Colors.blue,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Flexible(
                               child: Padding(
-                                padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                                padding: EdgeInsets.only(
+                                    top: 10, bottom: 10, left: 10),
                                 child: Text(document['name'],
                                     style: TextStyle(
-                                        fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black)
-                                ),
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black)),
                               ),
                             ),
 
                             IconButton(
-                                icon: Icon(
-                                    Icons.bookmark_border_sharp,
-                                    size: 30.0,
-                                    color: _iconColor = document['isFavorite'] ? Colors.green : Colors.red,
-                                ),
+                              icon: Icon(
+                                Icons.bookmark_border_sharp,
+                                size: 30.0,
+                                color: _iconColor = document['isFavorite']
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
                               onPressed: () {
-                                if (_iconColor == Colors.red){
-                                  FirebaseFirestore.instance.collection(collection).doc(document['name']).update({'isFavorite': true});
+                                if (_iconColor == Colors.red) {
+                                  FirebaseFirestore.instance
+                                      .collection(collection)
+                                      .doc(document['name'])
+                                      .update({'isFavorite': true});
                                   setState(() {
-                                    color: _iconColor = document['isFavorite'] ? Colors.green : Colors.red;
+                                    color:
+                                    _iconColor = document['isFavorite']
+                                        ? Colors.green
+                                        : Colors.red;
                                   });
-                                  modelReference.dbInsertVideo(true, document['name'], url);
+                                  modelReference.dbInsertVideo(
+                                      true, document['name'], url);
                                 }
-                                if (_iconColor == Colors.green){
-                                  FirebaseFirestore.instance.collection(collection).doc(document['name']).update({'isFavorite': false});
+                                if (_iconColor == Colors.green) {
+                                  FirebaseFirestore.instance
+                                      .collection(collection)
+                                      .doc(document['name'])
+                                      .update({'isFavorite': false});
                                   setState(() {
-                                    color: _iconColor = document['isFavorite'] ? Colors.green : Colors.red;
+                                    color:
+                                    _iconColor = document['isFavorite']
+                                        ? Colors.green
+                                        : Colors.red;
                                   });
-                                  modelReference.dbRemoveVideo(collection, document['name']);
+                                  modelReference.dbRemoveVideo(
+                                      collection, document['name']);
                                 }
-
                               },
                             )
                             // _favoriteIcon()
@@ -89,9 +110,7 @@ class _VideoScreen extends State<VideoScreen> {
                 );
               }).toList(),
             );
-          }
-      ),
+          }),
     );
   }
 }
-

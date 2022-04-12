@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firstapp/model/stressFree_Model.dart';
+import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:flutter/material.dart';
 
 class PastActivities extends StatefulWidget {
@@ -9,7 +9,7 @@ class PastActivities extends StatefulWidget {
 }
 
 class _PastActivities extends State<PastActivities> {
-  final modelReference = new stressFree_Model();
+  final modelReference = new StressFreeModel();
 
   @override
   Widget build(BuildContext context) {
