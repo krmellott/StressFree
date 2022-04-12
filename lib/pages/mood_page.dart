@@ -1,12 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstapp/utils/units_constant.dart';
-import 'package:flutter/src/material/dropdown.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/StressFreeModel.dart';
 import '/utils/units_constant.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -18,12 +14,12 @@ class MoodPage extends StatefulWidget {
 class _MoodPage extends State<MoodPage> {
   bool isVisible = false;
   Color color = Colors.grey;
-  @override
   Moods currMood = Moods.Neutral;
   final controllerReference = new StressFreeController();
   final modelReference = new StressFreeModel();
   List<ChartData> testList = <ChartData>[];
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

@@ -5,7 +5,6 @@ import '../utils/units_constant.dart';
 class StressFreeModel {
   final firestoreInstance = FirebaseFirestore.instance;
   final _uid = FirebaseAuth.instance.currentUser!.uid.toString();
-  //final databaseReference = FirebaseDatabase.instance.reference();
 
   ///Inserts a given activity into the firebase database given
   ///a set of parameters.

@@ -1,26 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:firstapp/pages/past_activity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:firstapp/pages/journal_main_page.dart';
 
-// TODO: implement TableCalendar
-// TODO: Allow user to click on day to view the activities they did that day
 class HistoryPage extends StatefulWidget {
   @override
   ActivitiesCalendar createState() => ActivitiesCalendar();
 }
 
 class ActivitiesCalendar extends State<HistoryPage> {
-  @override
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
   final modelReference = new StressFreeModel();
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

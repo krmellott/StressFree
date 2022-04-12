@@ -1,12 +1,9 @@
-import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
-import 'package:firstapp/model/stressFree_Model.dart';
+import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:firstapp/utils/addTask_page.dart';
 import 'package:firstapp/utils/buttons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -36,7 +33,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: const Text("Activities"),
@@ -86,7 +82,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
   }
 
   _addTaskBar(BuildContext context) {
-    Queue aQueue;
     return Container(
         margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
         child: Row(
