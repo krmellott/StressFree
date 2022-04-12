@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstapp/utils/units_constant.dart';
 import 'package:flutter/src/material/dropdown.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
-import 'package:firstapp/model/stressFree_Model.dart';
+import 'package:firstapp/model/StressFreeModel.dart';
 import '/utils/units_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +20,8 @@ class _MoodPage extends State<MoodPage> {
   Color color = Colors.grey;
   @override
   Moods currMood = Moods.Neutral;
-  final controllerReference = new StressFree_Controller();
-  final modelReference = new stressFree_Model();
+  final controllerReference = new StressFreeController();
+  final modelReference = new StressFreeModel();
   List<ChartData> testList = <ChartData>[];
 
   Widget build(BuildContext context) {
@@ -115,7 +115,7 @@ class _MoodPage extends State<MoodPage> {
                     },
                   ),
                   Container(
-                    width: 500,
+                      width: 500,
                       height: 300,
                       child: Visibility(
                           visible: isVisible,

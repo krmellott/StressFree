@@ -12,7 +12,7 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  StressFree_Controller controllerRef = StressFree_Controller();
+  StressFreeController controllerRef = StressFreeController();
   DateTime date = DateTime.now();
   String message = "";
   int _dropdownValue = 3;
