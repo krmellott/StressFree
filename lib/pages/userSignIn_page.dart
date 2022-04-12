@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firstapp/auth/forgotPasswordHandler.dart';
 import 'package:firstapp/pages/home_page.dart';
 import 'package:firstapp/utils/buttons.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class _UserAuthState extends State<UserAuth> {
                     children: <Widget>[
                       _createSignUpLogo(),
                       _createTextFields(),
+                      _createForgotPasswordButton(context),
                       _createSignUpButton(context),
                       _createSendButton(context),
                       _createAutoSignIn(context)
@@ -86,10 +88,6 @@ class _UserAuthState extends State<UserAuth> {
         child: MyButton(
             label: 'Log In!',
             onTap: () {
-              // Navigator.of(context)
-              //     .push(MaterialPageRoute(builder: (BuildContext context) {
-              //   return Home();
-              // }));
               _OnSignIn(context);
             }));
   }
@@ -108,16 +106,26 @@ class _UserAuthState extends State<UserAuth> {
         ));
   }
 
+  _createForgotPasswordButton(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.only(left: 10, right: 10),
+        child: TextButton(
+          child: Text("Forgot Password?"),
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (BuildContext context) {
+              return forgotPassword();
+            }));
+          },
+        ));
+  }
+
   _createAutoSignIn(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(top: 20),
         child: MyButton(
             label: 'dev login',
             onTap: () {
-              // Navigator.of(context)
-              //     .push(MaterialPageRoute(builder: (BuildContext context) {
-              //   return Home();
-              // }));
               _devSignIn(context);
             }));
   }
