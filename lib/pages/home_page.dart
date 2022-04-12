@@ -72,7 +72,7 @@ class _Home extends State<Home> {
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'ComicSans',
-                                            fontSize: 20)),
+                                            fontSize: 25)),
                                     onPressed: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -103,7 +103,7 @@ class _Home extends State<Home> {
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'ComicSans',
-                                            fontSize: 20)),
+                                            fontSize: 25)),
                                     onPressed: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -138,7 +138,7 @@ class _Home extends State<Home> {
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'ComicSans',
-                                            fontSize: 20)),
+                                            fontSize: 25)),
                                     onPressed: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -169,7 +169,7 @@ class _Home extends State<Home> {
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'ComicSans',
-                                            fontSize: 20)),
+                                            fontSize: 25)),
                                     onPressed: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
