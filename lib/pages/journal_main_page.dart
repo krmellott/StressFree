@@ -16,49 +16,58 @@ class _MainJournal extends State<MainJournal> {
         appBar: AppBar(
           title: Text('Journal'),
         ),
-        body: Column(children: [
-          Padding(
-              padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 5.0),
-              child: Row(children: [
-                Text("Your Journals:",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    )),
-                /*DropdownButton(
-                    items: <String>['One', 'Two', 'Free', 'Four']
-                        .map<DropdownMenuItem<String>>((String value) {
+        body: Center(
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.lightBlueAccent, Colors.white])),
+            child: Column(children: [
+              Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 5.0),
+                  child: Row(children: [
+                    Text("Your Journals:",
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        )),
+                    DropdownButton(
+                        items: <String>['One', 'Two', 'Free', 'Four']
+                            .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
                           );
                         }).toList(),
-                    icon: const Icon(Icons.arrow_downward),
-                    onChanged: (String? newDate) {
-                      setState((){
-                        dropDownValue = newDate!;
-                      });
-                    }
-                )*/
-              ])),
-          Expanded(
-              child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('journal')
-                      .snapshots(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData)
-                      return Text('We didn\'t find any journals for you');
-                    return new ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data?.docs.length,
-                        itemBuilder: (context, index) {
-                          return _buildJournalListItem(
-                              context, snapshot.data!.docs[index]);
-                        });
-                  })),
-        ]),
+                        icon: const Icon(Icons.arrow_downward),
+                        onChanged: (String? newDate) {
+                          setState(() {
+                            dropDownValue = newDate!;
+                          });
+                        }),
+                  ])),
+              Expanded(
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('journal')
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData)
+                          return Text('We didn\'t find any journals for you');
+                        return new ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data?.docs.length,
+                            itemBuilder: (context, index) {
+                              return _buildJournalListItem(
+                                  context, snapshot.data!.docs[index]);
+                            });
+                      })),
+            ]),
+          ),
+        ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               Navigator.of(context)

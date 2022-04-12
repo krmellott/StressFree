@@ -22,70 +22,79 @@ class ActivitiesCalendar extends State<HistoryPage> {
         appBar: AppBar(
           title: const Text("Activity Calendar"),
         ),
-        body: //Center (
-            Column(children: [
-          TableCalendar(
-            firstDay: DateTime.utc(2000, 1, 1),
-            lastDay: DateTime.utc(2050, 12, 31),
-            focusedDay: DateTime.now(),
-
-            selectedDayPredicate: (day) {
-              //used to determine which day has been selected by the user
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              //highlights the day the user selected
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-              }); //setState
-            }, // onDaySelected
-            calendarFormat: _calendarFormat,
-            onFormatChanged: (format) {
-              setState(() {
-                _calendarFormat = format;
-              }); //setState
-            }, //onFormatChanged
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            }, //onPageChanged
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.green),
-              child: Text('Completed Activities'),
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) {
-                  return PastActivities();
-                }));
-              },
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.purple),
-              child: Text('Journal'),
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) {
-                  return MainJournal();
-                }));
-              },
-            ),
-          ]),
-          Expanded(
-              child: StreamBuilder(
-                  stream: modelReference.dbRetrieveActivities(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData) return Text('No activities found.');
-                    return new ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data?.docs.length,
-                        itemBuilder: (context, index) {
-                          return _buildListItem(
-                              context, snapshot.data!.docs[index]);
-                        });
-                  })),
-        ]));
+        body: Center(
+            child: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.lightBlueAccent, Colors.white])),
+                child: Column(children: [
+                  TableCalendar(
+                    firstDay: DateTime.utc(2000, 1, 1),
+                    lastDay: DateTime.utc(2050, 12, 31),
+                    focusedDay: DateTime.now(),
+                    selectedDayPredicate: (day) {
+                      //used to determine which day has been selected by the user
+                      return isSameDay(_selectedDay, day);
+                    },
+                    onDaySelected: (selectedDay, focusedDay) {
+                      //highlights the day the user selected
+                      setState(() {
+                        _selectedDay = selectedDay;
+                        _focusedDay = focusedDay;
+                      }); //setState
+                    },
+                    // onDaySelected
+                    calendarFormat: _calendarFormat,
+                    onFormatChanged: (format) {
+                      setState(() {
+                        _calendarFormat = format;
+                      }); //setState
+                    },
+                    //onFormatChanged
+                    onPageChanged: (focusedDay) {
+                      _focusedDay = focusedDay;
+                    }, //onPageChanged
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.green),
+                      child: Text('Completed Activities'),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return PastActivities();
+                        }));
+                      },
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.purple),
+                      child: Text('Journal'),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return MainJournal();
+                        }));
+                      },
+                    ),
+                  ]),
+                  Expanded(
+                      child: StreamBuilder(
+                          stream: modelReference.dbRetrieveActivities(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData)
+                              return Text('No activities found.');
+                            return new ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data?.docs.length,
+                                itemBuilder: (context, index) {
+                                  return _buildListItem(
+                                      context, snapshot.data!.docs[index]);
+                                });
+                          })),
+                ]))));
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
