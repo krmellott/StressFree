@@ -73,7 +73,7 @@ class stressFree_Model {
     }
   }
 
-  dbInsertJournal(String body, List date, String title) async {
+  dbInsertJournal(String body, List date, String title, String userID) async {
     if (verifyActivityDate(date)) {
       return await firestoreInstance.collection('journal').add({
         'title': title,

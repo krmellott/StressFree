@@ -9,6 +9,7 @@ class MainJournal extends StatefulWidget {
 
 class _MainJournal extends State<MainJournal> {
   @override
+  String dropDownValue = "default";
   Widget build(BuildContext context) {
     return Scaffold (
       appBar: AppBar(
@@ -16,8 +17,52 @@ class _MainJournal extends State<MainJournal> {
       ),
       body: Column (
         children: [
-          Text('Sorry, it seems this page is still under construction. Please come back later.'
-              ' Or try out the "new Journal" button, that one should be working by now.'),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 5.0),
+            child: Row(
+              children: [
+                Text("Your Journals:",
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    )
+                ),
+                /*DropdownButton(
+                    items: <String>['One', 'Two', 'Free', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                    icon: const Icon(Icons.arrow_downward),
+                    onChanged: (String? newDate) {
+                      setState((){
+                        dropDownValue = newDate!;
+                      });
+                    }
+                )*/
+              ]
+            )
+          ),
+
+          Expanded(
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance.collection('journal').snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData)
+                      return Text('We didn\'t find any journals for you');
+                    return new ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data?.docs.length,
+                        itemBuilder: (context, index) {
+                          return _buildJournalListItem(context, snapshot.data!.docs[index]);
+                        }
+                    );
+                  }
+              )
+          ),
         ]
       ),
         floatingActionButton: FloatingActionButton.extended(
@@ -31,4 +76,21 @@ class _MainJournal extends State<MainJournal> {
         )
     );
   }
+}
+
+/**
+ * Creates a list of all journal in order of creation from most recent to least
+ * Returns a card consisting of the title and the body
+ */
+Widget _buildJournalListItem(BuildContext context,DocumentSnapshot document) {
+  var data = document.data() as Map<String, dynamic>;
+  return Padding(
+    padding: const EdgeInsets.all(1.0),
+    child: Card(
+      child: ListTile(
+        title: Text(data['title'] + " - - - " + data['date'].toString()),
+        subtitle: Text(data['body']),
+      ),
+    ),
+  );
 }
