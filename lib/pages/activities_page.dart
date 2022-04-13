@@ -7,6 +7,8 @@ import 'package:firstapp/utils/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../utils/units_constant.dart';
+
 class ActivitiesPage extends StatefulWidget {
   @override
   _ActivitiesPage createState() => _ActivitiesPage();
@@ -74,6 +76,51 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                   data['priority'].toString(),
               style: _subHeadingFont3,
             ),
+            onTap: () {
+              _editActivity(data);
+            }, //() {
+            // print('This is the title of the data: ' + data['title']);
+            // String activityName = data['title'];
+            // showModalBottomSheet<void>(
+            //   context: context,
+            //   builder: (BuildContext context) {
+            //     return Container(
+            //       height: 500,
+            //       color: Colors.white,
+            //       child: Center(
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           mainAxisSize: MainAxisSize.min,
+            //           children: <Widget>[
+            //             const Text('Edit your activity!',
+            //                 style: TextStyle(
+            //                     fontSize: 40, decorationThickness: 20.0)),
+            //             Text(activityName),
+            //             Container(
+            //                 margin: const EdgeInsets.only(
+            //                     left: 10, right: 10, top: 20),
+            //                 child: TextField(
+            //                   controller: TextEditingController()
+            //                     ..text = activityName,
+            //                   decoration: InputDecoration(
+            //                     border: OutlineInputBorder(),
+            //                     labelText: 'Activity',
+            //                   ),
+            //                   onChanged: (String? message) {
+            //                     setState(() {
+            //                       activityName = message!;
+            //                     });
+            //                   },
+            //                 )),
+            //             ElevatedButton(
+            //               child: const Text('Submit request!'),
+            //               onPressed: () => Navigator.pop(context),
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //     );
+            //},
           ),
         ),
       );
@@ -240,5 +287,59 @@ class _ActivitiesPage extends State<ActivitiesPage> {
               }),
         );
     }
+  }
+
+  _editActivity(var data) {
+    print('This is the title of the data: ' + data['title']);
+    String activityName = data['title'];
+    TaskCompleted _taskCompleted = TaskCompleted.NO;
+    return showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 500,
+            color: Colors.white,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('Activity Editor',
+                      style:
+                          TextStyle(fontSize: 32, decorationThickness: 20.0)),
+                  Text(activityName),
+                  Container(
+                      margin:
+                          const EdgeInsets.only(left: 10, right: 10, top: 20),
+                      child: TextField(
+                        controller: TextEditingController()
+                          ..text = activityName,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Activity',
+                        ),
+                        onChanged: (String? message) {
+                          setState(() {
+                            activityName = message!;
+                          });
+                        },
+                      )),
+                  ElevatedButton(
+                    child: const Text('Complete Task!'),
+                    onPressed: () {
+                      modelReference.dbUpdateActivityCompletion(
+                          activityName, true);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ElevatedButton(
+                    child: const Text('Submit Change'),
+                    onPressed: () => Navigator.pop(context),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

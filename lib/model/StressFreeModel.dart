@@ -124,6 +124,25 @@ class StressFreeModel {
         .snapshots();
   }
 
+  dbUpdateActivityCompletion(String activityName, bool isComplete) async {
+    var activityInstance = await firestoreInstance
+        .collection('activity')
+        .where('userId', isEqualTo: _uid)
+        .where('title', isEqualTo: activityName)
+        .limit(1)
+        .get();
+    if (activityInstance != null) {
+      var docID = activityInstance.docs.first.id;
+      firestoreInstance
+          .collection('activity')
+          .doc(docID)
+          .update({'status': isComplete});
+      print("{ok:1}");
+      return;
+    }
+    print("{ok:0}");
+  }
+
   ///Accepts a date from the user and verifies if it is a valid date
   ///returns true if valid date, false if not
   verifyActivityDate(List date) {
