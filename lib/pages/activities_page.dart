@@ -327,7 +327,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                   ElevatedButton(
                     child: const Text('Complete Task!'),
                     onPressed: () {
-                      modelReference.dbUpdateActivityCompletion(
+                      controllerReference.updateActivityCompletion(
                           activityName, true);
                       Navigator.pop(context);
                     },

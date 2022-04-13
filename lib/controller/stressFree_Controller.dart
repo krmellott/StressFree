@@ -37,4 +37,8 @@ class StressFreeController {
   insertJournalData(String title, List date, String body) {
     modelReference.dbInsertJournal(title, date, body, _userID);
   }
+
+  updateActivityCompletion(String title, bool isComplete) {
+    modelReference.dbUpdateActivityCompletion(title, isComplete);
+  }
 }
