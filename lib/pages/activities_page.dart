@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
-import 'package:firstapp/model/stressFree_Model.dart';
+import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:firstapp/utils/addTask_page.dart';
 import 'package:firstapp/utils/buttons.dart';
 import 'package:flutter/cupertino.dart';

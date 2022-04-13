@@ -9,7 +9,7 @@ class MainJournal extends StatefulWidget {
 
 class _MainJournal extends State<MainJournal> {
   @override
-  String dropDownValue = "default";
+  String dropDownValue = "Sort By Date";
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,21 +33,22 @@ class _MainJournal extends State<MainJournal> {
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         )),
-                    DropdownButton(
-                        items: <String>['One', 'Two', 'Free', 'Four']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        icon: const Icon(Icons.arrow_downward),
-                        onChanged: (String? newDate) {
-                          setState(() {
-                            dropDownValue = newDate!;
-                          });
-                        }),
-                  ])),
+                        DropdownButton(
+                            items: <String>['One', 'Two', 'Free', 'Four']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            icon: const Icon(Icons.arrow_downward),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropDownValue = newValue!;
+                              });
+                            }),
+                      ])
+                  ),
               Expanded(
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
@@ -80,10 +81,6 @@ class _MainJournal extends State<MainJournal> {
   }
 }
 
-/**
- * Creates a list of all journal in order of creation from most recent to least
- * Returns a card consisting of the title and the body
- */
 Widget _buildJournalListItem(BuildContext context, DocumentSnapshot document) {
   var data = document.data() as Map<String, dynamic>;
   return Padding(
