@@ -8,9 +8,9 @@ class MainJournal extends StatefulWidget {
 }
 
 class _MainJournal extends State<MainJournal> {
-  @override
-  String dropDownValue = "Sort By Date";
+  String dropDownValue = "default";
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -81,6 +81,8 @@ class _MainJournal extends State<MainJournal> {
   }
 }
 
+///Creates a list of all journal in order of creation from most recent to least
+///Returns a card consisting of the title and the body
 Widget _buildJournalListItem(BuildContext context, DocumentSnapshot document) {
   var data = document.data() as Map<String, dynamic>;
   return Padding(

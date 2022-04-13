@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:firstapp/pages/videos_page.dart';
-import 'package:firstapp/utils/add_videos.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'activities_page.dart';
@@ -211,7 +210,7 @@ class _Home extends State<Home> {
                                           child: Text(
                                               'Tip: ' +
                                                   snapshot.data?.docs[tipID()]
-                                                  ['tip'],
+                                                      ['tip'],
                                               style: const TextStyle(
                                                   fontSize: 10,
                                                   color: Colors.white),

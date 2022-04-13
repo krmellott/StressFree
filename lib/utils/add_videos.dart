@@ -2,7 +2,6 @@ import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 
 class VideoScreen extends StatefulWidget {
   final String collectionPath;
@@ -77,7 +76,7 @@ class _VideoScreen extends State<VideoScreen> {
                                       .doc(document['name'])
                                       .update({'isFavorite': true});
                                   setState(() {
-                                    color:
+                                    //color:
                                     _iconColor = document['isFavorite']
                                         ? Colors.green
                                         : Colors.red;
@@ -91,7 +90,7 @@ class _VideoScreen extends State<VideoScreen> {
                                       .doc(document['name'])
                                       .update({'isFavorite': false});
                                   setState(() {
-                                    color:
+                                    //color:
                                     _iconColor = document['isFavorite']
                                         ? Colors.green
                                         : Colors.red;
