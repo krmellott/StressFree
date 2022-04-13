@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapp/pages/audio_page.dart';
 import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:firstapp/pages/videos_page.dart';
@@ -180,6 +181,37 @@ class _Home extends State<Home> {
                                   ),
                                 )
                               ]),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                            child: ElevatedButton.icon(
+                              icon: Icon(
+                                Icons.library_music_rounded,
+                                color: Colors.white,
+                                size: 25.0,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.indigoAccent,
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                      new BorderRadius.circular(
+                                          20.0)),
+                                  minimumSize: Size(175, 50),
+                                  maximumSize: Size(175, 50)),
+                              label: Text('Music/sounds',
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'ComicSans',
+                                      fontSize: 20)),
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return AudioPage();
+                                        }));
+                                setState(() {});
+                              },
+                            ),
+                          ),
                           StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection('tips')
