@@ -41,4 +41,10 @@ class StressFreeController {
   updateActivityCompletion(String title, bool isComplete) {
     modelReference.dbUpdateActivityCompletion(title, isComplete);
   }
+
+  updateActivity(String initialName, String newName, bool status, List date,
+      int priority) {
+    modelReference.dbUpdateActivity(
+        initialName, newName, status, date, priority);
+  }
 }

@@ -4,6 +4,7 @@ import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:firstapp/utils/addTask_page.dart';
 import 'package:firstapp/utils/buttons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -251,6 +252,8 @@ class _ActivitiesPage extends State<ActivitiesPage> {
     print('This is the title of the data: ' + data['title']);
     String activityName = data['title'];
     TaskCompleted _taskCompleted = TaskCompleted.NO;
+    int dropdownValue = int.parse(data['priority']);
+    DateTime activityDate = DateTime.now();
     return showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
@@ -282,6 +285,49 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                           });
                         },
                       )),
+                  Container(
+                      margin:
+                          const EdgeInsets.only(left: 20, right: 10, top: 10),
+                      child: Container(
+                        height: 100,
+                        child: CupertinoDatePicker(
+                          mode: CupertinoDatePickerMode.date,
+                          initialDateTime: DateTime.now(),
+                          onDateTimeChanged: (DateTime newDateTime) {
+                            date = newDateTime;
+                          },
+                        ),
+                      )),
+                  Container(
+                      margin:
+                          const EdgeInsets.only(left: 20, right: 10, top: 10),
+                      child: Row(
+                        children: [
+                          Text("How important is it (1 to 5)?"),
+                          DropdownButton<int>(
+                            value: dropdownValue,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.deepPurple),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (int? newValue) {
+                              setState(() {
+                                dropdownValue = newValue!;
+                              });
+                            },
+                            items: <int>[1, 2, 3, 4, 5]
+                                .map<DropdownMenuItem<int>>((int value) {
+                              return DropdownMenuItem<int>(
+                                value: value,
+                                child: Text(value.toString()),
+                              );
+                            }).toList(),
+                          )
+                        ],
+                      )),
                   ElevatedButton(
                     child: const Text('Complete Task!'),
                     onPressed: () {
@@ -292,7 +338,19 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                   ),
                   ElevatedButton(
                     child: const Text('Submit Change'),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      controllerReference.updateActivity(
+                          data['title'],
+                          activityName,
+                          data['status'],
+                          [
+                            activityDate.month,
+                            activityDate.day,
+                            activityDate.year
+                          ],
+                          dropdownValue);
+                      Navigator.pop(context);
+                    },
                   )
                 ],
               ),
