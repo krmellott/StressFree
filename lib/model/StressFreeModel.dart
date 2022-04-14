@@ -186,6 +186,24 @@ class StressFreeModel {
     return isDate;
   }
 
+  dbDeleteActivity(String activityName) async {
+    var activityInstance = await firestoreInstance
+        .collection('activity')
+        .where('userId', isEqualTo: _uid)
+        .where('title', isEqualTo: activityName)
+        .limit(1)
+        .get();
+
+      var docID = activityInstance.docs.first.id;
+
+      firestoreInstance
+          .collection('activity')
+          .doc(docID)
+          .delete();
+      print('Deleted ' + activityName);
+      return;
+  }
+
   getCurrentUser() {
     final user = FirebaseAuth.instance.currentUser;
     final uid = user!.uid;

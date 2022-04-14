@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class PastActivities extends StatefulWidget {
 
 class _PastActivities extends State<PastActivities> {
   final modelReference = new StressFreeModel();
+  final controller = new StressFreeController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,67 @@ class _PastActivities extends State<PastActivities> {
                                           date.toString() +
                                           '\nPriority: ' +
                                           priority.toString()),
+                                      onTap: () {
+
+                                        showModalBottomSheet<void>(
+                                          context: context,
+                                          builder: (BuildContext context) {
+
+                                            return Container(
+                                              height: 300,
+                                              color: Colors.lightBlueAccent,
+                                              child: Center(
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: <Widget>[
+
+                                                    Text(title, style: const TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 20,
+                                                        color: Colors.white)
+                                                    ),
+
+                                                    Text('Due date: ' +
+                                                        date.toString() +
+                                                        '\nPriority: ' +
+                                                        priority.toString(), style: const TextStyle(
+                                                        fontWeight: FontWeight.normal,
+                                                        fontSize: 15,
+                                                        color: Colors.white)
+                                                    ),
+
+                                                    ElevatedButton(
+                                                      child: const Text('Mark as Incomplete'),
+                                                      onPressed: () {
+                                                        controller.updateActivityCompletion(title, false);
+                                                        Navigator.pop(context);
+                                                      }
+                                                    ),
+
+                                                    ElevatedButton(
+                                                        child: const Text('Delete Activity'),
+                                                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.redAccent)),
+                                                        onPressed: () {
+                                                          controller.deleteActivity(title);
+
+                                                          Navigator.pop(context);
+                                                        }
+                                                    ),
+
+
+                                                    // ElevatedButton(
+                                                    //   child: const Text('Close Menu'),
+                                                    //   onPressed: () => Navigator.pop(context),
+                                                    // )
+
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
                                       //subtitle: Text('Priority: ' + priority),
                                     ),
                                   ));

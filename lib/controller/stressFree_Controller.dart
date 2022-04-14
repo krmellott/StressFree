@@ -47,4 +47,8 @@ class StressFreeController {
     modelReference.dbUpdateActivity(
         initialName, newName, status, date, priority);
   }
+
+  deleteActivity(String title) {
+    modelReference.dbDeleteActivity(title);
+  }
 }
