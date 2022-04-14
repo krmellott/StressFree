@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapp/pages/audio_page.dart';
 import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:firstapp/pages/music_page.dart';
@@ -185,7 +186,7 @@ class _Home extends State<Home> {
                             padding: EdgeInsets.all(5),
                             child: ElevatedButton.icon(
                               icon: Icon(
-                                Icons.music_note_rounded,
+                                Icons.library_music_rounded,
                                 color: Colors.white,
                                 size: 25.0,
                               ),
@@ -197,7 +198,7 @@ class _Home extends State<Home> {
                                           20.0)),
                                   minimumSize: Size(175, 50),
                                   maximumSize: Size(175, 50)),
-                              label: Text('Music',
+                              label: Text('Music/sounds',
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'ComicSans',
@@ -206,7 +207,7 @@ class _Home extends State<Home> {
                                 Navigator.of(context).push(
                                     MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return MusicPage();
+                                          return AudioPage();
                                         }));
                                 setState(() {});
                               },

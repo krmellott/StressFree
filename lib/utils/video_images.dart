@@ -13,4 +13,11 @@ class VideoImage {
 
   static String get favorites =>
       'https://i.pinimg.com/564x/31/64/c8/3164c88a698819042dde3803aa6d45b8.jpg';
+
+  static String get music =>
+      'https://thumbs.dreamstime.com/z/music-background-blue-23157485.jpg';
+
+  static String get sounds =>
+      'https://i.scdn.co/image/ab6761610000e5eb3db58bb01bf1fa21285dd591';
+
 }
