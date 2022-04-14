@@ -60,16 +60,33 @@ class _ActivitiesPage extends State<ActivitiesPage> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     var data = document.data() as Map<String, dynamic>;
+    DateTime currentDate = DateTime.now();
     if (data['status'] == false) {
       print("document data is false with " + data['title'].toString());
+      print((data['date'][0] <= currentDate.month &&
+              data['date'][1] < currentDate.day &&
+              data['date'][2] <= currentDate.year)
+          .toString());
+      print('month: ' + (data['date'][0] <= currentDate.month).toString());
+      print('day: ' + (data['date'][1] < currentDate.day).toString());
+      print('year: ' + (data['date'][2] <= currentDate.year).toString());
+      print(data['date'].toString());
+      Text labelTitle = new Text(data['title'], style: _subHeadingFont2);
+      if (data['date'][0] <= currentDate.month &&
+          data['date'][1] < currentDate.day &&
+          data['date'][2] <= currentDate.year) {
+        print('Task has not been completed!');
+        labelTitle = new Text(
+          data['title'],
+          style: TextStyle(
+              color: Colors.red, fontSize: 18.0, fontWeight: FontWeight.bold),
+        );
+      }
       return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
           child: ListTile(
-            title: Text(
-              data['title'],
-              style: _subHeadingFont2,
-            ),
+            title: labelTitle,
             subtitle: Text(
               'Due date: ' +
                   data['date'].toString() +
@@ -108,7 +125,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
               ),
             ),
             MyButton(
-                label: "+Add Task",
+                label: "+Add Activity",
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext context) {
