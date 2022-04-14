@@ -3,7 +3,6 @@ import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:firstapp/pages/past_activity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:firstapp/pages/journal_main_page.dart';
 
 class HistoryPage extends StatefulWidget {
   @override
@@ -57,10 +56,26 @@ class ActivitiesCalendar extends State<HistoryPage> {
                       //_focusedDay = focusedDay;
                     }, //onPageChanged
                   ),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.green),
-                      child: Text('Completed Activities'),
+
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.indigoAccent,
+                          shape: new RoundedRectangleBorder(
+                              borderRadius:
+                              new BorderRadius.circular(
+                                  20.0)),
+                          minimumSize: Size(225, 50),
+                          maximumSize: Size(225, 50)),
+                      icon: Icon(
+                        Icons.check_circle_outline_rounded,
+                        color: Colors.white,
+                        size: 20.0,
+                      ),
+                      label: Text('Completed Activities',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'ComicSans',
+                              fontSize: 16)),
                       onPressed: () {
                         Navigator.of(context).push(
                             MaterialPageRoute(builder: (BuildContext context) {
@@ -68,17 +83,7 @@ class ActivitiesCalendar extends State<HistoryPage> {
                         }));
                       },
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.purple),
-                      child: Text('Journal'),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return MainJournal();
-                        }));
-                      },
-                    ),
-                  ]),
+
                   Expanded(
                       child: StreamBuilder(
                           stream: modelReference.dbRetrieveActivities(),
