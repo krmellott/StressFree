@@ -99,17 +99,9 @@ class _PastActivities extends State<PastActivities> {
                                                         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.redAccent)),
                                                         onPressed: () {
                                                           controller.deleteActivity(title);
-
                                                           Navigator.pop(context);
                                                         }
                                                     ),
-
-
-                                                    // ElevatedButton(
-                                                    //   child: const Text('Close Menu'),
-                                                    //   onPressed: () => Navigator.pop(context),
-                                                    // )
-
                                                   ],
                                                 ),
                                               ),
@@ -117,13 +109,15 @@ class _PastActivities extends State<PastActivities> {
                                           },
                                         );
                                       }
-                                      //subtitle: Text('Priority: ' + priority),
                                     ),
-                                  ));
+                                  )
+                              );
                             }
-
                             return SizedBox(width: 0, height: 0);
                           });
-                    }))));
+                    })
+            )
+        )
+    );
   }
 }
