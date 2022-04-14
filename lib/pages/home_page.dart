@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapp/pages/audio_page.dart';
 import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:firstapp/pages/videos_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'activities_page.dart';
+import 'journal_main_page.dart';
 import 'videos_page.dart';
 
 class Home extends StatefulWidget {
@@ -57,7 +59,7 @@ class _Home extends State<Home> {
                                     icon: Icon(
                                       Icons.directions_run_rounded,
                                       color: Colors.white,
-                                      size: 25.0,
+                                      size: 20.0,
                                     ),
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.indigoAccent,
@@ -67,11 +69,11 @@ class _Home extends State<Home> {
                                                     20.0)),
                                         minimumSize: Size(175, 50),
                                         maximumSize: Size(175, 50)),
-                                    label: Text('Activities',
+                                    label: Text('Edit Activities',
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'ComicSans',
-                                            fontSize: 20)),
+                                            fontSize: 16)),
                                     onPressed: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -123,7 +125,7 @@ class _Home extends State<Home> {
                                     icon: Icon(
                                       Icons.access_time_rounded,
                                       color: Colors.white,
-                                      size: 25.0,
+                                      size: 20.0,
                                     ),
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.indigoAccent,
@@ -133,11 +135,11 @@ class _Home extends State<Home> {
                                                     20.0)),
                                         minimumSize: Size(175, 50),
                                         maximumSize: Size(175, 50)),
-                                    label: Text('History',
+                                    label: Text('Activity History',
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'ComicSans',
-                                            fontSize: 20)),
+                                            fontSize: 14)),
                                     onPressed: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -180,6 +182,73 @@ class _Home extends State<Home> {
                                   ),
                                 )
                               ]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                            child: ElevatedButton.icon(
+                              icon: Icon(
+                                Icons.library_music_rounded,
+                                color: Colors.white,
+                                size: 20.0,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.indigoAccent,
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                      new BorderRadius.circular(
+                                          20.0)),
+                                  minimumSize: Size(175, 50),
+                                  maximumSize: Size(175, 50)),
+                              label: Text('Music/sounds',
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'ComicSans',
+                                      fontSize: 18)),
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return AudioPage();
+                                        }));
+                                setState(() {});
+                              },
+                            ),
+                          ),
+
+                    Padding(
+                      padding: EdgeInsets.all(5),
+                      child: ElevatedButton.icon(
+                        icon: Icon(
+                          Icons.book_rounded,
+                          color: Colors.white,
+                          size: 25.0,
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.indigoAccent,
+                            shape: new RoundedRectangleBorder(
+                                borderRadius:
+                                new BorderRadius.circular(
+                                    20.0)),
+                            minimumSize: Size(175, 50),
+                            maximumSize: Size(175, 50)),
+                        label: Text('Journal',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'ComicSans',
+                                fontSize: 20)),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return MainJournal();
+                                  }));
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                          ]),
                           StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection('tips')

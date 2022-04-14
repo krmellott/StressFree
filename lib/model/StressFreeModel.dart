@@ -120,6 +120,51 @@ class StressFreeModel {
         .snapshots();
   }
 
+  dbUpdateActivityCompletion(String activityName, bool isComplete) async {
+    var activityInstance = await firestoreInstance
+        .collection('activity')
+        .where('userId', isEqualTo: _uid)
+        .where('title', isEqualTo: activityName)
+        .limit(1)
+        .get();
+    var docID = activityInstance.docs.first.id;
+    try {
+      firestoreInstance
+          .collection('activity')
+          .doc(docID)
+          .update({'status': isComplete});
+    } catch (error) {
+      print("{ok:0}");
+      return;
+    }
+    print("{ok:1}");
+    return;
+  }
+
+  dbUpdateActivity(String initialName, String newName, bool status, List date,
+      int priority) async {
+    var activityInstance = await firestoreInstance
+        .collection('activity')
+        .where('userId', isEqualTo: _uid)
+        .where('title', isEqualTo: initialName)
+        .limit(1)
+        .get();
+    var docID = activityInstance.docs.first.id;
+    try {
+      firestoreInstance.collection('activity').doc(docID).update({
+        'title': '$newName',
+        'status': status,
+        'date': [date[0], date[1], date[2]],
+        'priority': '$priority'
+      });
+    } catch (error) {
+      print("{ok:0}");
+      return;
+    }
+    print("{ok:1}");
+    return;
+  }
+
   ///Accepts a date from the user and verifies if it is a valid date
   ///returns true if valid date, false if not
   verifyActivityDate(List date) {
@@ -135,6 +180,24 @@ class StressFreeModel {
         " is " +
         isDate.toString());
     return isDate;
+  }
+
+  dbDeleteActivity(String activityName) async {
+    var activityInstance = await firestoreInstance
+        .collection('activity')
+        .where('userId', isEqualTo: _uid)
+        .where('title', isEqualTo: activityName)
+        .limit(1)
+        .get();
+
+      var docID = activityInstance.docs.first.id;
+
+      firestoreInstance
+          .collection('activity')
+          .doc(docID)
+          .delete();
+      print('Deleted ' + activityName);
+      return;
   }
 
   getCurrentUser() {

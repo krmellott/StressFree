@@ -4,8 +4,11 @@ import 'package:firstapp/controller/stressFree_Controller.dart';
 import 'package:firstapp/model/StressFreeModel.dart';
 import 'package:firstapp/utils/addTask_page.dart';
 import 'package:firstapp/utils/buttons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../utils/units_constant.dart';
 
 class ActivitiesPage extends StatefulWidget {
   @override
@@ -57,16 +60,33 @@ class _ActivitiesPage extends State<ActivitiesPage> {
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     var data = document.data() as Map<String, dynamic>;
+    DateTime currentDate = DateTime.now();
     if (data['status'] == false) {
       print("document data is false with " + data['title'].toString());
+      print((data['date'][0] <= currentDate.month &&
+              data['date'][1] < currentDate.day &&
+              data['date'][2] <= currentDate.year)
+          .toString());
+      print('month: ' + (data['date'][0] <= currentDate.month).toString());
+      print('day: ' + (data['date'][1] < currentDate.day).toString());
+      print('year: ' + (data['date'][2] <= currentDate.year).toString());
+      print(data['date'].toString());
+      Text labelTitle = new Text(data['title'], style: _subHeadingFont2);
+      if (data['date'][0] <= currentDate.month &&
+          data['date'][1] < currentDate.day &&
+          data['date'][2] <= currentDate.year) {
+        print('Task has not been completed!');
+        labelTitle = new Text(
+          data['title'],
+          style: TextStyle(
+              color: Colors.red, fontSize: 18.0, fontWeight: FontWeight.bold),
+        );
+      }
       return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Card(
           child: ListTile(
-            title: Text(
-              data['title'],
-              style: _subHeadingFont2,
-            ),
+            title: labelTitle,
             subtitle: Text(
               'Due date: ' +
                   data['date'].toString() +
@@ -74,6 +94,9 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                   data['priority'].toString(),
               style: _subHeadingFont3,
             ),
+            onTap: () {
+              _editActivity(data);
+            },
           ),
         ),
       );
@@ -102,7 +125,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
               ),
             ),
             MyButton(
-                label: "+Add Task",
+                label: "+Add Activity",
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext context) {
@@ -240,5 +263,116 @@ class _ActivitiesPage extends State<ActivitiesPage> {
               }),
         );
     }
+  }
+
+  _editActivity(var data) {
+    print('This is the title of the data: ' + data['title']);
+    String activityName = data['title'];
+    TaskCompleted _taskCompleted = TaskCompleted.NO;
+    int dropdownValue = int.parse(data['priority']);
+    DateTime activityDate = DateTime.now();
+    return showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 500,
+            color: Colors.white,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('Activity Editor',
+                      style:
+                          TextStyle(fontSize: 32, decorationThickness: 20.0)),
+                  Text(activityName),
+                  Container(
+                      margin:
+                          const EdgeInsets.only(left: 10, right: 10, top: 20),
+                      child: TextField(
+                        controller: TextEditingController()
+                          ..text = activityName,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Activity',
+                        ),
+                        onChanged: (String? message) {
+                          setState(() {
+                            activityName = message!;
+                          });
+                        },
+                      )),
+                  Container(
+                      margin:
+                          const EdgeInsets.only(left: 20, right: 10, top: 10),
+                      child: Container(
+                        height: 100,
+                        child: CupertinoDatePicker(
+                          mode: CupertinoDatePickerMode.date,
+                          initialDateTime: DateTime.now(),
+                          onDateTimeChanged: (DateTime newDateTime) {
+                            date = newDateTime;
+                          },
+                        ),
+                      )),
+                  Container(
+                      margin:
+                          const EdgeInsets.only(left: 20, right: 10, top: 10),
+                      child: Row(
+                        children: [
+                          Text("How important is it (1 to 5)?"),
+                          DropdownButton<int>(
+                            value: dropdownValue,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.deepPurple),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (int? newValue) {
+                              setState(() {
+                                dropdownValue = newValue!;
+                              });
+                            },
+                            items: <int>[1, 2, 3, 4, 5]
+                                .map<DropdownMenuItem<int>>((int value) {
+                              return DropdownMenuItem<int>(
+                                value: value,
+                                child: Text(value.toString()),
+                              );
+                            }).toList(),
+                          )
+                        ],
+                      )),
+                  ElevatedButton(
+                    child: const Text('Complete Task!'),
+                    onPressed: () {
+                      controllerReference.updateActivityCompletion(
+                          activityName, true);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ElevatedButton(
+                    child: const Text('Submit Change'),
+                    onPressed: () {
+                      controllerReference.updateActivity(
+                          data['title'],
+                          activityName,
+                          data['status'],
+                          [
+                            activityDate.month,
+                            activityDate.day,
+                            activityDate.year
+                          ],
+                          dropdownValue);
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
