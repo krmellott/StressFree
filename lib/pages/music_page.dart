@@ -15,6 +15,8 @@ class _MusicPage extends State<MusicPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    AudioPlayer audioPlayer = AudioPlayer();
+    AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Music"),
@@ -28,27 +30,40 @@ class _MusicPage extends State<MusicPage> {
                       colors: [Colors.lightBlueAccent, Colors.white])),
               child: Column(
                 children: <Widget>[
-                  StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('relaxing music')
-                          .snapshots(),
-                      builder:
-                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Padding(
-                              padding: EdgeInsets.only(
-                                  top: 20.0,
-                                  bottom: 10.0,
-                                  left: 20.0,
-                                  right: 20.0),
-                              child: Text('Loading Music',
-                                  style: const TextStyle(
-                                      fontSize: 10, color: Colors.white),
-                                  textScaleFactor: 1.5));
-                        } else {
-                          return Text (' ');
-                        }
-                      }),
+                  Column(
+                    children: [
+                      Text('audio name'),
+                      Row(
+                        children: [
+                          ElevatedButton.icon(
+                            onPressed: (){
+                              audioCache.play('file name');
+                            },
+                            icon: Icon(
+                              Icons.play_arrow,
+                            ),
+                          label: Text(''),),
+                          ElevatedButton.icon(
+                            onPressed: (){
+                              audioPlayer.pause();
+                            },
+                            icon: Icon(
+                              Icons.pause,
+                            ),
+                            label: Text(''),),
+                          ElevatedButton.icon(
+                            onPressed: (){
+                              audioPlayer.stop();
+                            },
+                            icon: Icon(
+                              Icons.stop,
+                            ),
+                            label: Text(''),)
+                        ],
+                      )
+                    ],
+
+                  ),
                 ],
               )),
         ));
