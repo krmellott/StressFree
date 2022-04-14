@@ -185,7 +185,7 @@ class _Home extends State<Home> {
                             padding: EdgeInsets.all(5),
                             child: ElevatedButton.icon(
                               icon: Icon(
-                                Icons.play_arrow_rounded,
+                                Icons.music_note_rounded,
                                 color: Colors.white,
                                 size: 25.0,
                               ),
