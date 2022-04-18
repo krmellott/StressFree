@@ -11,15 +11,16 @@ class MusicPage extends StatefulWidget {
 
 class _MusicPage extends State<MusicPage> {
   final modelReference = new StressFreeModel();
+  AudioPlayer audioPlayer = AudioPlayer();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Expanded(
+  return Expanded(
         child: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('relaxing music')
               .snapshots(),
           builder: (context, AsyncSnapshot snapshot) {
-            String collection = 'relaxing music';
             if (!snapshot.hasData) return const Text('Loading...');
             return ListView(
               children: snapshot.data!.docs.map<Widget>((document) {
@@ -40,12 +41,12 @@ class _MusicPage extends State<MusicPage> {
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black)),
+
                                 ),
                               )
                 ],
                               ),
                              Row(
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                children: [
                               IconButton(
                                 icon: Icon(
@@ -54,9 +55,19 @@ class _MusicPage extends State<MusicPage> {
                                   color: Colors.black
                                   ),
                                   onPressed: (){
-                                  null;
+                                    audioPlayer.play(url);
                                   },
                                 ),
+                             IconButton(
+                               icon: Icon(
+                                  Icons.stop,
+                                  size: 20.0,
+                                  color: Colors.black
+                                  ),
+                                  onPressed: (){
+                                     audioPlayer.stop();
+                                   },
+                                 ),
                               ]
 
                           )
