@@ -1,7 +1,4 @@
 import 'package:firstapp/controller/stressFree_Controller.dart';
-import 'package:firstapp/utils/buttons.dart';
-import 'package:firstapp/utils/units_constant.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddEntry extends StatefulWidget {
@@ -12,10 +9,15 @@ class AddEntry extends StatefulWidget {
 }
 
 class _AddEntry extends State<AddEntry> {
-  StressFreeController SFControllerRef = StressFreeController();
-  DateTime date = DateTime.now();
+  StressFreeController controllerRef = StressFreeController();
+  //DateTime date = "";
   String body = "";
   String title = "";
+
+  final ButtonStyle saveButtonStyle = ElevatedButton.styleFrom( // ButtonStyle for the save button
+      primary: Colors.green,
+      textStyle: const TextStyle(fontSize: 20.0),
+      padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0));
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class _AddEntry extends State<AddEntry> {
                         Expanded(
                           child: Container(
                             margin: const EdgeInsets.only(
-                                left: 20, right: 20, top: 10),
+                                left: 20, right: 10, top: 10),
                             child: TextField(
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
@@ -47,20 +49,20 @@ class _AddEntry extends State<AddEntry> {
                                 setState(() {
                                   title = aTitle!;
                                 });
-                              },
-                            ),
-                          ),
-                        ),
-                        MyButton(
-                          label: 'Save',
-                          onTap: () {
-                            SFControllerRef.insertJournalData(
-                                body, [date.month, date.day, date.year], title);
-                            Navigator.pop(context);
+                              },),),),
+                        ElevatedButton(
+                          child: const Text('Save'),
+                          onPressed: () {
+                            if (body == "" || title == "") {
+                              showAlertDialog(context); //displays ominous threat
+                            } else {
+                              controllerRef.insertJournalData(body, DateTime.now().millisecondsSinceEpoch, title);
+                              Navigator.pop(context); //submits the completed journal
+                            }
                           },
+                          style: saveButtonStyle,
                         )
-                      ],
-                    ),
+                      ]),
                     Container(
                       margin:
                           const EdgeInsets.only(left: 20, right: 10, top: 10),
@@ -77,7 +79,32 @@ class _AddEntry extends State<AddEntry> {
                         },
                       ),
                     ),
-                  ],
-                ))));
+                  ])
+            )
+        )
+    );
   }
+}
+
+/// Creates and manages the alert dialog that tells users to fill in
+/// all fields, thus preventing users from submitting empty journals.
+showAlertDialog(BuildContext context) {
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  AlertDialog alert = AlertDialog(
+    title: Text("Fill out all fields, or else..."),
+    actions: [
+      okButton,
+    ],
+  );
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
