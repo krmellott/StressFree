@@ -26,13 +26,13 @@ dependencies:
   table_calendar: ^3.0.5
   english_words: ^4.0.0-0
   #firebase_core: ^1.2.0
-  firebase_auth: ^2.0.0
-  firebase_database: ^7.0.0
+  firebase_auth: ^3.3.14
+  firebase_database: ^9.0.11
   #cloud_firestore: ^2.5.4
   firebase_core: ^1.6.0
-  cloud_firestore: ^2.5.1
-  firebase_messaging: ^10.0.0
-  audioplayers: ^0.10.0
+  cloud_firestore: ^3.1.12
+  firebase_messaging: ^11.2.13
+  audioplayers: ^0.20.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,8 +41,8 @@ dependencies:
 
   intl: # install package for time and date
   date_picker_timeline:
-  fl_chart: ^0.46.0
-  syncfusion_flutter_charts: ^19.4.56
+  fl_chart: ^0.50.1
+  syncfusion_flutter_charts: ^20.1.48
   youtube_player_flutter: ^8.0.0
   flutter_audio_query: ^0.3.5+6
   audio_manager: ^0.8.2

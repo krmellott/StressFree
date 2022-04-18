@@ -27,25 +27,10 @@ class _VideoScreen extends State<VideoScreen> {
             return ListView(
               children: snapshot.data!.docs.map<Widget>((document) {
                 var url = document['url'];
-                YoutubePlayerController _controller = YoutubePlayerController(
-                  initialVideoId: YoutubePlayer.convertUrlToId(url)!,
-                  flags: YoutubePlayerFlags(
-                    autoPlay: false,
-                    mute: false,
-                    isLive: false,
-                    loop: false,
-                    forceHD: false,
-                    controlsVisibleAtStart: false,
-                  ),
-                );
                 return Expanded(
                   child: Card(
                     child: Column(
                       children: <Widget>[
-                        YoutubePlayer(
-                          controller: _controller,
-                          liveUIColor: Colors.blue,
-                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
