@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firstapp/utils/add_videos.dart';
-
 import '../../utils/video_player.dart';
 
 class CatVideos extends StatelessWidget {
@@ -15,7 +13,6 @@ class CatVideos extends StatelessWidget {
       body: Column(
         children: [
           VideoPlayer(collectionPath: 'cute cat videos'),
-          // VideoScreen(collectionPath: 'cute cat videos')
         ],
       ),
     );
