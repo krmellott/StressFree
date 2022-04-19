@@ -18,18 +18,6 @@ class _VideoPlayerState extends State<VideoPlayer> {
   late YoutubePlayerController _controller;
   final modelReference = new StressFreeModel();
 
-  // bool isFullScreen = false;
-
-  // @override
-  // void initState() {
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.landscapeRight,
-  //     DeviceOrientation.landscapeLeft,
-  //   ]);
-  //   AutoOrientation.landscapeAutoMode();
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -78,17 +66,6 @@ class _VideoPlayerState extends State<VideoPlayer> {
                                             color: Colors.black)),
                                   ),
                                 ),
-
-                                // IconButton(
-                                //     onPressed: (){
-                                //       AutoOrientation.landscapeLeftMode();
-                                //       // _controller.toggleFullScreenMode();
-                                //       // _enableFullscreen(!isFullScreen);
-                                //       },
-                                //     icon: Icon(
-                                //       Icons.fullscreen,
-                                //     )
-                                // ),
 
                                 IconButton(
                                   icon: Icon(
@@ -143,44 +120,10 @@ class _VideoPlayerState extends State<VideoPlayer> {
     );
   }
 
-  // void _enableFullscreen(bool fullscreen) {
-  //   isFullScreen = fullscreen;
-  //   if (fullscreen) {
-  //     // Force landscape orientation for fullscreen
-  //     SystemChrome.setPreferredOrientations([
-  //       DeviceOrientation.landscapeLeft,
-  //       DeviceOrientation.landscapeRight,
-  //     ]);
-  //     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-  //   } else {
-  //     // Force portrait
-  //     SystemChrome.setPreferredOrientations([
-  //       DeviceOrientation.portraitUp,
-  //       DeviceOrientation.portraitDown,
-  //     ]);
-  //     SystemChrome.setEnabledSystemUIOverlays(
-  //         [SystemUiOverlay.top, SystemUiOverlay.bottom]);
-  //     // Set preferred orientation to device default
-  //     // Empty list causes the application to defer to the operating system default.
-  //     // See: https://api.flutter.dev/flutter/services/SystemChrome/setPreferredOrientations.html
-  //     SystemChrome.setPreferredOrientations([]);
-  //   }
-  // }
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-
-  // @override
-  // dispose() {
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.portraitUp,
-  //     DeviceOrientation.portraitDown,
-  //   ]);
-  //   AutoOrientation.portraitAutoMode();
-  //   super.dispose();
-  // }
 
 }
