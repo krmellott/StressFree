@@ -1,8 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import '../model/StressFreeModel.dart';
+
+// @dart=2.9
 
 class MusicPage extends StatefulWidget {
   @override
@@ -10,76 +10,82 @@ class MusicPage extends StatefulWidget {
 }
 
 class _MusicPage extends State<MusicPage> {
-  final modelReference = new StressFreeModel();
-  AudioPlayer audioPlayer = AudioPlayer();
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-  return Expanded(
-        child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('relaxing music')
-              .snapshots(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (!snapshot.hasData) return const Text('Loading...');
-            return ListView(
-              children: snapshot.data!.docs.map<Widget>((document) {
-                var url = document['url'];
-                return Expanded(
-                  child: Card(
-                    child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 10, bottom: 10, left: 10),
-                                  child: Text(document['name'],
-                                      style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black)),
-
-                                ),
-                              )
-                ],
-                              ),
-                             Row(
-                               children: [
-                              IconButton(
+    AudioPlayer audioPlayer = AudioPlayer();
+    AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Music"),
+        ),
+        body: Center(
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.lightBlueAccent, Colors.white])),
+            child: Padding(
+              padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        Text('Baby Shark',
+                            style: const TextStyle(
+                                fontSize: 10, color: Colors.black),
+                            textScaleFactor: 1.5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                              child: IconButton(
+                                onPressed: () async {
+                                  await audioCache
+                                      .play('audio/audio/Baby_Shark.mp3');
+                                },
                                 icon: Icon(
                                   Icons.play_arrow,
-                                  size: 20.0,
-                                  color: Colors.black
-                                  ),
-                                  onPressed: (){
-                                    audioPlayer.play(url);
-                                  },
                                 ),
-                             IconButton(
-                               icon: Icon(
-                                  Icons.stop,
-                                  size: 20.0,
-                                  color: Colors.black
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                              child: IconButton(
+                                onPressed: () {
+                                  audioPlayer.pause();
+                                },
+                                icon: Icon(
+                                  Icons.pause,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: IconButton(
+                                  onPressed: () {
+                                    audioPlayer.stop();
+                                  },
+                                  icon: Icon(
+                                    Icons.stop,
                                   ),
-                                  onPressed: (){
-                                     audioPlayer.stop();
-                                   },
-                                 ),
-                              ]
-
-                          )
-                        ]
+                                ))
+                          ],
+                        )
+                      ],
                     ),
-                  ),
-                );
-              }).toList(),
-
-            );
-          }),
-    );
-
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
