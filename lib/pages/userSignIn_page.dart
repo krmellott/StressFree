@@ -28,17 +28,23 @@ class _UserAuthState extends State<UserAuth> {
                     title: Text("StressFree!"),
                     centerTitle: true,
                   ),
-                  body: Center(
-                      child: Column(
-                    children: <Widget>[
-                      _createSignUpLogo(),
-                      _createTextFields(),
-                      _createForgotPasswordButton(context),
-                      _createSignUpButton(context),
-                      _createSendButton(context),
-                      _createAutoSignIn(context)
-                    ],
-                  )),
+                  body: Container(
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Colors.lightBlueAccent, Colors.white])),
+                      child: Center(
+                          child: Column(
+                        children: <Widget>[
+                          _createSignUpLogo(),
+                          _createTextFields(),
+                          _createForgotPasswordButton(context),
+                          _createSignUpButton(context),
+                          _createSendButton(context),
+                          _createAutoSignIn(context)
+                        ],
+                      ))),
                 )));
   }
 
@@ -54,10 +60,18 @@ class _UserAuthState extends State<UserAuth> {
         Container(
             margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
             child: TextField(
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400),
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Please enter your email!',
-              ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromARGB(221, 75, 75, 75), width: 2.0),
+                  ),
+                  labelText: 'Please enter your email!',
+                  filled: true,
+                  fillColor: Colors.white),
               onChanged: (String? email) {
                 setState(() {
                   _userEmail = email!;
@@ -67,10 +81,18 @@ class _UserAuthState extends State<UserAuth> {
         Container(
             margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
             child: TextField(
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400),
               obscureText: true,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromARGB(221, 75, 75, 75), width: 2.0)),
                 labelText: 'Password',
+                filled: true,
+                fillColor: Colors.white,
               ),
               onChanged: (String? password) {
                 setState(() {
