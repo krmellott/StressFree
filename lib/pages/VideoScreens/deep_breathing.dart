@@ -1,6 +1,8 @@
 import 'package:firstapp/utils/add_videos.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/video_player.dart';
+
 class DeepBreathing extends StatelessWidget {
   const DeepBreathing({Key? key}) : super(key: key);
 
@@ -11,7 +13,7 @@ class DeepBreathing extends StatelessWidget {
         title: const Text("Deep Breathing"),
       ),
       body: Column(
-        children: [VideoScreen(collectionPath: 'deep breathing videos')],
+        children: [VideoPlayer(collectionPath: 'deep breathing videos')],
       ),
     );
   }
