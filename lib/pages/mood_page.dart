@@ -179,10 +179,6 @@ class _MoodPage extends State<MoodPage> {
                                     stream: modelReference
                                         .orderedActivitiesWithSort(
                                             'moods', 'date', true),
-                                    //FirebaseFirestore.instance
-                                    //.collection("moods")
-                                    //.orderBy("date", descending: true)
-                                    //.snapshots(),
                                     builder: (context,
                                         AsyncSnapshot<QuerySnapshot> snapshot) {
                                       if (!snapshot.hasData)
