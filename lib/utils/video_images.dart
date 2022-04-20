@@ -20,4 +20,7 @@ class VideoImage {
   static String get sounds =>
       'https://i.scdn.co/image/ab6761610000e5eb3db58bb01bf1fa21285dd591';
 
+  static String get backgroundImage =>
+      'https://cdn.tinybuddha.com/wp-content/uploads/2015/10/Calm-Man.jpg';
+
 }

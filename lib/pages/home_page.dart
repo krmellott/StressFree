@@ -3,6 +3,7 @@ import 'package:firstapp/pages/audio_page.dart';
 import 'package:firstapp/pages/history_page.dart';
 import 'package:firstapp/pages/mood_page.dart';
 import 'package:firstapp/pages/videos_page.dart';
+import 'package:firstapp/utils/video_images.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'activities_page.dart';
@@ -41,7 +42,7 @@ class _Home extends State<Home> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                             child: Text(
                               "Stress Free",
                               style: const TextStyle(
@@ -51,6 +52,16 @@ class _Home extends State<Home> {
                               textScaleFactor: 4,
                             ),
                           ),
+
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: CircleAvatar(
+                                radius: 100,
+                                backgroundImage: NetworkImage(VideoImage.backgroundImage),
+                                foregroundColor: Colors.lightBlueAccent,
+                            ),
+                          ),
+
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
