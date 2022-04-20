@@ -62,22 +62,12 @@ class _ActivitiesPage extends State<ActivitiesPage> {
     var data = document.data() as Map<String, dynamic>;
     DateTime currentDate = DateTime.now();
     if (data['status'] == false) {
-      print("document data is false with " + data['title'].toString());
-      print((data['date'][0] <= currentDate.month &&
-              data['date'][1] < currentDate.day &&
-              data['date'][2] <= currentDate.year)
-          .toString());
-      print('month: ' + (data['date'][0] <= currentDate.month).toString());
-      print('day: ' + (data['date'][1] < currentDate.day).toString());
-      print('year: ' + (data['date'][2] <= currentDate.year).toString());
-      print(data['date'].toString());
       Text labelTitle = new Text(data['title'], style: _subHeadingFont2);
       if (data['date'][0] <= currentDate.month &&
           data['date'][1] < currentDate.day &&
           data['date'][2] <= currentDate.year) {
-        print('Task has not been completed!');
         labelTitle = new Text(
-          data['title'],
+          data['title'] + ' (late)',
           style: TextStyle(
               color: Colors.red, fontSize: 18.0, fontWeight: FontWeight.bold),
         );
@@ -354,7 +344,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                     },
                   ),
                   ElevatedButton(
-                    child: const Text('Submit Change'),
+                    child: const Text('Save Changes'),
                     onPressed: () {
                       controllerReference.updateActivity(
                           data['title'],

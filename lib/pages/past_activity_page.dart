@@ -51,73 +51,85 @@ class _PastActivities extends State<PastActivities> {
                                     margin: EdgeInsets.fromLTRB(
                                         20.0, 6.0, 20.0, 0.0),
                                     child: ListTile(
-                                      title: Text(title),
-                                      subtitle: Text('Due date: ' +
-                                          date.toString() +
-                                          '\nPriority: ' +
-                                          priority.toString()),
-                                      onTap: () {
-
-                                        showModalBottomSheet<void>(
-                                          context: context,
-                                          builder: (BuildContext context) {
-
-                                            return Container(
-                                              height: 300,
-                                              color: Colors.lightBlueAccent,
-                                              child: Center(
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: <Widget>[
-
-                                                    Text(title, style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 20,
-                                                        color: Colors.white)
-                                                    ),
-
-                                                    Text('Due date: ' +
-                                                        date.toString() +
-                                                        '\nPriority: ' +
-                                                        priority.toString(), style: const TextStyle(
-                                                        fontWeight: FontWeight.normal,
-                                                        fontSize: 15,
-                                                        color: Colors.white)
-                                                    ),
-
-                                                    ElevatedButton(
-                                                      child: const Text('Mark as Incomplete'),
-                                                      onPressed: () {
-                                                        controller.updateActivityCompletion(title, false);
-                                                        Navigator.pop(context);
-                                                      }
-                                                    ),
-
-                                                    ElevatedButton(
-                                                        child: const Text('Delete Activity'),
-                                                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.redAccent)),
-                                                        onPressed: () {
-                                                          controller.deleteActivity(title);
-                                                          Navigator.pop(context);
-                                                        }
-                                                    ),
-                                                  ],
+                                        title: Text(title),
+                                        subtitle: Text('Due date: ' +
+                                            date.toString() +
+                                            '\nPriority: ' +
+                                            priority.toString()),
+                                        onTap: () {
+                                          showModalBottomSheet<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Container(
+                                                height: 300,
+                                                color: Colors.lightBlueAccent,
+                                                child: Center(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: <Widget>[
+                                                      Text(title,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 20,
+                                                                  color: Colors
+                                                                      .white)),
+                                                      Text(
+                                                          'Due date: ' +
+                                                              date.toString() +
+                                                              '\nPriority: ' +
+                                                              priority
+                                                                  .toString(),
+                                                          style: const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              fontSize: 15,
+                                                              color: Colors
+                                                                  .white)),
+                                                      ElevatedButton(
+                                                          child: const Text(
+                                                              'Mark as Incomplete'),
+                                                          onPressed: () {
+                                                            controller
+                                                                .updateActivityCompletion(
+                                                                    title,
+                                                                    false);
+                                                            Navigator.pop(
+                                                                context);
+                                                          }),
+                                                      ElevatedButton(
+                                                          child: const Text(
+                                                              'Delete Activity'),
+                                                          style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty
+                                                                      .all(Colors
+                                                                          .redAccent)),
+                                                          onPressed: () {
+                                                            controller
+                                                                .deleteActivity(
+                                                                    title);
+                                                            Navigator.pop(
+                                                                context);
+                                                          }),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      }
-                                    ),
-                                  )
-                              );
+                                              );
+                                            },
+                                          );
+                                        }),
+                                  ));
                             }
                             return SizedBox(width: 0, height: 0);
                           });
-                    })
-            )
-        )
-    );
+                    }))));
   }
 }
