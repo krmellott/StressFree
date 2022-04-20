@@ -70,7 +70,8 @@ class StressFreeModel {
   dbInsertJournal(String body, int date, String title, String userID) async {
     return await firestoreInstance
         .collection('journal')
-        .add({'title': title, 'body': body, 'date': date, 'userId': '$_uid'});
+        .doc(date.toString())
+        .set({'title': title, 'body': body, 'date': date, 'userId': '$_uid'});
   }
 
   /// Returns a snapshot of the 'activity' collection from the database
