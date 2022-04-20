@@ -40,49 +40,53 @@ class _MusicPage extends State<MusicPage> {
                     child: Column(
                       children: <Widget>[
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                              padding: EdgeInsets.only(left: 20.0, right: 10.0),
                               child: Text('Baby Shark',
                                   style: const TextStyle(
                                       fontSize: 10, color: Colors.black),
                                   textScaleFactor: 1.5),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: IconButton(
-                                onPressed: () async {
-                                  await audioCache
-                                      .play('audio/audio/Baby_Shark.mp3');
-                                },
-                                icon: Icon(
-                                  Icons.play_arrow,
+                            Row(children: [
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    await audioCache
+                                        .play('audio/audio/Baby_Shark.mp3');
+                                  },
+                                  icon: Icon(
+                                    Icons.play_arrow,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: IconButton(
-                                onPressed: () {
-                                  audioPlayer.pause();
-                                },
-                                icon: Icon(
-                                  Icons.pause,
-                                ),
-                              ),
-                            ),
-                            Padding(
+                              Padding(
                                 padding:
                                     EdgeInsets.only(left: 10.0, right: 10.0),
                                 child: IconButton(
                                   onPressed: () {
-                                    audioPlayer.stop();
+                                    audioPlayer.pause();
                                   },
                                   icon: Icon(
-                                    Icons.stop,
+                                    Icons.pause,
                                   ),
-                                ))
+                                ),
+                              ),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 10.0, right: 10.0),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      audioPlayer.stop();
+                                    },
+                                    icon: Icon(
+                                      Icons.stop,
+                                    ),
+                                  ))
+                            ])
                           ],
                         )
                       ],
@@ -99,49 +103,53 @@ class _MusicPage extends State<MusicPage> {
                     child: Column(
                       children: <Widget>[
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                              padding: EdgeInsets.only(left: 20.0, right: 10.0),
                               child: Text('Short Meditation Music',
                                   style: const TextStyle(
                                       fontSize: 10, color: Colors.black),
                                   textScaleFactor: 1.5),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: IconButton(
-                                onPressed: () async {
-                                  await audioCache
-                                      .play('audio/audio/Short_Meditation_Music.mp3');
-                                },
-                                icon: Icon(
-                                  Icons.play_arrow,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: IconButton(
-                                onPressed: () {
-                                  audioPlayer.pause();
-                                },
-                                icon: Icon(
-                                  Icons.pause,
-                                ),
-                              ),
-                            ),
-                            Padding(
+                            Row(children: [
+                              Padding(
                                 padding:
-                                EdgeInsets.only(left: 10.0, right: 10.0),
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
                                 child: IconButton(
-                                  onPressed: () {
-                                    audioPlayer.stop();
+                                  onPressed: () async {
+                                    await audioCache.play(
+                                        'audio/audio/Short_Meditation_Music.mp3');
                                   },
                                   icon: Icon(
-                                    Icons.stop,
+                                    Icons.play_arrow,
                                   ),
-                                ))
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: IconButton(
+                                  onPressed: () {
+                                    audioPlayer.pause();
+                                  },
+                                  icon: Icon(
+                                    Icons.pause,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 10.0, right: 10.0),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      audioPlayer.stop();
+                                    },
+                                    icon: Icon(
+                                      Icons.stop,
+                                    ),
+                                  ))
+                            ])
                           ],
                         )
                       ],
@@ -158,49 +166,53 @@ class _MusicPage extends State<MusicPage> {
                     child: Column(
                       children: <Widget>[
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: Text('Baby Shark',
+                              padding: EdgeInsets.only(left: 20.0, right: 10.0),
+                              child: Text('Relaxing Guitar',
                                   style: const TextStyle(
                                       fontSize: 10, color: Colors.black),
                                   textScaleFactor: 1.5),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: IconButton(
-                                onPressed: () async {
-                                  await audioCache
-                                      .play('audio/audio/Baby_Shark.mp3');
-                                },
-                                icon: Icon(
-                                  Icons.play_arrow,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: IconButton(
-                                onPressed: () {
-                                  audioPlayer.pause();
-                                },
-                                icon: Icon(
-                                  Icons.pause,
-                                ),
-                              ),
-                            ),
-                            Padding(
+                            Row(children: [
+                              Padding(
                                 padding:
-                                EdgeInsets.only(left: 10.0, right: 10.0),
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
                                 child: IconButton(
-                                  onPressed: () {
-                                    audioPlayer.stop();
+                                  onPressed: () async {
+                                    await audioCache.play(
+                                        'audio/audio/Relaxing_guitar.mp3');
                                   },
                                   icon: Icon(
-                                    Icons.stop,
+                                    Icons.play_arrow,
                                   ),
-                                ))
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: IconButton(
+                                  onPressed: () {
+                                    audioPlayer.pause();
+                                  },
+                                  icon: Icon(
+                                    Icons.pause,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 10.0, right: 10.0),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      audioPlayer.stop();
+                                    },
+                                    icon: Icon(
+                                      Icons.stop,
+                                    ),
+                                  ))
+                            ])
                           ],
                         )
                       ],
