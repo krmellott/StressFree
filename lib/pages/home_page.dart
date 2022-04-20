@@ -38,6 +38,7 @@ class _Home extends State<Home> {
                     flex: 1,
                     child: SingleChildScrollView(
                       child: Column(
+                        mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -65,8 +66,8 @@ class _Home extends State<Home> {
                                         primary: Colors.indigoAccent,
                                         shape: new RoundedRectangleBorder(
                                             borderRadius:
-                                                new BorderRadius.circular(
-                                                    20.0)),
+                                            new BorderRadius.circular(
+                                                20.0)),
                                         minimumSize: Size(175, 50),
                                         maximumSize: Size(175, 50)),
                                     label: Text('Edit Activities',
@@ -78,8 +79,8 @@ class _Home extends State<Home> {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                        return ActivitiesPage();
-                                      }));
+                                                return ActivitiesPage();
+                                              }));
                                       setState(() {});
                                     },
                                   ),
@@ -96,8 +97,8 @@ class _Home extends State<Home> {
                                         primary: Colors.indigoAccent,
                                         shape: new RoundedRectangleBorder(
                                             borderRadius:
-                                                new BorderRadius.circular(
-                                                    20.0)),
+                                            new BorderRadius.circular(
+                                                20.0)),
                                         minimumSize: Size(175, 50),
                                         maximumSize: Size(175, 50)),
                                     label: Text('Mood',
@@ -109,8 +110,8 @@ class _Home extends State<Home> {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                        return MoodPage();
-                                      }));
+                                                return MoodPage();
+                                              }));
                                       setState(() {});
                                     },
                                   ),
@@ -131,8 +132,8 @@ class _Home extends State<Home> {
                                         primary: Colors.indigoAccent,
                                         shape: new RoundedRectangleBorder(
                                             borderRadius:
-                                                new BorderRadius.circular(
-                                                    20.0)),
+                                            new BorderRadius.circular(
+                                                20.0)),
                                         minimumSize: Size(175, 50),
                                         maximumSize: Size(175, 50)),
                                     label: Text('Activity History',
@@ -144,8 +145,8 @@ class _Home extends State<Home> {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                        return HistoryPage();
-                                      }));
+                                                return HistoryPage();
+                                              }));
                                       setState(() {});
                                     },
                                   ),
@@ -162,8 +163,8 @@ class _Home extends State<Home> {
                                         primary: Colors.indigoAccent,
                                         shape: new RoundedRectangleBorder(
                                             borderRadius:
-                                                new BorderRadius.circular(
-                                                    20.0)),
+                                            new BorderRadius.circular(
+                                                20.0)),
                                         minimumSize: Size(175, 50),
                                         maximumSize: Size(175, 50)),
                                     label: Text('Videos',
@@ -175,8 +176,8 @@ class _Home extends State<Home> {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                        return VideosPage();
-                                      }));
+                                                return VideosPage();
+                                              }));
                                       setState(() {});
                                     },
                                   ),
@@ -197,8 +198,8 @@ class _Home extends State<Home> {
                                         primary: Colors.indigoAccent,
                                         shape: new RoundedRectangleBorder(
                                             borderRadius:
-                                                new BorderRadius.circular(
-                                                    20.0)),
+                                            new BorderRadius.circular(
+                                                20.0)),
                                         minimumSize: Size(175, 50),
                                         maximumSize: Size(175, 50)),
                                     label: Text('Music/sounds',
@@ -210,8 +211,8 @@ class _Home extends State<Home> {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                        return AudioPage();
-                                      }));
+                                                return AudioPage();
+                                              }));
                                       setState(() {});
                                     },
                                   ),
@@ -228,8 +229,8 @@ class _Home extends State<Home> {
                                         primary: Colors.indigoAccent,
                                         shape: new RoundedRectangleBorder(
                                             borderRadius:
-                                                new BorderRadius.circular(
-                                                    20.0)),
+                                            new BorderRadius.circular(
+                                                20.0)),
                                         minimumSize: Size(175, 50),
                                         maximumSize: Size(175, 50)),
                                     label: Text('Journal',
@@ -241,53 +242,61 @@ class _Home extends State<Home> {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                        return MainJournal();
-                                      }));
+                                                return MainJournal();
+                                              }));
                                       setState(() {});
                                     },
                                   ),
                                 ),
                               ]),
-                          StreamBuilder(
-                              stream: FirebaseFirestore.instance
-                                  .collection('tips')
-                                  .snapshots(),
-                              builder: (context,
-                                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                                if (!snapshot.hasData) {
-                                  return Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 20.0,
-                                          bottom: 10.0,
-                                          left: 20.0,
-                                          right: 20.0),
-                                      child: Text('Loading Tip',
-                                          style: const TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.white),
-                                          textScaleFactor: 1.5));
-                                } else {
-                                  return Align(
-                                      alignment: Alignment.center,
-                                      child: Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 20.0,
-                                              bottom: 10.0,
-                                              left: 20.0,
-                                              right: 20.0),
-                                          child: Text(
-                                              'Tip: ' +
-                                                  snapshot.data?.docs[tipID()]
-                                                      ['tip'],
-                                              style: const TextStyle(
-                                                  fontSize: 10,
-                                                  color: Colors.white),
-                                              textScaleFactor: 1.5)));
-                                }
-                              }),
                         ],
                       ),
-                    ))
+                    )
+                ),
+
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('tips')
+                          .snapshots(),
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Padding(
+                              padding: EdgeInsets.only(
+                                  top: 20.0,
+                                  bottom: 20.0,
+                                  left: 20.0,
+                                  right: 20.0),
+                              child: Text('Loading Tip',
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: 'ComicSans',
+                                      color: Colors.blueGrey),
+                                  textScaleFactor: 1.5));
+                        } else {
+                          return Align(
+                              alignment: Alignment.center,
+                              child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 20.0,
+                                      bottom: 20.0,
+                                      left: 20.0,
+                                      right: 20.0),
+                                  child: Text(
+                                      'Tip: ' +
+                                          snapshot.data?.docs[tipID()]
+                                          ['tip'],
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'ComicSans',
+                                          color: Colors.blueGrey),
+                                      textScaleFactor: 1.5))
+                          );
+                        }
+                      }),
+                ),
               ])),
         ));
   }
