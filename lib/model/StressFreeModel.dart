@@ -68,12 +68,9 @@ class StressFreeModel {
   }
 
   dbInsertJournal(String body, int date, String title, String userID) async {
-      return await firestoreInstance.collection('journal').add({
-        'title': title,
-        'body': body,
-        'date': date,
-        'userId': '$_uid'
-      });
+    return await firestoreInstance
+        .collection('journal')
+        .add({'title': title, 'body': body, 'date': date, 'userId': '$_uid'});
   }
 
   /// Returns a snapshot of the 'activity' collection from the database
@@ -128,11 +125,12 @@ class StressFreeModel {
         .limit(1)
         .get();
     var docID = activityInstance.docs.first.id;
+    DateTime currentDate = DateTime.now();
     try {
-      firestoreInstance
-          .collection('activity')
-          .doc(docID)
-          .update({'status': isComplete});
+      firestoreInstance.collection('activity').doc(docID).update({
+        'status': isComplete,
+        'completionDate': [currentDate.month, currentDate.day, currentDate.year]
+      });
     } catch (error) {
       print("{ok:0}");
       return;
@@ -190,14 +188,11 @@ class StressFreeModel {
         .limit(1)
         .get();
 
-      var docID = activityInstance.docs.first.id;
+    var docID = activityInstance.docs.first.id;
 
-      firestoreInstance
-          .collection('activity')
-          .doc(docID)
-          .delete();
-      print('Deleted ' + activityName);
-      return;
+    firestoreInstance.collection('activity').doc(docID).delete();
+    print('Deleted ' + activityName);
+    return;
   }
 
   getCurrentUser() {

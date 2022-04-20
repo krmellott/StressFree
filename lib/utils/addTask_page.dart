@@ -41,7 +41,7 @@ class _AddTaskState extends State<AddTask> {
         child: TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Tell us what you did!',
+            labelText: 'Tell us what you did or will do!',
           ),
           onSubmitted: (String? aMessage) {
             setState(() {
@@ -70,7 +70,7 @@ class _AddTaskState extends State<AddTask> {
     return Column(
       children: [
         ListTile(
-            title: const Text('Task completed!'),
+            title: const Text('Activity is completed!'),
             leading: Radio<TaskCompleted>(
                 groupValue: _taskCompleted,
                 value: TaskCompleted.YES,
@@ -80,7 +80,7 @@ class _AddTaskState extends State<AddTask> {
                   });
                 })),
         ListTile(
-            title: const Text('Task not complete!'),
+            title: const Text('Activity is not complete!'),
             leading: Radio<TaskCompleted>(
                 groupValue: _taskCompleted,
                 value: TaskCompleted.NO,
@@ -127,7 +127,7 @@ class _AddTaskState extends State<AddTask> {
 
   _insertInsertButton(BuildContext context) {
     return MyButton(
-        label: "Save Task!",
+        label: "Save Activity!",
         onTap: () {
           bool isCompleted;
           if (_taskCompleted == TaskCompleted.YES)

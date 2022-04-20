@@ -344,7 +344,7 @@ class _ActivitiesPage extends State<ActivitiesPage> {
                     },
                   ),
                   ElevatedButton(
-                    child: const Text('Submit Change'),
+                    child: const Text('Save Changes'),
                     onPressed: () {
                       controllerReference.updateActivity(
                           data['title'],
