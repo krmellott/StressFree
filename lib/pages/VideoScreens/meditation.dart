@@ -1,4 +1,4 @@
-import 'package:firstapp/utils/add_videos.dart';
+import 'package:firstapp/utils/video_player.dart';
 import 'package:flutter/material.dart';
 
 class Meditation extends StatelessWidget {
@@ -12,7 +12,7 @@ class Meditation extends StatelessWidget {
       ),
       body: Column(
         children: [
-          VideoScreen(collectionPath: 'meditation videos'),
+          VideoPlayer(collectionPath: 'meditation videos'),
         ],
       ),
     );

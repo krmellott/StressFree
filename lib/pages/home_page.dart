@@ -182,73 +182,72 @@ class _Home extends State<Home> {
                                   ),
                                 )
                               ]),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                            child: ElevatedButton.icon(
-                              icon: Icon(
-                                Icons.library_music_rounded,
-                                color: Colors.white,
-                                size: 20.0,
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.indigoAccent,
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                      new BorderRadius.circular(
-                                          20.0)),
-                                  minimumSize: Size(175, 50),
-                                  maximumSize: Size(175, 50)),
-                              label: Text('Music/sounds',
-                                  style: const TextStyle(
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: ElevatedButton.icon(
+                                    icon: Icon(
+                                      Icons.library_music_rounded,
                                       color: Colors.white,
-                                      fontFamily: 'ComicSans',
-                                      fontSize: 18)),
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                          return AudioPage();
-                                        }));
-                                setState(() {});
-                              },
-                            ),
-                          ),
-
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: ElevatedButton.icon(
-                        icon: Icon(
-                          Icons.book_rounded,
-                          color: Colors.white,
-                          size: 25.0,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.indigoAccent,
-                            shape: new RoundedRectangleBorder(
-                                borderRadius:
-                                new BorderRadius.circular(
-                                    20.0)),
-                            minimumSize: Size(175, 50),
-                            maximumSize: Size(175, 50)),
-                        label: Text('Journal',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'ComicSans',
-                                fontSize: 20)),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return MainJournal();
-                                  }));
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                          ]),
+                                      size: 20.0,
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.indigoAccent,
+                                        shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(
+                                                    20.0)),
+                                        minimumSize: Size(175, 50),
+                                        maximumSize: Size(175, 50)),
+                                    label: Text('Music/sounds',
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'ComicSans',
+                                            fontSize: 18)),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                        return AudioPage();
+                                      }));
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: ElevatedButton.icon(
+                                    icon: Icon(
+                                      Icons.book_rounded,
+                                      color: Colors.white,
+                                      size: 25.0,
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.indigoAccent,
+                                        shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(
+                                                    20.0)),
+                                        minimumSize: Size(175, 50),
+                                        maximumSize: Size(175, 50)),
+                                    label: Text('Journal',
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'ComicSans',
+                                            fontSize: 20)),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                        return MainJournal();
+                                      }));
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                              ]),
                           StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection('tips')

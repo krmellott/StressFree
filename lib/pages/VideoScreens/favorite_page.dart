@@ -1,5 +1,6 @@
-import 'package:firstapp/utils/add_videos.dart';
 import 'package:flutter/material.dart';
+
+import '../../utils/video_player.dart';
 
 class FavoriteVideos extends StatelessWidget {
   const FavoriteVideos({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class FavoriteVideos extends StatelessWidget {
         title: const Text("Favorite Videos"),
       ),
       body: Column(
-        children: [VideoScreen(collectionPath: 'favorite videos')],
+        children: [VideoPlayer(collectionPath: 'favorite videos')],
       ),
     );
   }

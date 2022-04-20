@@ -14,6 +14,8 @@ class VideoScreen extends StatefulWidget {
 class _VideoScreen extends State<VideoScreen> {
   Color _iconColor = Colors.grey;
   final modelReference = new StressFreeModel();
+  late YoutubePlayerController _controller;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -27,7 +29,7 @@ class _VideoScreen extends State<VideoScreen> {
             return ListView(
               children: snapshot.data!.docs.map<Widget>((document) {
                 var url = document['url'];
-                YoutubePlayerController _controller = YoutubePlayerController(
+                _controller = YoutubePlayerController(
                   initialVideoId: YoutubePlayer.convertUrlToId(url)!,
                   flags: YoutubePlayerFlags(
                     autoPlay: false,
@@ -112,4 +114,11 @@ class _VideoScreen extends State<VideoScreen> {
           }),
     );
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
 }
