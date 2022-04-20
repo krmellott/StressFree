@@ -21,69 +21,205 @@ class _MusicPage extends State<MusicPage> {
         ),
         body: Center(
           child: Container(
+            width: 500,
+            height: 5000,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.lightBlueAccent, Colors.white])),
-            child: Padding(
-              padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Column(
-                      children: [
-                        Text('Baby Shark',
-                            style: const TextStyle(
-                                fontSize: 10, color: Colors.black),
-                            textScaleFactor: 1.5),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 5.0),
+                  child: Container(
+                    height: 48,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.circular(20.0)),
+                    child: Column(
+                      children: <Widget>[
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: IconButton(
-                                onPressed: () async {
-                                  await audioCache
-                                      .play('audio/audio/Baby_Shark.mp3');
-                                },
-                                icon: Icon(
-                                  Icons.play_arrow,
+                              padding: EdgeInsets.only(left: 20.0, right: 10.0),
+                              child: Text('Baby Shark',
+                                  style: const TextStyle(
+                                      fontSize: 10, color: Colors.black),
+                                  textScaleFactor: 1.5),
+                            ),
+                            Row(children: [
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    await audioCache
+                                        .play('audio/audio/Baby_Shark.mp3');
+                                  },
+                                  icon: Icon(
+                                    Icons.play_arrow,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                              child: IconButton(
-                                onPressed: () {
-                                  audioPlayer.pause();
-                                },
-                                icon: Icon(
-                                  Icons.pause,
-                                ),
-                              ),
-                            ),
-                            Padding(
+                              Padding(
                                 padding:
                                     EdgeInsets.only(left: 10.0, right: 10.0),
                                 child: IconButton(
                                   onPressed: () {
-                                    audioPlayer.stop();
+                                    audioPlayer.pause();
                                   },
                                   icon: Icon(
-                                    Icons.stop,
+                                    Icons.pause,
                                   ),
-                                ))
+                                ),
+                              ),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 10.0, right: 10.0),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      audioPlayer.stop();
+                                    },
+                                    icon: Icon(
+                                      Icons.stop,
+                                    ),
+                                  ))
+                            ])
                           ],
                         )
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                  child: Container(
+                    height: 48,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.circular(20.0)),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 20.0, right: 10.0),
+                              child: Text('Short Meditation Music',
+                                  style: const TextStyle(
+                                      fontSize: 10, color: Colors.black),
+                                  textScaleFactor: 1.5),
+                            ),
+                            Row(children: [
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    await audioCache.play(
+                                        'audio/audio/Short_Meditation_Music.mp3');
+                                  },
+                                  icon: Icon(
+                                    Icons.play_arrow,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: IconButton(
+                                  onPressed: () {
+                                    audioPlayer.pause();
+                                  },
+                                  icon: Icon(
+                                    Icons.pause,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 10.0, right: 10.0),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      audioPlayer.stop();
+                                    },
+                                    icon: Icon(
+                                      Icons.stop,
+                                    ),
+                                  ))
+                            ])
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                  child: Container(
+                    height: 48,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.circular(20.0)),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 20.0, right: 10.0),
+                              child: Text('Relaxing Guitar',
+                                  style: const TextStyle(
+                                      fontSize: 10, color: Colors.black),
+                                  textScaleFactor: 1.5),
+                            ),
+                            Row(children: [
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    await audioCache.play(
+                                        'audio/audio/Relaxing_guitar.mp3');
+                                  },
+                                  icon: Icon(
+                                    Icons.play_arrow,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: IconButton(
+                                  onPressed: () {
+                                    audioPlayer.pause();
+                                  },
+                                  icon: Icon(
+                                    Icons.pause,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 10.0, right: 10.0),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      audioPlayer.stop();
+                                    },
+                                    icon: Icon(
+                                      Icons.stop,
+                                    ),
+                                  ))
+                            ])
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ]),
             ),
           ),
         ));
