@@ -117,6 +117,27 @@ class StressFreeModel {
         .snapshots();
   }
 
+  Stream<QuerySnapshot> retrieveCompletedActivities() {
+    // print("\nRetrieve Completed Activities");
+    // firestoreInstance
+    //     .collection("activity")
+    //     .orderBy('date')
+    //     .where('userId', isEqualTo: _uid)
+    //     .where('status', isEqualTo: true)
+    //     .snapshots()
+    //     .forEach((element) {
+    //   element.docs.forEach((doc) {
+    //     print("Doc: " + doc.data().toString());
+    //   });
+    // });
+    return firestoreInstance
+        .collection('activity')
+        .orderBy('date')
+        .where('status', isEqualTo: true)
+        .where('userId', isEqualTo: _uid)
+        .snapshots();
+  }
+
   dbUpdateActivityCompletion(String activityName, bool isComplete) async {
     var activityInstance = await firestoreInstance
         .collection('activity')

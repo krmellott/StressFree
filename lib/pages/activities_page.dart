@@ -196,18 +196,8 @@ class _ActivitiesPage extends State<ActivitiesPage> {
     switch (label) {
       case 'Date':
         return Expanded(
-          //child:
-          // FutureBuilder(
-          //   future: _userID,
-          //   builder:
-          //   )
           child: StreamBuilder(
               stream: modelReference.orderedActivities('activity', 'date'),
-              // FirebaseFirestore.instance
-              //     .collection('activity')
-              //     .orderBy('date')
-              //     //.where('userID', isEqualTo: '$_userID')
-              //     .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(
@@ -221,10 +211,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
         return Expanded(
           child: StreamBuilder(
               stream: modelReference.orderedActivities('activity', 'title'),
-              // FirebaseFirestore.instance
-              //     .collection('activity')
-              //     .orderBy('title')
-              //     .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(
@@ -239,10 +225,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
           child: StreamBuilder(
               stream: modelReference.orderedActivitiesWithSort(
                   'activity', 'priority', true),
-              // FirebaseFirestore.instance
-              //     .collection('activity')
-              //     .orderBy('priority', descending: true)
-              //     .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) return const Text('Loading...');
                 return ListView.builder(
@@ -256,7 +238,6 @@ class _ActivitiesPage extends State<ActivitiesPage> {
   }
 
   _editActivity(var data) {
-    print('This is the title of the data: ' + data['title']);
     String activityName = data['title'];
     TaskCompleted _taskCompleted = TaskCompleted.NO;
     int dropdownValue = int.parse(data['priority']);
