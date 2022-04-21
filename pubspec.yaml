@@ -90,6 +90,11 @@ flutter:
   assets:
     - assets/
     - assets/audio/audio/Baby_Shark.mp3
+    - assets/audio/audio/Nature_sounds.mp3
+    - assets/audio/audio/rain_sound.mp3
+    - assets/audio/audio/Relaxing_guitar.mp3
+    - assets/audio/audio/Short_Meditation_Music.mp3
+    - assets/audio/audio/stream_sounds.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

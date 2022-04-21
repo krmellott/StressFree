@@ -1,12 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firstapp/utils/add_journal_entry.dart';
 import 'package:flutter/material.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp(options: defaultFirebaseOptions);
+  runApp(MainJournal());
+}
+final journalsRef = FirebaseFirestore.instance.collection('journal');
 
 class MainJournal extends StatefulWidget {
   @override
   _MainJournal createState() => _MainJournal();
 }
-
 class _MainJournal extends State<MainJournal> {
   String dropDownValue = "default";
 
@@ -35,7 +42,7 @@ class _MainJournal extends State<MainJournal> {
                         )),
 
                     /// this will let users filter their journals by date created
-                    DropdownButton(
+                    /*DropdownButton(
                             items: <String>['One', 'Two', 'Free', 'Four']
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
@@ -48,7 +55,7 @@ class _MainJournal extends State<MainJournal> {
                               setState(() {
                                 dropDownValue = newValue!;
                               });
-                            }),
+                            }), */
                       ])
                   ),
               Expanded(
@@ -61,14 +68,13 @@ class _MainJournal extends State<MainJournal> {
                         if(!snapshot.hasData){
                           return Text("We didn't find any journals for you");
                         }
-                        //List journalsList = getData();
-                        return new ListView.builder(
+                        final data = snapshot.requireData;
+                        return ListView.builder(
                             shrinkWrap: true,
-                            itemCount: snapshot.data?.docs.length,
-                            //itemCount: journalsList.length(),
+                            itemCount: data.size,
                             itemBuilder: (context, index) {
                               return _buildJournalListItem(
-                                  context, snapshot.data!.docs[index]);
+                                  context, data.docs[data.size-1-index]);
                             });
                       })),
             ]),
@@ -102,9 +108,9 @@ Widget _buildJournalListItem(BuildContext context, DocumentSnapshot document) {
   );
 }
 
-Future getData() async {
+void getData(newList) async {
   var journalsFromFirebase = FirebaseFirestore.instance.collection("journal");
   QuerySnapshot querySnapshot = await journalsFromFirebase.get();
-  final List list = querySnapshot.docs.map((doc) => doc.data()).toList();
-  return list;
+  newList = querySnapshot.docs.map((doc) => doc.data()).toList();
+  //return list;
 }
