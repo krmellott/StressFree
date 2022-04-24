@@ -1,6 +1,6 @@
 # StressFree
 
-A Flutter project.
+A Flutter app designed to aid users in reducing stress in their daily lives. 
 
 ## Getting Started
 
