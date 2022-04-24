@@ -3,13 +3,12 @@ import 'package:firstapp/utils/add_journal_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:firstapp/controller/stressFree_Controller.dart';
 
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp(options: defaultFirebaseOptions);
   runApp(MainJournal());
 }
+
 ///important variables
 final journalsRef = FirebaseFirestore.instance.collection('journal');
 final StressFreeController controllerRef = StressFreeController();
@@ -18,6 +17,7 @@ class MainJournal extends StatefulWidget {
   @override
   _MainJournal createState() => _MainJournal();
 }
+
 class _MainJournal extends State<MainJournal> {
   String dropDownValue = "default";
 
@@ -34,18 +34,16 @@ class _MainJournal extends State<MainJournal> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.lightBlueAccent, Colors.white])),
-            child: Column(
-                children: [
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 5.0),
-                      child:
-                        Text("Your Journals", // the title
-                         style: TextStyle(
-                           fontSize: 25.0,
-                           fontWeight: FontWeight.bold,
-                           color: Colors.white,
-                         )),
-                  ),
+            child: Column(children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 5.0),
+                child: Text("Your Journals", // the title
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    )),
+              ),
               Expanded(
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
@@ -53,7 +51,7 @@ class _MainJournal extends State<MainJournal> {
                           .snapshots(),
                       builder:
                           (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if(!snapshot.hasData){
+                        if (!snapshot.hasData) {
                           return Text("We didn't find any journals for you");
                         }
                         final data = snapshot.requireData;
@@ -62,22 +60,32 @@ class _MainJournal extends State<MainJournal> {
                             itemCount: data.size,
                             itemBuilder: (context, index) {
                               return _buildJournalListItem(
-                                  context, data.docs[data.size-1-index]); ///this is really dumb, but it makes the list auto sort to newest to oldest
-                                                                          ///please don't change this
+                                  context, data.docs[data.size - 1 - index]);
+
+                              ///this is really dumb, but it makes the list auto sort to newest to oldest
+                              ///please don't change this
                             });
-                      })),
+                      })
+              ),
+              OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.fromLTRB(50.0, 1.0, 50.0, 1.0)),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                ),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (BuildContext context) {
+                      return AddEntry();
+                    }));
+                  },
+                  //backgroundColor: Colors.green,
+                  child: const Text('New Journal Entry', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+              )
             ]),
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (BuildContext context) {
-                return AddEntry();
-              }));
-            },
-            backgroundColor: Colors.green,
-            label: const Text('New Journal Entry')));
+
+    );
   }
 }
 
@@ -90,21 +98,24 @@ Widget _buildJournalListItem(BuildContext context, DocumentSnapshot document) {
     padding: const EdgeInsets.all(1.0),
     child: Card(
       child: ListTile(
-        contentPadding: EdgeInsets.fromLTRB(10.0, 5.0, 0.0, 0.0),
-        title: Text(data['title'] + " --- " + date.month.toString() + "/" + date.day.toString() + "/" + date.year.toString()),
-        subtitle: Text(data['body']),
-        trailing: TextButton(
-          child: Icon(Icons.cancel_sharp, color: Colors.red),
-          onPressed: () {
+          contentPadding: EdgeInsets.fromLTRB(10.0, 5.0, 0.0, 0.0),
+          title: Text(data['title'] +
+              " --- " +
+              date.month.toString() +
+              "/" +
+              date.day.toString() +
+              "/" +
+              date.year.toString()),
+          subtitle: Text(data['body']),
+          trailing: TextButton(
+            child: Icon(Icons.cancel_sharp, color: Colors.red),
+            onPressed: () {
               showAlertDialog(context, data['title'].toString());
-          },
-        )
-      ),
-
+            },
+          )),
     ),
   );
 }
-
 
 showAlertDialog(BuildContext context, String title) {
   Widget yesButton = TextButton(
