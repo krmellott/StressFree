@@ -35,31 +35,18 @@ class _MainJournal extends State<MainJournal> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.lightBlueAccent, Colors.white])),
-            child: Column(children: [
-              Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 5.0),
-                  child: Row(children: [
-                    Text("Your Journals", // the title
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        )),
-
-                    /// this will let users filter their journals by date created
-                    /*PopupMenuButton(
-                        onSelected: (value) => setState(() => date = value),
-                        icon: const Icon(Icons.sort),
-                        itemBuilder: (BuildContext context) {
-                          return [
-                            const PopupMenuItem(
-                              value: value,
-                              child: Text("stuff"),
-                            )
-                          ];
-                        }),*/
-                  ])
-              ),
+            child: Column(
+                children: [
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 5.0),
+                      child:
+                        Text("Your Journals", // the title
+                         style: TextStyle(
+                           fontSize: 25.0,
+                           fontWeight: FontWeight.bold,
+                           color: Colors.white,
+                         )),
+                  ),
               Expanded(
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
@@ -104,17 +91,21 @@ Widget _buildJournalListItem(BuildContext context, DocumentSnapshot document) {
     padding: const EdgeInsets.all(1.0),
     child: Card(
       child: ListTile(
+        contentPadding: EdgeInsets.fromLTRB(10.0, 5.0, 0.0, 0.0),
         title: Text(data['title'] + " --- " + date.month.toString() + "/" + date.day.toString() + "/" + date.year.toString()),
         subtitle: Text(data['body']),
-        trailing: Icon(Icons.more_vert),
-        //onLongPress: () {
-        //  showAlertDialog(context, data['title'].toString());
-        //}
+        trailing: TextButton(
+          child: Icon(Icons.cancel_sharp, color: Colors.red),
+          onPressed: () {
+              showAlertDialog(context, data['title'].toString());
+          },
+        )
       ),
 
     ),
   );
 }
+
 
 showAlertDialog(BuildContext context, String title) {
   Widget yesButton = TextButton(
@@ -131,7 +122,7 @@ showAlertDialog(BuildContext context, String title) {
     },
   );
   AlertDialog alert = AlertDialog(
-    title: Text("Are you sure you want to delete this journal?"),
+    title: Text("Would you like to delete this journal entry?"),
     actions: [
       yesButton,
       noButton,

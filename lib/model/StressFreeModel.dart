@@ -75,9 +75,17 @@ class StressFreeModel {
   }
 
   dbRemoveJournal(String collection, String title, String userID) async {
+    var journalInstance = await firestoreInstance
+        .collection('journal')
+        .where('userId', isEqualTo: _uid)
+        .where('title', isEqualTo: title)
+        .limit(1)
+        .get();
+
+    var docID = journalInstance.docs.first.id;
     return await firestoreInstance
         .collection(collection)
-        .doc(title)
+        .doc(docID)
         .delete();
   }
 
