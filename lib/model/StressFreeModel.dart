@@ -74,10 +74,10 @@ class StressFreeModel {
         .set({'title': title, 'body': body, 'date': date, 'userId': '$_uid'});
   }
 
-  dbRemoveJournal(String body, int date, String title, String userID) async {
+  dbRemoveJournal(String collection, String title, String userID) async {
     return await firestoreInstance
-        .collection('journal')
-        .doc(date.toString())
+        .collection(collection)
+        .doc(title)
         .delete();
   }
 

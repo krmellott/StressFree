@@ -2,13 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firstapp/utils/add_journal_entry.dart';
 import 'package:flutter/material.dart';
+import 'package:firstapp/controller/stressFree_Controller.dart';
+
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp(options: defaultFirebaseOptions);
   runApp(MainJournal());
 }
+///important variables
 final journalsRef = FirebaseFirestore.instance.collection('journal');
+final StressFreeController controllerRef = StressFreeController();
 
 class MainJournal extends StatefulWidget {
   @override
@@ -34,7 +39,7 @@ class _MainJournal extends State<MainJournal> {
               Padding(
                   padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 5.0),
                   child: Row(children: [
-                    Text("Your Journals:", // the title
+                    Text("Your Journals", // the title
                         style: TextStyle(
                           fontSize: 25.0,
                           fontWeight: FontWeight.bold,
@@ -42,22 +47,19 @@ class _MainJournal extends State<MainJournal> {
                         )),
 
                     /// this will let users filter their journals by date created
-                    /*DropdownButton(
-                            items: <String>['One', 'Two', 'Free', 'Four']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            icon: const Icon(Icons.arrow_downward),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropDownValue = newValue!;
-                              });
-                            }), */
-                      ])
-                  ),
+                    /*PopupMenuButton(
+                        onSelected: (value) => setState(() => date = value),
+                        icon: const Icon(Icons.sort),
+                        itemBuilder: (BuildContext context) {
+                          return [
+                            const PopupMenuItem(
+                              value: value,
+                              child: Text("stuff"),
+                            )
+                          ];
+                        }),*/
+                  ])
+              ),
               Expanded(
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
@@ -74,7 +76,8 @@ class _MainJournal extends State<MainJournal> {
                             itemCount: data.size,
                             itemBuilder: (context, index) {
                               return _buildJournalListItem(
-                                  context, data.docs[data.size-1-index]);
+                                  context, data.docs[data.size-1-index]); ///this is really dumb, but it makes the list auto sort to newest to oldest
+                                                                          ///please don't change this
                             });
                       })),
             ]),
@@ -103,14 +106,41 @@ Widget _buildJournalListItem(BuildContext context, DocumentSnapshot document) {
       child: ListTile(
         title: Text(data['title'] + " --- " + date.month.toString() + "/" + date.day.toString() + "/" + date.year.toString()),
         subtitle: Text(data['body']),
+        trailing: Icon(Icons.more_vert),
+        //onLongPress: () {
+        //  showAlertDialog(context, data['title'].toString());
+        //}
       ),
+
     ),
   );
 }
 
-void getData(newList) async {
-  var journalsFromFirebase = FirebaseFirestore.instance.collection("journal");
-  QuerySnapshot querySnapshot = await journalsFromFirebase.get();
-  newList = querySnapshot.docs.map((doc) => doc.data()).toList();
-  //return list;
+showAlertDialog(BuildContext context, String title) {
+  Widget yesButton = TextButton(
+    child: Text("YES"),
+    onPressed: () {
+      controllerRef.removeJournalData('journal', title);
+      Navigator.of(context).pop();
+    },
+  );
+  Widget noButton = TextButton(
+    child: Text("NO"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  AlertDialog alert = AlertDialog(
+    title: Text("Are you sure you want to delete this journal?"),
+    actions: [
+      yesButton,
+      noButton,
+    ],
+  );
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

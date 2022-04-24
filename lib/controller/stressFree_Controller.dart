@@ -38,8 +38,8 @@ class StressFreeController {
     modelReference.dbInsertJournal(title, date, body, _userID);
   }
 
-  removeJournalData(String title, int date, String body) {
-    modelReference.dbRemoveJournal(body, date, title, _userID);
+  removeJournalData(String collection, String title) {
+    modelReference.dbRemoveJournal(collection, title, _userID);
   }
 
   updateActivityCompletion(String title, bool isComplete) {
