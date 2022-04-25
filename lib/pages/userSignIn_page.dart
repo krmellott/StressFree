@@ -42,7 +42,7 @@ class _UserAuthState extends State<UserAuth> {
                           _createForgotPasswordButton(context),
                           _createSignUpButton(context),
                           _createSendButton(context),
-                          _createAutoSignIn(context)
+                          //_createAutoSignIn(context)
                         ],
                       ))),
                 )));
@@ -142,15 +142,15 @@ class _UserAuthState extends State<UserAuth> {
         ));
   }
 
-  _createAutoSignIn(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(top: 20),
-        child: MyButton(
-            label: 'dev login',
-            onTap: () {
-              _devSignIn(context);
-            }));
-  }
+  // _createAutoSignIn(BuildContext context) {
+  //   return Container(
+  //       margin: const EdgeInsets.only(top: 20),
+  //       child: MyButton(
+  //           label: 'dev login',
+  //           onTap: () {
+  //             _devSignIn(context);
+  //           }));
+  // }
 
   _onSignIn(BuildContext context) async {
     try {
@@ -173,22 +173,22 @@ class _UserAuthState extends State<UserAuth> {
     }
   }
 
-  _devSignIn(BuildContext context) async {
-    try {
-      final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'testuser@live.com', password: 'abc123');
-      if (user.user!.uid != "") {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (BuildContext context) {
-          return Home();
-        }));
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    }
-  }
+  // _devSignIn(BuildContext context) async {
+  //   try {
+  //     final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //         email: 'testuser@live.com', password: 'abc123');
+  //     if (user.user!.uid != "") {
+  //       Navigator.of(context)
+  //           .push(MaterialPageRoute(builder: (BuildContext context) {
+  //         return Home();
+  //       }));
+  //     }
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'user-not-found') {
+  //       print('No user found for that email.');
+  //     } else if (e.code == 'wrong-password') {
+  //       print('Wrong password provided for that user.');
+  //     }
+  //   }
+  // }
 }
