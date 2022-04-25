@@ -13,7 +13,8 @@ class _AddEntry extends State<AddEntry> {
   String body = "";
   String title = "";
 
-  final ButtonStyle saveButtonStyle = ElevatedButton.styleFrom( // ButtonStyle for the save button
+  final ButtonStyle saveButtonStyle = ElevatedButton.styleFrom(
+      // ButtonStyle for the save button
       primary: Colors.green,
       textStyle: const TextStyle(fontSize: 20.0),
       padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0));
@@ -31,57 +32,56 @@ class _AddEntry extends State<AddEntry> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [Colors.lightBlueAccent, Colors.white])),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: 20, right: 10, top: 10),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Title your entry!',
-                              ),
-                              onChanged: (String? aTitle) {
-                                setState(() {
-                                  title = aTitle!;
-                                });
-                              },),),),
-                        ElevatedButton(
-                          child: const Text('Save'),
-                          onPressed: () {
-                            if (body == "" || title == "") {
-                              showAlertDialog(context); //displays ominous threat
-                            } else {
-                              controllerRef.insertJournalData(body, DateTime.now().millisecondsSinceEpoch, title);
-                              Navigator.pop(context); //submits the completed journal
-                            }
+                child: Column(children: [
+                  Row(children: [
+                    Expanded(
+                      child: Container(
+                        margin:
+                            const EdgeInsets.only(left: 20, right: 10, top: 10),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Title your entry!',
+                          ),
+                          onChanged: (String? aTitle) {
+                            setState(() {
+                              title = aTitle!;
+                            });
                           },
-                          style: saveButtonStyle,
-                        )
-                      ]),
-                    Container(
-                      margin:
-                          const EdgeInsets.only(left: 20, right: 10, top: 10),
-                      child: TextField(
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'What did you do today?',
                         ),
-                        onChanged: (String? aBody) {
-                          setState(() {
-                            body = aBody!;
-                          });
-                        },
                       ),
                     ),
-                  ])
-            )
-        )
-    );
+                    ElevatedButton(
+                      child: const Text('Save'),
+                      onPressed: () {
+                        if (body == "" || title == "") {
+                          showAlertDialog(context); //displays ominous threat
+                        } else {
+                          controllerRef.insertJournalData(body,
+                              DateTime.now().millisecondsSinceEpoch, title);
+                          Navigator.pop(
+                              context); //submits the completed journal
+                        }
+                      },
+                      style: saveButtonStyle,
+                    )
+                  ]),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20, right: 10, top: 10),
+                    child: TextField(
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'What did you do today?',
+                      ),
+                      onChanged: (String? aBody) {
+                        setState(() {
+                          body = aBody!;
+                        });
+                      },
+                    ),
+                  ),
+                ]))));
   }
 }
 

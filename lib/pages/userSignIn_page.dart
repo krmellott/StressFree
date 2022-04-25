@@ -29,13 +29,16 @@ class _UserAuthState extends State<UserAuth> {
                     centerTitle: true,
                   ),
                   body: Container(
+                      width: 1000,
+                      height: 5000,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [Colors.lightBlueAccent, Colors.white])),
-                      child: Center(
-                          child: Column(
+                      child: SingleChildScrollView(
+                          child: Center(
+                              child: Column(
                         children: <Widget>[
                           _createSignUpLogo(),
                           _createTextFields(),
@@ -44,7 +47,7 @@ class _UserAuthState extends State<UserAuth> {
                           _createSendButton(context),
                           //_createAutoSignIn(context)
                         ],
-                      ))),
+                      )))),
                 )));
   }
 
@@ -173,22 +176,22 @@ class _UserAuthState extends State<UserAuth> {
     }
   }
 
-  // _devSignIn(BuildContext context) async {
-  //   try {
-  //     final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //         email: 'testuser@live.com', password: 'abc123');
-  //     if (user.user!.uid != "") {
-  //       Navigator.of(context)
-  //           .push(MaterialPageRoute(builder: (BuildContext context) {
-  //         return Home();
-  //       }));
-  //     }
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       print('No user found for that email.');
-  //     } else if (e.code == 'wrong-password') {
-  //       print('Wrong password provided for that user.');
-  //     }
-  //   }
-  // }
+// _devSignIn(BuildContext context) async {
+//   try {
+//     final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+//         email: 'testuser@live.com', password: 'abc123');
+//     if (user.user!.uid != "") {
+//       Navigator.of(context)
+//           .push(MaterialPageRoute(builder: (BuildContext context) {
+//         return Home();
+//       }));
+//     }
+//   } on FirebaseAuthException catch (e) {
+//     if (e.code == 'user-not-found') {
+//       print('No user found for that email.');
+//     } else if (e.code == 'wrong-password') {
+//       print('Wrong password provided for that user.');
+//     }
+//   }
+// }
 }

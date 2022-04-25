@@ -22,6 +22,8 @@ class _AudioPage extends State<AudioPage> {
           title: const Text("Music and Sounds"),
         ),
         body: Container(
+          width: 1000,
+          height: 5000,
           decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
