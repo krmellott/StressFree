@@ -24,7 +24,8 @@ class _AddTaskState extends State<AddTask> {
         appBar: AppBar(
           title: const Text("Insert an Activity!"),
         ),
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
           children: [
             _insertTextBox(context),
             _insertDate(context),
@@ -32,7 +33,7 @@ class _AddTaskState extends State<AddTask> {
             _insertDropdownMenu(context),
             _insertInsertButton(context),
           ],
-        ));
+        )));
   }
 
   _insertTextBox(BuildContext context) {

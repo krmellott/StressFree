@@ -14,7 +14,7 @@ class VideoPlayer extends StatefulWidget {
 }
 
 class _VideoPlayerState extends State<VideoPlayer> {
-  late Color _iconColor;
+  late Color _iconColor = Colors.grey;
   late YoutubePlayerController _controller;
   final modelReference = new StressFreeModel();
 
@@ -24,97 +24,94 @@ class _VideoPlayerState extends State<VideoPlayer> {
       child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection(widget.collectionPath)
-              .snapshots(),
+              .snapshots(), //_getCollectionPath(widget.collectionPath),
           builder: (context, AsyncSnapshot snapshot) {
             String collection = widget.collectionPath.toString();
             if (!snapshot.hasData) return const Text('Loading...');
-            return Expanded(
-              child: ListView(
-                children: snapshot.data!.docs.map<Widget>((document) {
-                  var url = document['url'];
-                  _controller = YoutubePlayerController(
-                    initialVideoId: YoutubePlayer.convertUrlToId(url)!,
-                    flags: YoutubePlayerFlags(
-                      autoPlay: false,
-                      mute: false,
-                      isLive: false,
-                      loop: false,
-                      forceHD: false,
-                      controlsVisibleAtStart: false,
-                    ),
-                  );
-                  return Card(
-                    child: YoutubePlayerBuilder(
-                      player: YoutubePlayer(
-                        controller: _controller,
-                      ),
-                      builder: (context , player) {
-                        return Column(
+            return ListView(
+              children: snapshot.data!.docs.map<Widget>((document) {
+                var url = document['url'];
+                _controller = YoutubePlayerController(
+                  initialVideoId: YoutubePlayer.convertUrlToId(url)!,
+                  flags: YoutubePlayerFlags(
+                    autoPlay: false,
+                    mute: false,
+                    isLive: false,
+                    loop: false,
+                    forceHD: false,
+                    controlsVisibleAtStart: false,
+                  ),
+                );
+                return Expanded(
+                  child: Card(
+                    child: Column(
+                      children: <Widget>[
+                        YoutubePlayer(
+                          controller: _controller,
+                          liveUIColor: Colors.blue,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            player,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 10, bottom: 10, left: 10),
-                                    child: Text(document['name'],
-                                        style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black)),
-                                  ),
-                                ),
-
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.bookmark,
-                                    size: 30.0,
-                                    color: _iconColor = document['isFavorite']
-                                        ? Colors.green
-                                        : Colors.grey,
-                                  ),
-                                  onPressed: () {
-                                    if (_iconColor == Colors.grey) {
-                                      FirebaseFirestore.instance
-                                          .collection(collection)
-                                          .doc(document['name'])
-                                          .update({'isFavorite': true});
-                                      setState(() {
-                                        //color:
-                                        _iconColor = document['isFavorite']
-                                            ? Colors.green
-                                            : Colors.grey;
-                                      });
-                                      modelReference.dbInsertVideo(
-                                          true, document['name'], url);
-                                    }
-                                    if (_iconColor == Colors.green) {
-                                      FirebaseFirestore.instance
-                                          .collection(collection)
-                                          .doc(document['name'])
-                                          .update({'isFavorite': false});
-                                      setState(() {
-                                        //color:
-                                        _iconColor = document['isFavorite']
-                                            ? Colors.green
-                                            : Colors.grey;
-                                      });
-                                      modelReference.dbRemoveVideo(
-                                          collection, document['name']);
-                                    }
-                                  },
-                                )
-                              ],
+                            Flexible(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 10, bottom: 10, left: 10),
+                                child: Text(document['name'],
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black)),
+                              ),
                             ),
+
+                            IconButton(
+                              icon: Icon(
+                                Icons.bookmark_border_sharp,
+                                size: 30.0,
+                                color: _iconColor = document['isFavorite']
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
+                              onPressed: () {
+                                if (_iconColor == Colors.red) {
+                                  FirebaseFirestore.instance
+                                      .collection(collection)
+                                      .doc(document['name'])
+                                      .update({'isFavorite': true});
+                                  setState(() {
+                                    //color:
+                                    _iconColor = document['isFavorite']
+                                        ? Colors.green
+                                        : Colors.red;
+                                  });
+                                  modelReference.dbInsertVideo(
+                                      true, document['name'], url);
+                                }
+                                if (_iconColor == Colors.green) {
+                                  FirebaseFirestore.instance
+                                      .collection(collection)
+                                      .doc(document['name'])
+                                      .update({'isFavorite': false});
+                                  setState(() {
+                                    //color:
+                                    _iconColor = document['isFavorite']
+                                        ? Colors.green
+                                        : Colors.red;
+                                  });
+                                  modelReference.dbRemoveVideo(
+                                      collection, document['name']);
+                                }
+                              },
+                            )
+                            // _favoriteIcon()
                           ],
-                        );
-                      },
+                        ),
+                      ],
                     ),
-                  );
-                }).toList(),
-              ),
+                  ),
+                );
+              }).toList(),
             );
           }),
     );
