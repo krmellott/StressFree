@@ -95,7 +95,7 @@ showAlertDialog(BuildContext context) {
     },
   );
   AlertDialog alert = AlertDialog(
-    title: Text("Fill out all fields, or else..."),
+    title: Text("It seems you left a field blank. Please fill it out to save your journal."),
     actions: [
       okButton,
     ],
